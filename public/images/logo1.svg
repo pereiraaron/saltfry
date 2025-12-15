@@ -1,8 +1,0 @@
-<svg viewBox="-30 -10 190 50" xmlns="http://www.w3.org/2000/svg">
-    <style>
-    .first { font: italic 40px 'Dancing Script', cursive; fill: #000;text-shadow: -2px 1px #cbcbcb; }
-    .second { font: italic 40px 'Dancing Script', cursive; fill: #AB7B60;text-shadow: -2px 1px #cbcbcb; }
-  </style>
-    <text x="0" y="30" class="first">Salt</text>
-    <text x="80" y="30" class="second">Fry</text>
-</svg>

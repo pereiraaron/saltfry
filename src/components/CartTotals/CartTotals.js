@@ -1,14 +1,14 @@
 import React from "react";
 
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { formatPrice } from "../../utils/helpers";
 import "./CartTotals.css";
 
 const CartTotals = ({ itemsPrice, shippingPrice, totalPrice }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const checkoutHandler = () => {
-    history.push("/checkout");
+    navigate("/checkout");
   };
 
   return (

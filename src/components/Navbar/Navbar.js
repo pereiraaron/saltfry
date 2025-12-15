@@ -11,7 +11,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const { userInfo } = userLogin;
 
   const handleSidebar = () => {
     dispatch(openSidebar());

@@ -3,15 +3,17 @@ import "./LoginScreen.css";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { login } from "../../actions/userActions";
 import Footer from "../../components/Footer.js/Footer";
 import Message from "../../components/Message/Message";
 
-const LoginScreen = ({ history, location }) => {
+const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo, loading, error } = userLogin;
@@ -20,9 +22,9 @@ const LoginScreen = ({ history, location }) => {
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect);
+      navigate(redirect);
     }
-  }, [history, userInfo, redirect, error]);
+  }, [navigate, userInfo, redirect, error]);
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -79,3 +81,4 @@ const LoginScreen = ({ history, location }) => {
 };
 
 export default LoginScreen;
+

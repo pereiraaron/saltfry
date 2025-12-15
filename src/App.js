@@ -1,8 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer.js/Footer";
 import Sidebar from "./components/Sidebar/Sidebar";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
@@ -18,17 +17,18 @@ function App() {
     <Router>
       <Navbar />
       <Sidebar />
-      <Switch>
-        <Route path="/checkout" component={CheckoutScreen} />
-        <Route path="/cart/:id?" component={CartScreen} />
-        <Route path="/products/:id" component={ProductScreen} />
-        <Route path="/products" component={ProductListScreen} />
-        <Route path="/about" component={AboutScreen} />
-        <Route exact path="/" component={HomeScreen} />
-        <Route path="/login" component={LoginScreen} />
-        <Route path="/register" component={RegisterScreen} />
-        <Route path="*" component={ErrorScreen} />
-      </Switch>
+      <Routes>
+        <Route path="/checkout" element={<CheckoutScreen />} />
+        <Route path="/cart/:id?" element={<CartScreen />} />
+        <Route path="/cart" element={<CartScreen />} />
+        <Route path="/products/:id" element={<ProductScreen />} />
+        <Route path="/products" element={<ProductListScreen />} />
+        <Route path="/about" element={<AboutScreen />} />
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/register" element={<RegisterScreen />} />
+        <Route path="*" element={<ErrorScreen />} />
+      </Routes>
     </Router>
   );
 }
