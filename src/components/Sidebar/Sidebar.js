@@ -13,7 +13,7 @@ const Sidebar = () => {
   const { isSidebarOpen } = sidebar;
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const { userInfo } = userLogin;
 
   const handleCloseSidebar = () => {
     dispatch(closeSidebar());

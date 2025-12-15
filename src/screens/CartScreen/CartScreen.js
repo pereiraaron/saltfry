@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./CartScreen.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
