@@ -11,8 +11,8 @@ import Rating from "../../components/Rating/Rating";
 import AddToCart from "../../components/AddToCart/AddToCart";
 
 const ProductScreen = () => {
-  const { id: productId } = useParams();
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -22,7 +22,7 @@ const ProductScreen = () => {
     price,
     description,
     stock,
-    id,
+    id: productId,
     company,
     images,
     stars,
@@ -30,8 +30,8 @@ const ProductScreen = () => {
   } = product;
 
   useEffect(() => {
-    dispatch(listProductDetails(productId));
-  }, [dispatch, productId]);
+    dispatch(listProductDetails(id));
+  }, [dispatch, id]);
 
   return loading ? (
     <Loading />
@@ -57,7 +57,7 @@ const ProductScreen = () => {
             </p>
             <p className="info">
               <span>SKU :</span>
-              {id}
+              {productId}
             </p>
             <p className="info">
               <span>Brand :</span>
