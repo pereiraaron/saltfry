@@ -8,12 +8,14 @@ import {
   USER_REGISTER_FAILURE,
 } from "../constants/userConstants";
 import { auth } from "../firebase";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
 
-    const { user } = await auth.signInWithEmailAndPassword(email, password);
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
     console.log(user.displayName);
     const data = { email: user.email, name: user.displayName };
 
@@ -33,8 +35,9 @@ export const register = (displayName, email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
 
-    const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    await user.updateProfile({ displayName });
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    await updateProfile(user, { displayName });
 
     const data = { email: user.email, name: user.displayName };
 
@@ -54,3 +57,4 @@ export const logout = () => async (dispatch) => {
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
 };
+

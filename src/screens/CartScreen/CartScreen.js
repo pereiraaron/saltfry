@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./CartScreen.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import PageHero from "../../components/PageHero/PageHero";
 import CartColumns from "../../components/CartColumns/CartColumns";
 import { FaTrash } from "react-icons/fa";
@@ -15,8 +15,10 @@ import CartTotals from "../../components/CartTotals/CartTotals";
 import AmountButtons from "../../components/AmountButtons/AmountButtons";
 import Footer from "../../components/Footer.js/Footer";
 
-const CartScreen = ({ match, location, history }) => {
-  const productId = match.params.id;
+const CartScreen = () => {
+  const { id: productId } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
@@ -87,7 +89,7 @@ const CartScreen = ({ match, location, history }) => {
                       onClick={() => {
                         dispatch(removeFromCart(item.id));
                         if (cartItems.length === 1) {
-                          history.push("/cart");
+                          navigate("/cart");
                         }
                       }}
                     />
@@ -105,7 +107,7 @@ const CartScreen = ({ match, location, history }) => {
                 className="link-btn clear-btn"
                 onClick={() => {
                   dispatch(clearCart());
-                  history.push("/cart");
+                  navigate("/cart");
                 }}
               >
                 clear shopping cart

@@ -2,16 +2,16 @@ import React from "react";
 import "./CartButton.css";
 import { FaShoppingCart, FaUserMinus, FaUserPlus } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { closeSidebar } from "../../actions/sidebarActions";
 import { logout } from "../../actions/userActions";
 
 const CartButtons = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const { userInfo } = userLogin;
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -50,7 +50,7 @@ const CartButtons = () => {
           className="auth-btn"
           onClick={() => {
             dispatch(closeSidebar());
-            history.push("/login");
+            navigate("/login");
           }}
         >
           Login <FaUserPlus />

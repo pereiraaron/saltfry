@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./AddToCart.css";
 import { FaCheck } from "react-icons/fa";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import AmountButtons from "../AmountButtons/AmountButtons";
 
 const AddToCart = ({ product }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   console.log(product);
   const { id, stock, colors } = product;
 
@@ -14,7 +14,7 @@ const AddToCart = ({ product }) => {
   const [currentqty, setCurrentQty] = useState(stock > 0 && 1);
 
   const handleAddToCart = () => {
-    history.push(`/cart/${id}?qty=${currentqty}`);
+    navigate(`/cart/${id}?qty=${currentqty}`);
   };
 
   return (

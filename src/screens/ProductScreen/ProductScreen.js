@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./ProductScreen.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { listProductDetails } from "../../actions/productActions";
 import PageHero from "../../components/PageHero/PageHero";
 import { formatPrice } from "../../utils/helpers";
@@ -10,7 +10,8 @@ import Loading from "../../components/Loading/Loading";
 import Rating from "../../components/Rating/Rating";
 import AddToCart from "../../components/AddToCart/AddToCart";
 
-const ProductScreen = ({ history, match }) => {
+const ProductScreen = () => {
+  const { id: productId } = useParams();
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) => state.productDetails);
@@ -29,8 +30,8 @@ const ProductScreen = ({ history, match }) => {
   } = product;
 
   useEffect(() => {
-    dispatch(listProductDetails(match.params.id));
-  }, [dispatch, match]);
+    dispatch(listProductDetails(productId));
+  }, [dispatch, productId]);
 
   return loading ? (
     <Loading />

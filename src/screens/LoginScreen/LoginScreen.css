@@ -1,10 +1,19 @@
 .signupScreen {
-  max-width: 420px;
-  padding: 20px;
+  max-width: 450px;
+  padding: 70px;
   margin-left: auto;
   margin-right: auto;
-  background: transparent;
-  margin-top: 60px;
+  background: rgba(0, 0, 0, 0.85);
+  margin-top: 4rem;
+  border-radius: 5px;
+}
+
+.login-form > h1 {
+  text-align: left;
+  margin-bottom: 25px;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 500;
 }
 
 .login-form {
@@ -12,43 +21,33 @@
   flex-direction: column;
 }
 
-.login-form h1 {
-  text-align: left;
-  margin-bottom: 25px;
-  font-size: 28px;
-  color: #795744;
-}
-
-.login-form h4 {
-  text-align: left;
-  margin-top: 30px;
-}
-
-.login-form .text-container {
-  padding: 10px;
-}
-
-.login-form .inputfield {
-  padding: 5px 15px;
+.inputfield {
   outline-width: 0;
   height: 40px;
   margin-bottom: 14px;
   border-radius: 5px;
   border: none;
-  background-color: #eaded7;
+  padding: 5px 15px;
 }
 
-.login-form button {
-  padding: 10px 20px;
+.login-form > button {
+  padding: 16px 20px;
   font-size: 1rem;
   color: #fff;
   border-radius: 5px;
-  background-color: #ab7a5f;
+  background-color: #795744;
+  font-weight: 600;
   border: none;
   cursor: pointer;
-  font-weight: 600;
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin-top: 20px;
 }
-@media (min-width: 992px) {
+
+.text-container {
+  color: #737373;
+  margin-top: 1rem;
 }
+
+.text-container > span {
+  color: #fff;
+}
+
