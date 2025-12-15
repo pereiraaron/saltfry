@@ -13,7 +13,6 @@
     }
   ],
   "prConcurrentLimit": 10,
-  "prHourlyLimit": 2,
   "stabilityDays": 3,
   "labels": ["dependencies"],
   "timezone": "Asia/Kolkata",

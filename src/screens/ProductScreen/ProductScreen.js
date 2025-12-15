@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./ProductScreen.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { listProductDetails } from "../../actions/productActions";
 import PageHero from "../../components/PageHero/PageHero";
 import { formatPrice } from "../../utils/helpers";
@@ -10,8 +10,9 @@ import Loading from "../../components/Loading/Loading";
 import Rating from "../../components/Rating/Rating";
 import AddToCart from "../../components/AddToCart/AddToCart";
 
-const ProductScreen = ({ history, match }) => {
+const ProductScreen = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
@@ -21,7 +22,7 @@ const ProductScreen = ({ history, match }) => {
     price,
     description,
     stock,
-    id,
+    id: productId,
     company,
     images,
     stars,
@@ -29,8 +30,8 @@ const ProductScreen = ({ history, match }) => {
   } = product;
 
   useEffect(() => {
-    dispatch(listProductDetails(match.params.id));
-  }, [dispatch, match]);
+    dispatch(listProductDetails(id));
+  }, [dispatch, id]);
 
   return loading ? (
     <Loading />
@@ -56,7 +57,7 @@ const ProductScreen = ({ history, match }) => {
             </p>
             <p className="info">
               <span>SKU :</span>
-              {id}
+              {productId}
             </p>
             <p className="info">
               <span>Brand :</span>
