@@ -1,0 +1,31 @@
+// Types are now global - no import needed
+
+export const formatPrice = (number: number): string => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(number / 100);
+};
+
+export const getUniqueValues = (data: $TSFixMe[], type: string): $TSFixMe[] => {
+  let unique = data.map((item) => item[type]);
+  if (type === 'colors') {
+    unique = unique.flat();
+  }
+
+  return ['all', ...new Set(unique)];
+};
+
+export const handleIncrement = (currentqty: number, total: number): number => {
+  if (currentqty + 1 <= total) {
+    return currentqty + 1;
+  }
+  return currentqty;
+};
+
+export const handleDecrement = (currentqty: number): number => {
+  if (currentqty <= 1) {
+    return currentqty;
+  }
+  return currentqty - 1;
+};

@@ -1,0 +1,19 @@
+import React from 'react';
+import './CartColumns.css';
+
+const CartColumns: React.FC = () => {
+  return (
+    <div className="cart-columns">
+      <div className="content">
+        <h5>item</h5>
+        <h5>price</h5>
+        <h5>quantity</h5>
+        <h5>subtotal</h5>
+        <span />
+      </div>
+      <hr />
+    </div>
+  );
+};
+
+export default CartColumns;

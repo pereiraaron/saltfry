@@ -1,0 +1,33 @@
+name: Build
+
+on:
+    pull_request:
+
+jobs:
+    build:
+        name: Build Project
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: ".nvmrc"
+                  cache: "npm"
+
+            - name: Install dependencies
+              run: npm ci --legacy-peer-deps
+
+            - name: Build project
+              run: npm run build
+
+            - name: Upload build artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                  name: build
+                  path: build/
+                  retention-days: 7
+
