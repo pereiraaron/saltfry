@@ -7,22 +7,23 @@ import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILURE,
 } from '../constants/userConstants';
-import { auth } from '../firebase';
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from 'firebase/auth';
 // Types are now global - no import needed
 
-export const login = (email: string, password: string) => async (dispatch: $TSFixMe) => {
+// Mock authentication - replace with your actual auth service
+export const login = (email: string, _password: string) => async (dispatch: $TSFixMe) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
 
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    console.log(user.displayName);
-    const data = { email: user.email, name: user.displayName };
+    // TODO: Replace with actual authentication API call
+    // Simulating API call
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    const data = { 
+      id: Math.random().toString(36).substr(2, 9),
+      email: email, 
+      name: email.split('@')[0],
+      token: 'mock-token-' + Date.now()
+    };
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
@@ -31,20 +32,25 @@ export const login = (email: string, password: string) => async (dispatch: $TSFi
     console.log(error);
     dispatch({
       type: USER_LOGIN_FAILURE,
-      payload: error.message,
+      payload: error.message || 'Login failed',
     });
   }
 };
 
-export const register = (displayName: string, email: string, password: string) => async (dispatch: $TSFixMe) => {
+export const register = (displayName: string, email: string, _password: string) => async (dispatch: $TSFixMe) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
 
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    await updateProfile(user, { displayName });
+    // TODO: Replace with actual registration API call
+    // Simulating API call
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-    const data = { email: user.email, name: user.displayName };
+    const data = { 
+      id: Math.random().toString(36).substr(2, 9),
+      email: email, 
+      name: displayName,
+      token: 'mock-token-' + Date.now()
+    };
 
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
@@ -54,7 +60,7 @@ export const register = (displayName: string, email: string, password: string) =
     console.log(error);
     dispatch({
       type: USER_REGISTER_FAILURE,
-      payload: error.message,
+      payload: error.message || 'Registration failed',
     });
   }
 };
