@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import "./AddToCart.css";
-import { FaCheck } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import './AddToCart.css';
+import { FaCheck } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
-import AmountButtons from "../AmountButtons/AmountButtons";
+import AmountButtons from '../AmountButtons/AmountButtons';
 
 const AddToCart = ({ product }) => {
   const navigate = useNavigate();
@@ -27,8 +27,7 @@ const AddToCart = ({ product }) => {
               <button
                 key={index}
                 style={{ background: color }}
-                className={`${mainColor === color ? "color-btn active" : "color-btn"
-                  }`}
+                className={`${mainColor === color ? 'color-btn active' : 'color-btn'}`}
                 onClick={() => setMainColor(color)}
               >
                 {mainColor === color ? <FaCheck /> : null}
@@ -48,7 +47,7 @@ const AddToCart = ({ product }) => {
         <button
           className="btn"
           onClick={handleAddToCart}
-          style={{ marginTop: "1rem", width: "140px" }}
+          style={{ marginTop: '1rem', width: '140px' }}
         >
           add to cart
         </button>

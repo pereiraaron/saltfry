@@ -149,14 +149,14 @@
 // };
 
 // export default StripeCheckout;
-import React from "react";
-import "./StripeCheckout.css";
-import { FaRegFrown } from "react-icons/fa";
+import React from 'react';
+import './StripeCheckout.css';
+import { FaRegFrown } from 'react-icons/fa';
 const StripeCheckout = () => {
   return (
     <div className="wip">
       <FaRegFrown />
-      <h1 style={{ textAlign: "center" }}>Currently Unavailable...</h1>
+      <h1 style={{ textAlign: 'center' }}>Currently Unavailable...</h1>
     </div>
   );
 };

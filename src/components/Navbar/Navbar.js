@@ -1,11 +1,12 @@
-import React from "react";
-import "./Navbar.css";
-import CartButtons from "../CartButtons/CartButtons";
-import { FaBars } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { links } from "../../utils/constants";
-import { openSidebar } from "../../actions/sidebarActions";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import './Navbar.css';
+import CartButtons from '../CartButtons/CartButtons';
+import { FaBars } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { links } from '../../utils/constants';
+import { openSidebar } from '../../actions/sidebarActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { logo } from '../../assets';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -22,10 +23,7 @@ const Navbar = () => {
       <div className="nav-center">
         <div className="nav-header">
           <Link to="/">
-            <img
-              src={process.env.PUBLIC_URL + "/images/logo1.svg"}
-              alt="comfy sloth"
-            />
+            <img src={logo} alt="comfy sloth" />
           </Link>
           <button type="button" className="nav-toggle" onClick={handleSidebar}>
             <FaBars />

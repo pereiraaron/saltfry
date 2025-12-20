@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import "./FeaturedProducts.css";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { listProducts } from "../../actions/productActions";
-import Product from "../Product/Product";
-import Loading from "../Loading/Loading";
+import React, { useEffect } from 'react';
+import './FeaturedProducts.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { listProducts } from '../../actions/productActions';
+import Product from '../Product/Product';
+import Loading from '../Loading/Loading';
 
 const FeaturedProducts = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const FeaturedProducts = () => {
   return loading ? (
     <Loading />
   ) : error ? (
-    "Error"
+    'Error'
   ) : (
     <section className="featured-products">
       <div className="title">

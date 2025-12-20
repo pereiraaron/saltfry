@@ -1,6 +1,6 @@
-import React from "react";
-import "./Services.css";
-import { services } from "../../utils/constants";
+import React from 'react';
+import './Services.css';
+import { services } from '../../utils/constants';
 
 const Services = () => {
   return (
@@ -11,7 +11,9 @@ const Services = () => {
             custom furniture <br /> built only for you
           </h3>
           <p>
-            Every piece is designed with attention to detail and crafted using premium materials. We believe furniture should be as unique as the people who use it—functional, durable, and beautiful.
+            Every piece is designed with attention to detail and crafted using premium materials. We
+            believe furniture should be as unique as the people who use it—functional, durable, and
+            beautiful.
           </p>
         </article>
         <div className="services-center">

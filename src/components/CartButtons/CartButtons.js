@@ -1,10 +1,10 @@
-import React from "react";
-import "./CartButton.css";
-import { FaShoppingCart, FaUserMinus, FaUserPlus } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { closeSidebar } from "../../actions/sidebarActions";
-import { logout } from "../../actions/userActions";
+import React from 'react';
+import './CartButton.css';
+import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { closeSidebar } from '../../actions/sidebarActions';
+import { logout } from '../../actions/userActions';
 
 const CartButtons = () => {
   const navigate = useNavigate();
@@ -28,9 +28,7 @@ const CartButtons = () => {
         Cart
         <span className="cart-container">
           <FaShoppingCart />
-          {cartItems.length > 0 && (
-            <span className="cart-value">{cartItems.length}</span>
-          )}
+          {cartItems.length > 0 && <span className="cart-value">{cartItems.length}</span>}
         </span>
       </Link>
       {userInfo ? (
@@ -50,7 +48,7 @@ const CartButtons = () => {
           className="auth-btn"
           onClick={() => {
             dispatch(closeSidebar());
-            navigate("/login");
+            navigate('/login');
           }}
         >
           Login <FaUserPlus />

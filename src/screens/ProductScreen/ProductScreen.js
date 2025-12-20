@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import "./ProductScreen.css";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { listProductDetails } from "../../actions/productActions";
-import PageHero from "../../components/PageHero/PageHero";
-import { formatPrice } from "../../utils/helpers";
-import ProductImages from "../../components/ProductImages/ProductImages";
-import Loading from "../../components/Loading/Loading";
-import Rating from "../../components/Rating/Rating";
-import AddToCart from "../../components/AddToCart/AddToCart";
+import React, { useEffect } from 'react';
+import './ProductScreen.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { listProductDetails } from '../../actions/productActions';
+import PageHero from '../../components/PageHero/PageHero';
+import { formatPrice } from '../../utils/helpers';
+import ProductImages from '../../components/ProductImages/ProductImages';
+import Loading from '../../components/Loading/Loading';
+import Rating from '../../components/Rating/Rating';
+import AddToCart from '../../components/AddToCart/AddToCart';
 
 const ProductScreen = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const ProductScreen = () => {
   return loading ? (
     <Loading />
   ) : error ? (
-    "Error"
+    'Error'
   ) : (
     <main>
       <PageHero title={name} product />
@@ -53,7 +53,7 @@ const ProductScreen = () => {
             <p className="desc">{description}</p>
             <p className="info">
               <span>Available : </span>
-              {stock > 0 ? "In stock" : "out of stock"}
+              {stock > 0 ? 'In stock' : 'out of stock'}
             </p>
             <p className="info">
               <span>SKU :</span>

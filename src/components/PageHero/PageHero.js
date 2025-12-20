@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./PageHero.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './PageHero.css';
 
 const PageHero = ({ title, product }) => {
   return (

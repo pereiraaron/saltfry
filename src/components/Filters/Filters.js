@@ -1,32 +1,21 @@
-import React, { useEffect } from "react";
-import "./Filters.css";
-import { FaCheck } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  clearFilters,
-  updateFilters,
-} from "../../actions/productScreenActions";
-import { formatPrice, getUniqueValues } from "../../utils/helpers";
+import React, { useEffect } from 'react';
+import './Filters.css';
+import { FaCheck } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearFilters, updateFilters } from '../../actions/productScreenActions';
+import { formatPrice, getUniqueValues } from '../../utils/helpers';
 
 const Filters = ({ products }) => {
   const productScreen = useSelector((state) => state.productScreen);
   const { filters } = productScreen;
-  const {
-    filterkeyword,
-    category,
-    company,
-    color,
-    price,
-    min_price,
-    max_price,
-    shipping,
-  } = filters;
+  const { filterkeyword, category, company, color, price, min_price, max_price, shipping } =
+    filters;
 
   const dispatch = useDispatch();
 
-  const categories = getUniqueValues(products, "category");
-  const companies = getUniqueValues(products, "company");
-  const colors = getUniqueValues(products, "colors");
+  const categories = getUniqueValues(products, 'category');
+  const companies = getUniqueValues(products, 'company');
+  const colors = getUniqueValues(products, 'colors');
 
   return (
     <section className="filters">
@@ -55,15 +44,11 @@ const Filters = ({ products }) => {
                   <button
                     key={index}
                     onClick={(e) => {
-                      dispatch(
-                        updateFilters(e.target.name, e.target.textContent)
-                      );
+                      dispatch(updateFilters(e.target.name, e.target.textContent));
                     }}
                     type="button"
                     name="category"
-                    className={`${
-                      category === categoryname.toLowerCase() ? "active" : null
-                    }`}
+                    className={`${category === categoryname.toLowerCase() ? 'active' : null}`}
                   >
                     {categoryname}
                   </button>
@@ -98,20 +83,16 @@ const Filters = ({ products }) => {
             <h5>colors</h5>
             <div className="colors">
               {colors.map((c, index) => {
-                if (c === "all") {
+                if (c === 'all') {
                   return (
                     <button
                       key={index}
                       name="color"
                       onClick={(e) => {
-                        dispatch(
-                          updateFilters(e.target.name, e.target.dataset.color)
-                        );
+                        dispatch(updateFilters(e.target.name, e.target.dataset.color));
                       }}
                       data-color="all"
-                      className={`${
-                        color === "all" ? "all-btn active" : "all-btn"
-                      }`}
+                      className={`${color === 'all' ? 'all-btn active' : 'all-btn'}`}
                     >
                       all
                     </button>
@@ -122,15 +103,9 @@ const Filters = ({ products }) => {
                     key={index}
                     name="color"
                     style={{ background: c }}
-                    className={`${
-                      color === c ? "color-btn active" : "color-btn"
-                    }`}
+                    className={`${color === c ? 'color-btn active' : 'color-btn'}`}
                     data-color={c}
-                    onClick={(e) =>
-                      dispatch(
-                        updateFilters(e.target.name, e.target.dataset.color)
-                      )
-                    }
+                    onClick={(e) => dispatch(updateFilters(e.target.name, e.target.dataset.color))}
                   >
                     {color === c ? <FaCheck /> : null}
                   </button>
@@ -163,9 +138,7 @@ const Filters = ({ products }) => {
               name="shipping"
               id="shipping"
               checked={shipping}
-              onChange={(e) =>
-                dispatch(updateFilters(e.target.name, e.target.checked))
-              }
+              onChange={(e) => dispatch(updateFilters(e.target.name, e.target.checked))}
             />
           </div>
           {/* end of  shipping */}

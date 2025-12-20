@@ -1,11 +1,11 @@
-import React from "react";
-import "./Sidebar.css";
-import { Link } from "react-router-dom";
-import { FaTimes } from "react-icons/fa";
-import { links } from "../../utils/constants";
-import CartButtons from "../CartButtons/CartButtons";
-import { useDispatch, useSelector } from "react-redux";
-import { closeSidebar } from "../../actions/sidebarActions";
+import React from 'react';
+import './Sidebar.css';
+import { Link } from 'react-router-dom';
+import { FaTimes } from 'react-icons/fa';
+import { links } from '../../utils/constants';
+import CartButtons from '../CartButtons/CartButtons';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeSidebar } from '../../actions/sidebarActions';
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -21,15 +21,9 @@ const Sidebar = () => {
 
   return (
     <div>
-      <aside
-        className={`${isSidebarOpen ? "sidebar show-sidebar" : "sidebar"}`}
-      >
+      <aside className={`${isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}`}>
         <div className="sidebar-header">
-          <img
-            src={process.env.PUBLIC_URL + "/images/logo.svg"}
-            className="logo"
-            alt="coding addict"
-          />
+          <img src="/images/logo1.svg" className="logo" alt="coding addict" />
           <button className="close-btn" onClick={handleCloseSidebar}>
             <FaTimes />
           </button>

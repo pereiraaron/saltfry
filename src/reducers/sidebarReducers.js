@@ -1,4 +1,4 @@
-import { SIDEBAR_CLOSE, SIDEBAR_OPEN } from "../constants/sidebarConstants";
+import { SIDEBAR_CLOSE, SIDEBAR_OPEN } from '../constants/sidebarConstants';
 
 export const sidebarReducer = (state = { isSidebarOpen: false }, action) => {
   switch (action.type) {

@@ -1,10 +1,10 @@
-import React from "react";
-import "./CartItem.css";
-import AmountButtons from "../AmountButtons/AmountButtons";
-import { FaTrash } from "react-icons/fa";
-import { formatPrice } from "../../utils/helpers";
-import { removeFromCart } from "../../actions/cartActions";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import './CartItem.css';
+import AmountButtons from '../AmountButtons/AmountButtons';
+import { FaTrash } from 'react-icons/fa';
+import { formatPrice } from '../../utils/helpers';
+import { removeFromCart } from '../../actions/cartActions';
+import { useDispatch } from 'react-redux';
 
 const CartItem = ({ id, image, name, color, price, amount }) => {
   const dispatch = useDispatch();
