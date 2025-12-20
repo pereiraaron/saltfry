@@ -8,18 +8,18 @@ import {
   SORT_NAME_A_Z,
   SORT_NAME_Z_A,
   UPDATE_FILTERS,
-} from "../constants/productScreenConstants";
+} from '../constants/productScreenConstants';
 
 export const productScreenReducer = (
   state = {
     filteredProducts: [],
-    type: "",
+    type: '',
     gridView: true,
     filters: {
-      filterkeyword: "",
-      company: "all",
-      category: "all",
-      color: "all",
+      filterkeyword: '',
+      company: 'all',
+      category: 'all',
+      color: 'all',
       min_price: 0,
       max_price: 0,
       price: 0,
@@ -41,7 +41,7 @@ export const productScreenReducer = (
           ...state,
           loading: false,
           filteredProducts: lowtohighProducts,
-          sorttype: "SORT_LOWEST_PRICE",
+          sorttype: 'SORT_LOWEST_PRICE',
           filters: { ...state.filters, max_price: maxPrice, price: maxPrice },
         };
       } catch (error) {
@@ -55,7 +55,7 @@ export const productScreenReducer = (
         ...state,
         loading: false,
         filteredProducts: hightolowProducts,
-        sorttype: "SORT_HIGHEST_PRICE",
+        sorttype: 'SORT_HIGHEST_PRICE',
       };
 
     case SORT_NAME_A_Z:
@@ -66,7 +66,7 @@ export const productScreenReducer = (
         ...state,
         loading: false,
         filteredProducts: azProducts,
-        sorttype: "SORT_NAME_A_Z",
+        sorttype: 'SORT_NAME_A_Z',
       };
 
     case SORT_NAME_Z_A:
@@ -77,7 +77,7 @@ export const productScreenReducer = (
         ...state,
         loading: false,
         filteredProducts: zaProducts,
-        sorttype: "SORT_NAME_Z_A",
+        sorttype: 'SORT_NAME_Z_A',
       };
     case SET_GRIDVIEW:
       return { ...state, gridView: true };
@@ -89,25 +89,20 @@ export const productScreenReducer = (
 
     case APPLY_FILTERS:
       const { filters, products } = action.payload;
-      const { filterkeyword, category, company, color, price, shipping } =
-        filters;
+      const { filterkeyword, category, company, color, price, shipping } = filters;
       let tempProducts = products;
       if (filterkeyword) {
         tempProducts = tempProducts.filter((product) =>
           product.name.toLowerCase().startsWith(filterkeyword)
         );
       }
-      if (category !== "all") {
-        tempProducts = tempProducts.filter(
-          (product) => product.category === category
-        );
+      if (category !== 'all') {
+        tempProducts = tempProducts.filter((product) => product.category === category);
       }
-      if (company !== "all") {
-        tempProducts = tempProducts.filter(
-          (product) => product.company === company
-        );
+      if (company !== 'all') {
+        tempProducts = tempProducts.filter((product) => product.company === company);
       }
-      if (color !== "all") {
+      if (color !== 'all') {
         tempProducts = tempProducts.filter((product) => {
           return product.colors.find((c) => c === color);
         });
@@ -116,9 +111,7 @@ export const productScreenReducer = (
       tempProducts = tempProducts.filter((product) => product.price <= price);
       // filter by shipping
       if (shipping) {
-        tempProducts = tempProducts.filter(
-          (product) => product.shipping === true
-        );
+        tempProducts = tempProducts.filter((product) => product.shipping === true);
       }
       return {
         ...state,
@@ -131,10 +124,10 @@ export const productScreenReducer = (
         ...state,
         filteredProducts: action.payload,
         ...state.filters,
-        text: "",
-        company: "all",
-        category: "all",
-        color: "all",
+        text: '',
+        company: 'all',
+        category: 'all',
+        color: 'all',
         price: state.filters.max_price,
         shipping: false,
       };

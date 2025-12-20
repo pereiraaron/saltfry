@@ -1,9 +1,9 @@
-import React from "react";
-import "./CheckoutScreen.css";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import PageHero from "../../components/PageHero/PageHero";
-import StripeCheckout from "../../components/StripeCheckout/StripeCheckout";
+import React from 'react';
+import './CheckoutScreen.css';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import PageHero from '../../components/PageHero/PageHero';
+import StripeCheckout from '../../components/StripeCheckout/StripeCheckout';
 
 const CheckoutScreen = () => {
   const cart = useSelector((state) => state.cart);

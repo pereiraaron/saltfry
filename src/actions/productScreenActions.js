@@ -4,7 +4,7 @@ import {
   SET_GRIDVIEW,
   SET_LISTVIEW,
   UPDATE_FILTERS,
-} from "../constants/productScreenConstants";
+} from '../constants/productScreenConstants';
 
 export const sortProducts = (sorttype, products) => (dispatch) => {
   dispatch({ type: sorttype, payload: products });

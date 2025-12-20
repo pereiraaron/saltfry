@@ -4,7 +4,7 @@ import {
   CART_ITEM_QUANTITY_UPDATE,
   CART_REMOVE_ITEM,
   CLEAR_CART,
-} from "../constants/cartConstants";
+} from '../constants/cartConstants';
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
@@ -15,9 +15,7 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       if (existItem) {
         return {
           ...state,
-          cartItems: state.cartItems.map((x) =>
-            x.product === existItem.id ? item : x
-          ),
+          cartItems: state.cartItems.map((x) => (x.product === existItem.id ? item : x)),
         };
       } else {
         return {
@@ -37,9 +35,7 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       return {
         ...state,
         cartItems: state.cartItems.map((item) =>
-          item.id === action.payload.id
-            ? { ...item, quantity: action.payload.quantity }
-            : item
+          item.id === action.payload.id ? { ...item, quantity: action.payload.quantity } : item
         ),
       };
     case CART_ITEM_QUANTITY_FAILURE:

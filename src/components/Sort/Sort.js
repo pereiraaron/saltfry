@@ -1,20 +1,16 @@
-import React, { useEffect } from "react";
-import "./Sort.css";
-import { BsFillGridFill, BsList } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import './Sort.css';
+import { BsFillGridFill, BsList } from 'react-icons/bs';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  setGridView,
-  setListView,
-  sortProducts,
-} from "../../actions/productScreenActions";
+import { setGridView, setListView, sortProducts } from '../../actions/productScreenActions';
 
 import {
   SORT_HIGHEST_PRICE,
   SORT_LOWEST_PRICE,
   SORT_NAME_A_Z,
   SORT_NAME_Z_A,
-} from "../../constants/productScreenConstants";
+} from '../../constants/productScreenConstants';
 
 const Sort = (props) => {
   const unsortedProducts = props.products;
@@ -34,15 +30,12 @@ const Sort = (props) => {
   return (
     <section className="sort">
       <div className="btn-container">
-        <button
-          onClick={() => dispatch(setGridView())}
-          className={`${gridView ? "active" : null}`}
-        >
+        <button onClick={() => dispatch(setGridView())} className={`${gridView ? 'active' : null}`}>
           <BsFillGridFill />
         </button>
         <button
           onClick={() => dispatch(setListView())}
-          className={`${!gridView ? "active" : null}`}
+          className={`${!gridView ? 'active' : null}`}
         >
           <BsList />
         </button>

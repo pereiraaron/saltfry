@@ -1,6 +1,6 @@
-import React from "react";
-import "./ErrorScreen.css";
-import { Link } from "react-router-dom";
+import React from 'react';
+import './ErrorScreen.css';
+import { Link } from 'react-router-dom';
 
 const ErrorScreen = () => {
   return (

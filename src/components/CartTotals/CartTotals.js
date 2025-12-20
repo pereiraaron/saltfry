@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import { useNavigate } from "react-router-dom";
-import { formatPrice } from "../../utils/helpers";
-import "./CartTotals.css";
+import { useNavigate } from 'react-router-dom';
+import { formatPrice } from '../../utils/helpers';
+import './CartTotals.css';
 
 const CartTotals = ({ itemsPrice, shippingPrice, totalPrice }) => {
   const navigate = useNavigate();
 
   const checkoutHandler = () => {
-    navigate("/checkout");
+    navigate('/checkout');
   };
 
   return (

@@ -1,6 +1,6 @@
-import React from "react";
-import Product from "../Product/Product";
-import "./GridView.css";
+import React from 'react';
+import Product from '../Product/Product';
+import './GridView.css';
 
 const GridView = ({ products }) => {
   return (

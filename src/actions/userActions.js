@@ -6,9 +6,13 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAILURE,
-} from "../constants/userConstants";
-import { auth } from "../firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+} from '../constants/userConstants';
+import { auth } from '../firebase';
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -21,7 +25,7 @@ export const login = (email, password) => async (dispatch) => {
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     console.log(error);
     dispatch({
@@ -44,7 +48,7 @@ export const register = (displayName, email, password) => async (dispatch) => {
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     console.log(error);
     dispatch({
@@ -54,8 +58,6 @@ export const register = (displayName, email, password) => async (dispatch) => {
   }
 };
 export const logout = () => async (dispatch) => {
-  localStorage.removeItem("userInfo");
+  localStorage.removeItem('userInfo');
   dispatch({ type: USER_LOGOUT });
 };
-
-

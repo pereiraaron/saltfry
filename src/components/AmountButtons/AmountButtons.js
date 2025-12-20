@@ -1,12 +1,9 @@
-import React from "react";
-import "./AmountButtons.css";
-import { FaPlus, FaMinus } from "react-icons/fa";
-import {
-  decrementProductQuantity,
-  incrementProductQuantity,
-} from "../../actions/cartActions";
-import { useDispatch } from "react-redux";
-import { handleDecrement, handleIncrement } from "../../utils/helpers";
+import React from 'react';
+import './AmountButtons.css';
+import { FaPlus, FaMinus } from 'react-icons/fa';
+import { decrementProductQuantity, incrementProductQuantity } from '../../actions/cartActions';
+import { useDispatch } from 'react-redux';
+import { handleDecrement, handleIncrement } from '../../utils/helpers';
 
 const AmountButtons = ({ currentqty, total, id, product, setCurrentQty }) => {
   const dispatch = useDispatch();

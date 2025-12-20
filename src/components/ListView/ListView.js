@@ -1,7 +1,7 @@
-import React from "react";
-import "./ListView.css";
-import { Link } from "react-router-dom";
-import { formatPrice } from "../../utils/helpers";
+import React from 'react';
+import './ListView.css';
+import { Link } from 'react-router-dom';
+import { formatPrice } from '../../utils/helpers';
 
 const ListView = ({ products }) => {
   return (

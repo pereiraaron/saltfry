@@ -1,4 +1,4 @@
-import { SIDEBAR_OPEN, SIDEBAR_CLOSE } from "../constants/sidebarConstants";
+import { SIDEBAR_OPEN, SIDEBAR_CLOSE } from '../constants/sidebarConstants';
 
 export const openSidebar = () => (dispatch) => {
   dispatch({

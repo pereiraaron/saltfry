@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import "./ProductImages.css";
+import React, { useEffect, useState } from 'react';
+import './ProductImages.css';
 
 const ProductImages = ({ images = [[]] }) => {
   const [main, setMain] = useState({});
@@ -18,7 +18,7 @@ const ProductImages = ({ images = [[]] }) => {
               src={image.url}
               alt=""
               key={index}
-              className={`${image.url === main.url ? "active" : null}`}
+              className={`${image.url === main.url ? 'active' : null}`}
               onClick={() => setMain(images[index])}
             />
           );

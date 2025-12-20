@@ -1,5 +1,5 @@
-import React from "react";
-import "./CartColumns.css";
+import React from 'react';
+import './CartColumns.css';
 const CartColumns = () => {
   return (
     <div className="cart-columns">
