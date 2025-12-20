@@ -11,13 +11,13 @@ const FeaturedProducts = () => {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
 
-  const featured_products = products.filter((product) => {
-    return product.featured;
-  });
+  // const featured_products = products.filter((product) => {
+  //   return product.featured;
+  // });
 
-  useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  // dispatch(listProducts());
+  // }, [dispatch]);
 
   return loading ? (
     <Loading />
@@ -30,9 +30,9 @@ const FeaturedProducts = () => {
         <div className="underline"></div>
       </div>
       <div className="section-center featured">
-        {featured_products.slice(0, 3).map((product) => {
+        {/* {featured_products.slice(0, 3).map((product) => {
           return <Product key={product.id} {...product} />;
-        })}
+        })} */}
       </div>
       <Link to="/products" className="btn">
         all products
