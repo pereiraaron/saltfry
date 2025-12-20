@@ -1,0 +1,13 @@
+export const SET_GRIDVIEW = 'SET_GRIDVIEW';
+export const SET_LISTVIEW = 'SET_LISTVIEW';
+
+export const SORT_LOWEST_PRICE = 'SORT_LOWEST_PRICE';
+export const SORT_HIGHEST_PRICE = 'SORT_HIGHEST_PRICE';
+
+export const SORT_NAME_A_Z = 'SORT_NAME_A_Z';
+export const SORT_NAME_Z_A = 'SORT_NAME_Z_A';
+
+export const UPDATE_FILTERS = 'UPDATE_FILTERS';
+export const CLEAR_FILTERS = 'CLEAR_FILTERS';
+export const APPLY_FILTERS = 'APPLY_FILTERS';
+
