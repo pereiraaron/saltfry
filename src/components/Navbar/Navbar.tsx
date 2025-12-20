@@ -1,11 +1,11 @@
 import React from 'react';
 import './Navbar.css';
-import CartButtons from '../CartButtons/CartButtons';
 import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import CartButtons from '../CartButtons/CartButtons';
 import { links } from '../../utils/constants';
 import { openSidebar } from '../../actions/sidebarActions';
-import { useDispatch, useSelector } from 'react-redux';
 import { logo } from '../../assets';
 import { RootState } from '../../types';
 
@@ -52,4 +52,3 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
-

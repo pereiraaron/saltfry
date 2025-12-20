@@ -10,4 +10,3 @@ export const SORT_NAME_Z_A = 'SORT_NAME_Z_A';
 export const UPDATE_FILTERS = 'UPDATE_FILTERS';
 export const CLEAR_FILTERS = 'CLEAR_FILTERS';
 export const APPLY_FILTERS = 'APPLY_FILTERS';
-

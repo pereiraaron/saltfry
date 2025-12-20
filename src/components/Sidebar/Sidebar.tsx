@@ -2,9 +2,9 @@ import React from 'react';
 import './Sidebar.css';
 import { Link } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 import { links } from '../../utils/constants';
 import CartButtons from '../CartButtons/CartButtons';
-import { useDispatch, useSelector } from 'react-redux';
 import { closeSidebar } from '../../actions/sidebarActions';
 import { RootState } from '../../types';
 
@@ -54,4 +54,3 @@ const Sidebar: React.FC = () => {
 };
 
 export default Sidebar;
-

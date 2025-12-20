@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import './CartScreen.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
+import { FaTrash } from 'react-icons/fa';
 import PageHero from '../../components/PageHero/PageHero';
 import CartColumns from '../../components/CartColumns/CartColumns';
-import { FaTrash } from 'react-icons/fa';
 import { formatPrice } from '../../utils/helpers';
 import { addToCart, clearCart, removeFromCart } from '../../actions/cartActions';
 import CartTotals from '../../components/CartTotals/CartTotals';
@@ -70,7 +70,7 @@ const CartScreen: React.FC = () => {
                     </div>
                   </div>
                   <h5 className="price">{formatPrice(item.price)}</h5>
-                  {<AmountButtons total={item.stock} id={item.id} currentqty={item.quantity} />}
+                  <AmountButtons total={item.stock} id={item.id} currentqty={item.quantity} />
                   <h5 className="subtotal">{formatPrice(item.price * item.quantity)}</h5>
                   <button className="remove-btn">
                     <FaTrash
@@ -115,4 +115,3 @@ const CartScreen: React.FC = () => {
 };
 
 export default CartScreen;
-

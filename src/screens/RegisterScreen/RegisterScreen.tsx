@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './RegisterScreen.css';
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { register } from '../../actions/userActions';
 import Footer from '../../components/Footer.js/Footer';
@@ -122,4 +120,3 @@ const RegisterScreen: React.FC = () => {
 };
 
 export default RegisterScreen;
-

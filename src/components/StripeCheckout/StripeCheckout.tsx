@@ -12,4 +12,3 @@ const StripeCheckout: React.FC = () => {
 };
 
 export default StripeCheckout;
-

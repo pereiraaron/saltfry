@@ -12,4 +12,3 @@ export const closeSidebar = () => (dispatch: $TSFixMe) => {
     type: SIDEBAR_CLOSE,
   });
 };
-

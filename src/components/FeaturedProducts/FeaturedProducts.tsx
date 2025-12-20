@@ -25,7 +25,7 @@ const FeaturedProducts: React.FC = () => {
     <section className="featured-products">
       <div className="title">
         <h2>featured products</h2>
-        <div className="underline"></div>
+        <div className="underline" />
       </div>
       <div className="section-center featured">
         {/* {featured_products.slice(0, 3).map((product) => {
@@ -40,4 +40,3 @@ const FeaturedProducts: React.FC = () => {
 };
 
 export default FeaturedProducts;
-

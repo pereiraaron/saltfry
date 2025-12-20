@@ -17,4 +17,3 @@ const ErrorScreen: React.FC = () => {
 };
 
 export default ErrorScreen;
-

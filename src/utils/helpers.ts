@@ -19,15 +19,13 @@ export const getUniqueValues = (data: $TSFixMe[], type: string): $TSFixMe[] => {
 export const handleIncrement = (currentqty: number, total: number): number => {
   if (currentqty + 1 <= total) {
     return currentqty + 1;
-  } else {
-    return currentqty;
   }
+  return currentqty;
 };
 
 export const handleDecrement = (currentqty: number): number => {
   if (currentqty <= 1) {
     return currentqty;
-  } else {
-    return currentqty - 1;
   }
+  return currentqty - 1;
 };

@@ -20,4 +20,3 @@ const GridView: React.FC<GridViewProps> = ({ products }) => {
 };
 
 export default GridView;
-

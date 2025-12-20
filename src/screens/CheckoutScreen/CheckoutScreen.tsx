@@ -30,4 +30,3 @@ const CheckoutScreen: React.FC = () => {
 };
 
 export default CheckoutScreen;
-

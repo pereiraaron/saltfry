@@ -9,7 +9,7 @@ const CartColumns: React.FC = () => {
         <h5>price</h5>
         <h5>quantity</h5>
         <h5>subtotal</h5>
-        <span></span>
+        <span />
       </div>
       <hr />
     </div>
@@ -17,4 +17,3 @@ const CartColumns: React.FC = () => {
 };
 
 export default CartColumns;
-

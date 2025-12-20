@@ -42,4 +42,3 @@ export const productDetailReducer = (
       return state;
   }
 };
-

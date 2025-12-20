@@ -1,10 +1,10 @@
 import React from 'react';
 import './CartItem.css';
-import AmountButtons from '../AmountButtons/AmountButtons';
 import { FaTrash } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import AmountButtons from '../AmountButtons/AmountButtons';
 import { formatPrice } from '../../utils/helpers';
 import { removeFromCart } from '../../actions/cartActions';
-import { useDispatch } from 'react-redux';
 // Types are now global - no import needed
 
 interface CartItemProps {
@@ -43,4 +43,3 @@ const CartItem: React.FC<CartItemProps> = ({ id, image, name, color, price, amou
 };
 
 export default CartItem;
-

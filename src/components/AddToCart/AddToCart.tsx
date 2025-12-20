@@ -46,7 +46,7 @@ const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
           id={id}
           currentqty={currentqty}
           setCurrentQty={setCurrentQty}
-          product={true}
+          product
         />
         <button
           className="btn"

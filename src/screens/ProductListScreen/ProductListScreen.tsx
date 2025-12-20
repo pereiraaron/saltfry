@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import './ProductListScreen.css';
+import { useDispatch, useSelector } from 'react-redux';
 import PageHero from '../../components/PageHero/PageHero';
 import Filters from '../../components/Filters/Filters';
 import Sort from '../../components/Sort/Sort';
-import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../../actions/productActions';
 import ProductList from '../../components/ProductList/ProductList';
 import Footer from '../../components/Footer.js/Footer';
@@ -39,4 +39,3 @@ const ProductListScreen: React.FC = () => {
 };
 
 export default ProductListScreen;
-

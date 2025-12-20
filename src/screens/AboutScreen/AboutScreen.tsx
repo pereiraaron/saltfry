@@ -13,7 +13,7 @@ const AboutScreen: React.FC = () => {
           <article>
             <div className="title">
               <h2>our story</h2>
-              <div className="underline"></div>
+              <div className="underline" />
             </div>
             <p>
               SaltFry began with a simple idea: furniture should be more than functional—it should
@@ -34,4 +34,3 @@ const AboutScreen: React.FC = () => {
 };
 
 export default AboutScreen;
-

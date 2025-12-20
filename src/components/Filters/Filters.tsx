@@ -49,7 +49,9 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
                   <button
                     key={index}
                     onClick={(e) => {
-                      dispatch(updateFilters(e.currentTarget.name, e.currentTarget.textContent) as $TSFixMe);
+                      dispatch(
+                        updateFilters(e.currentTarget.name, e.currentTarget.textContent) as $TSFixMe
+                      );
                     }}
                     type="button"
                     name="category"
@@ -94,7 +96,12 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
                       key={index}
                       name="color"
                       onClick={(e) => {
-                        dispatch(updateFilters(e.currentTarget.name, e.currentTarget.dataset.color) as $TSFixMe);
+                        dispatch(
+                          updateFilters(
+                            e.currentTarget.name,
+                            e.currentTarget.dataset.color
+                          ) as $TSFixMe
+                        );
                       }}
                       data-color="all"
                       className={`${color === 'all' ? 'all-btn active' : 'all-btn'}`}
@@ -110,7 +117,14 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
                     style={{ background: c }}
                     className={`${color === c ? 'color-btn active' : 'color-btn'}`}
                     data-color={c}
-                    onClick={(e) => dispatch(updateFilters(e.currentTarget.name, e.currentTarget.dataset.color) as $TSFixMe)}
+                    onClick={(e) =>
+                      dispatch(
+                        updateFilters(
+                          e.currentTarget.name,
+                          e.currentTarget.dataset.color
+                        ) as $TSFixMe
+                      )
+                    }
                   >
                     {color === c ? <FaCheck /> : null}
                   </button>
@@ -163,4 +177,3 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
 };
 
 export default Filters;
-

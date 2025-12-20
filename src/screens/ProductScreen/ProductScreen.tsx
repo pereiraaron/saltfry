@@ -76,4 +76,3 @@ const ProductScreen: React.FC = () => {
 };
 
 export default ProductScreen;
-

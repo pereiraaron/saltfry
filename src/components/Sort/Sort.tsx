@@ -15,9 +15,7 @@ interface SortProps {
   products: $TSFixMe[];
 }
 
-const Sort: React.FC<SortProps> = (props) => {
-  const unsortedProducts = props.products;
-
+const Sort: React.FC<SortProps> = ({ products: unsortedProducts }) => {
   const productScreen = useSelector((state: RootState) => state.productScreen);
   const { filteredProducts, sorttype, gridView } = productScreen;
 
@@ -30,7 +28,10 @@ const Sort: React.FC<SortProps> = (props) => {
   return (
     <section className="sort">
       <div className="btn-container">
-        <button onClick={() => dispatch(setGridView() as $TSFixMe)} className={`${gridView ? 'active' : ''}`}>
+        <button
+          onClick={() => dispatch(setGridView() as $TSFixMe)}
+          className={`${gridView ? 'active' : ''}`}
+        >
           <BsFillGridFill />
         </button>
         <button
@@ -64,4 +65,3 @@ const Sort: React.FC<SortProps> = (props) => {
 };
 
 export default Sort;
-

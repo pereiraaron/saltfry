@@ -32,4 +32,3 @@ const ListView: React.FC<ListViewProps> = ({ products }) => {
 };
 
 export default ListView;
-

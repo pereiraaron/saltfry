@@ -21,22 +21,22 @@ const ProductList: React.FC<ProductListProps> = ({ products, loading }) => {
     if (filteredProducts) {
       dispatch(applyFilters(filters, products) as $TSFixMe);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, dispatch]);
 
-  return (
-    <>
-      {loading ? (
-        <Loading />
-      ) : filteredProducts.length < 1 ? (
-        <h5 style={{ textTransform: 'none' }}>Sorry, no products matched your search.</h5>
-      ) : gridView === true ? (
-        <GridView products={filteredProducts} />
-      ) : (
-        <ListView products={filteredProducts} />
-      )}
-    </>
-  );
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (filteredProducts.length < 1) {
+    return <h5 style={{ textTransform: 'none' }}>Sorry, no products matched your search.</h5>;
+  }
+
+  if (gridView === true) {
+    return <GridView products={filteredProducts} />;
+  }
+
+  return <ListView products={filteredProducts} />;
 };
 
 export default ProductList;
-

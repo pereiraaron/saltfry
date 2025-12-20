@@ -17,4 +17,3 @@ const Message: React.FC<MessageProps> = ({ type, children }) => {
 };
 
 export default Message;
-

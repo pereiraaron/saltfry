@@ -30,4 +30,3 @@ export const clearFilters = (products: $TSFixMe[]) => (dispatch: $TSFixMe) => {
 export const applyFilters = (filters: $TSFixMe, products: $TSFixMe[]) => (dispatch: $TSFixMe) => {
   dispatch({ type: APPLY_FILTERS, payload: { filters, products } });
 };
-

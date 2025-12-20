@@ -48,7 +48,7 @@ export const productScreenReducer = (
           filters: { ...state.filters, max_price: maxPrice, price: maxPrice },
         };
       } catch (error) {
-        return { ...state, filteredProducts: [], error: error };
+        return { ...state, filteredProducts: [], error };
       }
     case SORT_HIGHEST_PRICE:
       const hightolowProducts = action.payload.sort((a: $TSFixMe, b: $TSFixMe) => {
@@ -140,4 +140,3 @@ export const productScreenReducer = (
       return state;
   }
 };
-

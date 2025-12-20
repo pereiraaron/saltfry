@@ -40,4 +40,3 @@ const CartTotals: React.FC<CartTotalsProps> = ({ itemsPrice, shippingPrice, tota
 };
 
 export default CartTotals;
-

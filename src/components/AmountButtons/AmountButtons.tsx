@@ -1,8 +1,8 @@
 import React from 'react';
 import './AmountButtons.css';
 import { FaPlus, FaMinus } from 'react-icons/fa';
-import { decrementProductQuantity, incrementProductQuantity } from '../../actions/cartActions';
 import { useDispatch } from 'react-redux';
+import { decrementProductQuantity, incrementProductQuantity } from '../../actions/cartActions';
 import { handleDecrement, handleIncrement } from '../../utils/helpers';
 // Types are now global - no import needed
 
@@ -14,7 +14,13 @@ interface AmountButtonsProps {
   setCurrentQty?: (qty: number) => void;
 }
 
-const AmountButtons: React.FC<AmountButtonsProps> = ({ currentqty, total, id, product, setCurrentQty }) => {
+const AmountButtons: React.FC<AmountButtonsProps> = ({
+  currentqty,
+  total,
+  id,
+  product,
+  setCurrentQty,
+}) => {
   const dispatch = useDispatch();
   return (
     <div className="amount-btns">
@@ -46,4 +52,3 @@ const AmountButtons: React.FC<AmountButtonsProps> = ({ currentqty, total, id, pr
 };
 
 export default AmountButtons;
-

@@ -60,4 +60,3 @@ const CartButtons: React.FC = () => {
 };
 
 export default CartButtons;
-

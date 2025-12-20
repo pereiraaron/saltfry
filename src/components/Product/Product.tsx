@@ -1,8 +1,8 @@
 import React from 'react';
 import './Product.css';
-import { formatPrice } from '../../utils/helpers';
 import { FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { formatPrice } from '../../utils/helpers';
 
 interface ProductProps {
   image: string;
@@ -29,4 +29,3 @@ const Product: React.FC<ProductProps> = ({ image, name, price, id }) => {
 };
 
 export default Product;
-

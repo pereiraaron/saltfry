@@ -21,4 +21,3 @@ const PageHero: React.FC<PageHeroProps> = ({ title, product }) => {
 };
 
 export default PageHero;
-
