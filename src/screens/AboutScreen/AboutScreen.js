@@ -19,16 +19,9 @@ const AboutScreen = () => {
               <div className="underline"></div>
             </div>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugiat
-              accusantium sapiente tempora sed dolore esse deserunt eaque
-              excepturi, delectus error accusamus vel eligendi, omnis beatae.
-              Quisquam, dicta. Eos quod quisquam esse recusandae vitae neque
-              dolore, obcaecati incidunt sequi blanditiis est exercitationem
-              molestiae delectus saepe odio eligendi modi porro eaque in libero
-              minus unde sapiente consectetur architecto. Ullam rerum, nemo iste
-              ex, eaque perspiciatis nisi, eum totam velit saepe sed quos
-              similique amet. Ex, voluptate accusamus nesciunt totam vitae esse
-              iste.
+              SaltFry began with a simple idea: furniture should be more than functional—it should feel personal. What started as a passion for well-designed interiors grew into a commitment to creating pieces that balance comfort, craftsmanship, and timeless style.
+              Every design is thoughtfully planned and carefully built using quality materials, with attention to detail at every step. We blend modern aesthetics with practical living to create furniture that fits seamlessly into everyday life.
+              As we grow, our focus remains the same: designing furniture that elevates your space, lasts for years, and truly feels like home.
             </p>
           </article>
         </section>

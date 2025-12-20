@@ -23,19 +23,19 @@ export const services = [
     id: 1,
     icon: <GiCompass />,
     title: "mission",
-    text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum velit autem unde numquam nisi",
+    text: "To create high-quality, thoughtfully designed furniture that enhances everyday living while remaining accessible and sustainable.",
   },
   {
     id: 2,
     icon: <GiDiamondHard />,
     title: "vision",
-    text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum velit autem unde numquam nisi",
+    text: "To become a trusted destination for modern interior furniture—where craftsmanship, comfort, and design come together seamlessly."
   },
   {
     id: 3,
     icon: <GiStabbedNote />,
     title: "history",
-    text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum velit autem unde numquam nisi",
+    text: "Founded with a passion for design and quality, SaltFry began as a small idea to make better furniture. Today, we continue that journey by blending traditional craftsmanship with contemporary aesthetics."
   },
 ];
 
