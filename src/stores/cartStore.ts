@@ -44,8 +44,8 @@ export const useCartStore = create<CartState>()(
           } else {
             set({ cartItems: [...get().cartItems, newItem] });
           }
-        } catch (error) {
-          console.log(error);
+        } catch {
+          // Error handled silently
         }
       },
 

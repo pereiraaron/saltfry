@@ -28,7 +28,9 @@ export const useAuthStore = create<AuthState>()(
           set({ loading: true, error: undefined });
 
           // TODO: Replace with actual authentication API call
-          await new Promise((resolve) => setTimeout(resolve, 500));
+          await new Promise<void>((resolve) => {
+            setTimeout(resolve, 500);
+          });
 
           const data: UserInfo = {
             id: Math.random().toString(36).substr(2, 9),
@@ -51,7 +53,9 @@ export const useAuthStore = create<AuthState>()(
           set({ registrationLoading: true, registrationError: undefined });
 
           // TODO: Replace with actual registration API call
-          await new Promise((resolve) => setTimeout(resolve, 500));
+          await new Promise<void>((resolve) => {
+            setTimeout(resolve, 500);
+          });
 
           const data: UserInfo = {
             id: Math.random().toString(36).substr(2, 9),

@@ -12,7 +12,12 @@ import AddToCart from '../../components/AddToCart/AddToCart';
 const ProductScreen: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { product, productLoading: loading, productError: error, fetchProductDetails } = useProductStore();
+  const {
+    product,
+    productLoading: loading,
+    productError: error,
+    fetchProductDetails,
+  } = useProductStore();
 
   const {
     name = '',

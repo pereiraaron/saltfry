@@ -14,7 +14,8 @@ interface SortProps {
 }
 
 const Sort: React.FC<SortProps> = ({ products: unsortedProducts }) => {
-  const { filteredProducts, sortType, gridView, setGridView, setListView, sortProducts } = useUIStore();
+  const { filteredProducts, sortType, gridView, setGridView, setListView, sortProducts } =
+    useUIStore();
 
   useEffect(() => {
     sortProducts(SORT_LOWEST_PRICE, unsortedProducts);
@@ -23,16 +24,10 @@ const Sort: React.FC<SortProps> = ({ products: unsortedProducts }) => {
   return (
     <section className="sort">
       <div className="btn-container">
-        <button
-          onClick={() => setGridView()}
-          className={`${gridView ? 'active' : ''}`}
-        >
+        <button onClick={() => setGridView()} className={`${gridView ? 'active' : ''}`}>
           <BsFillGridFill />
         </button>
-        <button
-          onClick={() => setListView()}
-          className={`${!gridView ? 'active' : ''}`}
-        >
+        <button onClick={() => setListView()} className={`${!gridView ? 'active' : ''}`}>
           <BsList />
         </button>
       </div>

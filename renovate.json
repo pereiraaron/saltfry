@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
+  "extends": ["config:recommended"],
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
@@ -10,11 +10,24 @@
     {
       "matchUpdateTypes": ["major"],
       "automerge": false
+    },
+    {
+      "groupName": "React",
+      "matchPackagePatterns": ["^react", "^@types/react"]
+    },
+    {
+      "groupName": "TypeScript & ESLint",
+      "matchPackagePatterns": ["typescript", "eslint", "@typescript-eslint"]
+    },
+    {
+      "groupName": "Vite",
+      "matchPackagePatterns": ["vite", "@vitejs"]
     }
   ],
   "prConcurrentLimit": 10,
-  "stabilityDays": 3,
+  "minimumReleaseAge": "3 days",
   "labels": ["dependencies"],
   "timezone": "Asia/Kolkata",
-  "dependencyDashboard": true
+  "dependencyDashboard": true,
+  "schedule": ["after 10pm and before 5am every weekday", "every weekend"]
 }
