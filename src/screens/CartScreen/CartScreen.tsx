@@ -1,31 +1,28 @@
 import React, { useEffect } from 'react';
 import './CartScreen.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
+import { useCartStore } from '../../stores';
 import PageHero from '../../components/PageHero/PageHero';
 import CartColumns from '../../components/CartColumns/CartColumns';
 import { formatPrice } from '../../utils/helpers';
-import { addToCart, clearCart, removeFromCart } from '../../actions/cartActions';
 import CartTotals from '../../components/CartTotals/CartTotals';
 import AmountButtons from '../../components/AmountButtons/AmountButtons';
 import Footer from '../../components/Footer.js/Footer';
-import { RootState } from '../../types';
 
 const CartScreen: React.FC = () => {
   const { id: productId } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
   const qty = location.search ? Number(location.search.split('=')[1]) : 1;
-  const dispatch = useDispatch();
-  const cart = useSelector((state: RootState) => state.cart);
-  const { cartItems } = cart;
+
+  const { cartItems, addToCart, removeFromCart, clearCart } = useCartStore();
 
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty) as $TSFixMe);
+      addToCart(productId, qty);
     }
-  }, [dispatch, productId, qty]);
+  }, [productId, qty, addToCart]);
 
   const itemsPrice = cartItems.reduce((acc, item) => {
     return acc + item.price * item.quantity;
@@ -75,7 +72,7 @@ const CartScreen: React.FC = () => {
                   <button className="remove-btn">
                     <FaTrash
                       onClick={() => {
-                        dispatch(removeFromCart(item.id) as $TSFixMe);
+                        removeFromCart(item.id);
                         if (cartItems.length === 1) {
                           navigate('/cart');
                         }
@@ -94,7 +91,7 @@ const CartScreen: React.FC = () => {
                 type="button"
                 className="link-btn clear-btn"
                 onClick={() => {
-                  dispatch(clearCart() as $TSFixMe);
+                  clearCart();
                   navigate('/cart');
                 }}
               >

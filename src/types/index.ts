@@ -43,11 +43,6 @@ export interface CartItem {
   stock: number;
 }
 
-export interface CartState {
-  cartItems: CartItem[];
-  error?: string;
-}
-
 // User Types
 export interface UserInfo {
   id: string;
@@ -55,81 +50,6 @@ export interface UserInfo {
   email: string;
   token: string;
 }
-
-export interface UserLoginState {
-  loading?: boolean;
-  userInfo: UserInfo | null;
-  error?: string;
-}
-
-export interface UserRegisterState {
-  loading?: boolean;
-  userInfo: UserInfo | null;
-  error?: string;
-}
-
-// Product List State
-export interface ProductListState {
-  loading?: boolean;
-  products: Product[];
-  error?: string;
-}
-
-// Product Detail State
-export interface ProductDetailState {
-  loading?: boolean;
-  product: Product | null;
-  error?: string;
-}
-
-// Product Screen State
-export interface ProductScreenState {
-  filteredProducts: $TSFixMe[];
-  type?: string;
-  gridView: boolean;
-  filters: {
-    filterkeyword: string;
-    company: string;
-    category: string;
-    color: string;
-    min_price: number;
-    max_price: number;
-    price: number;
-    shipping: boolean;
-  };
-  loading?: boolean;
-  error?: $TSFixMe;
-  sorttype?: string;
-}
-
-// Sidebar State
-export interface SidebarState {
-  isSidebarOpen: boolean;
-}
-
-// Root State
-export interface RootState {
-  sidebar: SidebarState;
-  userLogin: UserLoginState;
-  userRegister: UserRegisterState;
-  productList: ProductListState;
-  productDetails: ProductDetailState;
-  cart: CartState;
-  productScreen: ProductScreenState;
-}
-
-// Action Types
-export interface Action<T = $TSFixMe> {
-  type: string;
-  payload?: T;
-  error?: string;
-}
-
-// Thunk Types
-export type AppThunk<ReturnType = void> = (
-  dispatch: $TSFixMe,
-  getState: () => RootState
-) => ReturnType;
 
 // Link Type
 export interface Link {
