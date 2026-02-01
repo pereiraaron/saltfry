@@ -1,13 +1,11 @@
 import React from 'react';
 import './FeaturedProducts.css';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useProductStore } from '../../stores';
 import Loading from '../Loading/Loading';
-import { RootState } from '../../types';
 
 const FeaturedProducts: React.FC = () => {
-  const productList = useSelector((state: RootState) => state.productList);
-  const { loading, error } = productList;
+  const { productsLoading: loading, productsError: error } = useProductStore();
 
   // const featured_products = products.filter((product) => {
   //   return product.featured;

@@ -1,11 +1,9 @@
 import React from 'react';
 import './CartItem.css';
 import { FaTrash } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useCartStore } from '../../stores';
 import AmountButtons from '../AmountButtons/AmountButtons';
 import { formatPrice } from '../../utils/helpers';
-import { removeFromCart } from '../../actions/cartActions';
-// Types are now global - no import needed
 
 interface CartItemProps {
   id: string;
@@ -17,7 +15,7 @@ interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = ({ id, image, name, color, price, amount }) => {
-  const dispatch = useDispatch();
+  const { removeFromCart } = useCartStore();
 
   return (
     <article className="cart-item">
@@ -36,7 +34,7 @@ const CartItem: React.FC<CartItemProps> = ({ id, image, name, color, price, amou
       <AmountButtons currentqty={amount} total={99999} id={id} />
       <h5 className="subtotal">{formatPrice(price * amount)}</h5>
       <button className="remove-btn">
-        <FaTrash onClick={() => dispatch(removeFromCart(id) as $TSFixMe)} />
+        <FaTrash onClick={() => removeFromCart(id)} />
       </button>
     </article>
   );

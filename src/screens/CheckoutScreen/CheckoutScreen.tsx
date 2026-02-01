@@ -1,14 +1,12 @@
 import React from 'react';
 import './CheckoutScreen.css';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useCartStore } from '../../stores';
 import PageHero from '../../components/PageHero/PageHero';
 import StripeCheckout from '../../components/StripeCheckout/StripeCheckout';
-import { RootState } from '../../types';
 
 const CheckoutScreen: React.FC = () => {
-  const cart = useSelector((state: RootState) => state.cart);
-  const { cartItems } = cart;
+  const { cartItems } = useCartStore();
 
   return (
     <main className="checkout-screen">
