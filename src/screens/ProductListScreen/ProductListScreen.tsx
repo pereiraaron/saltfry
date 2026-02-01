@@ -1,23 +1,18 @@
 import React, { useEffect } from 'react';
 import './ProductListScreen.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useProductStore } from '../../stores';
 import PageHero from '../../components/PageHero/PageHero';
 import Filters from '../../components/Filters/Filters';
 import Sort from '../../components/Sort/Sort';
-import { listProducts } from '../../actions/productActions';
 import ProductList from '../../components/ProductList/ProductList';
 import Footer from '../../components/Footer.js/Footer';
-import { RootState } from '../../types';
 
 const ProductListScreen: React.FC = () => {
-  const dispatch = useDispatch();
-
-  const productList = useSelector((state: RootState) => state.productList);
-  const { products, loading } = productList;
+  const { products, productsLoading: loading, fetchProducts } = useProductStore();
 
   useEffect(() => {
-    dispatch(listProducts() as $TSFixMe);
-  }, [dispatch]);
+    fetchProducts();
+  }, [fetchProducts]);
 
   return (
     <>

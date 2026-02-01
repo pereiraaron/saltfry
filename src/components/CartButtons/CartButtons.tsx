@@ -1,21 +1,15 @@
 import React from 'react';
 import './CartButton.css';
 import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa';
-import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { closeSidebar } from '../../actions/sidebarActions';
-import { logout } from '../../actions/userActions';
-import { RootState } from '../../types';
+import { useAuthStore, useCartStore, useUIStore } from '../../stores';
 
 const CartButtons: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const userLogin = useSelector((state: RootState) => state.userLogin);
-  const { userInfo } = userLogin;
-
-  const cart = useSelector((state: RootState) => state.cart);
-  const { cartItems } = cart;
+  const { userInfo, logout } = useAuthStore();
+  const { cartItems } = useCartStore();
+  const { closeSidebar } = useUIStore();
 
   return (
     <div className="cart-btn-wrapper">
@@ -23,7 +17,7 @@ const CartButtons: React.FC = () => {
         to="/cart"
         className="cart-btn"
         onClick={() => {
-          dispatch(closeSidebar() as any);
+          closeSidebar();
         }}
       >
         Cart
@@ -37,8 +31,7 @@ const CartButtons: React.FC = () => {
           type="button"
           className="auth-btn"
           onClick={() => {
-            // clearCart();
-            dispatch(logout() as any);
+            logout();
           }}
         >
           Logout <FaUserMinus />
@@ -48,7 +41,7 @@ const CartButtons: React.FC = () => {
           type="button"
           className="auth-btn"
           onClick={() => {
-            dispatch(closeSidebar() as any);
+            closeSidebar();
             navigate('/login');
           }}
         >
