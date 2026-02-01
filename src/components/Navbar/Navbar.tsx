@@ -2,21 +2,17 @@ import React from 'react';
 import './Navbar.css';
 import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAuthStore, useUIStore } from '../../stores';
 import CartButtons from '../CartButtons/CartButtons';
 import { links } from '../../utils/constants';
-import { openSidebar } from '../../actions/sidebarActions';
 import { logo } from '../../assets';
-import { RootState } from '../../types';
 
 const Navbar: React.FC = () => {
-  const dispatch = useDispatch();
-
-  const userLogin = useSelector((state: RootState) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useAuthStore();
+  const { openSidebar } = useUIStore();
 
   const handleSidebar = () => {
-    dispatch(openSidebar() as any);
+    openSidebar();
   };
 
   return (

@@ -2,22 +2,16 @@ import React from 'react';
 import './Sidebar.css';
 import { Link } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAuthStore, useUIStore } from '../../stores';
 import { links } from '../../utils/constants';
 import CartButtons from '../CartButtons/CartButtons';
-import { closeSidebar } from '../../actions/sidebarActions';
-import { RootState } from '../../types';
 
 const Sidebar: React.FC = () => {
-  const dispatch = useDispatch();
-  const sidebar = useSelector((state: RootState) => state.sidebar);
-  const { isSidebarOpen } = sidebar;
-
-  const userLogin = useSelector((state: RootState) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { userInfo } = useAuthStore();
+  const { isSidebarOpen, closeSidebar } = useUIStore();
 
   const handleCloseSidebar = () => {
-    dispatch(closeSidebar() as any);
+    closeSidebar();
   };
 
   return (

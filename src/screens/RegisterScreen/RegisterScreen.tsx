@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './RegisterScreen.css';
-import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { register } from '../../actions/userActions';
+import { useAuthStore } from '../../stores';
 import Footer from '../../components/Footer.js/Footer';
 import Message from '../../components/Message/Message';
-import { RootState } from '../../types';
 
 const RegisterScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -14,12 +12,15 @@ const RegisterScreen: React.FC = () => {
   const [confirmpassword, setConfirmPassword] = useState('');
   const [errortype, setErrorType] = useState('');
   const [errormsg, setErrorMsg] = useState('');
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const userRegister = useSelector((state: RootState) => state.userRegister);
 
-  const { loading, error, userInfo } = userRegister;
+  const {
+    userInfo,
+    registrationLoading: loading,
+    registrationError: error,
+    register,
+  } = useAuthStore();
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
@@ -48,7 +49,7 @@ const RegisterScreen: React.FC = () => {
       setErrorType('error');
       setErrorMsg('Passwords do not match!');
     } else {
-      dispatch(register(name, email, password) as $TSFixMe);
+      register(name, email, password);
     }
   };
 

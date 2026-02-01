@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { applyFilters } from '../../actions/productScreenActions';
+import { useUIStore } from '../../stores';
 import GridView from '../GridView/GridView';
 import ListView from '../ListView/ListView';
 import Loading from '../Loading/Loading';
-import { RootState, Product } from '../../types';
+import { Product } from '../../types';
 
 interface ProductListProps {
   products: Product[];
@@ -12,17 +11,14 @@ interface ProductListProps {
 }
 
 const ProductList: React.FC<ProductListProps> = ({ products, loading }) => {
-  const dispatch = useDispatch();
-
-  const productScreen = useSelector((state: RootState) => state.productScreen);
-  const { filteredProducts, gridView, filters } = productScreen;
+  const { filteredProducts, gridView, filters, applyFilters } = useUIStore();
 
   useEffect(() => {
     if (filteredProducts) {
-      dispatch(applyFilters(filters, products) as $TSFixMe);
+      applyFilters(products);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, dispatch]);
+  }, [filters, applyFilters]);
 
   if (loading) {
     return <Loading />;
