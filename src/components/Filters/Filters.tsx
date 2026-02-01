@@ -1,22 +1,18 @@
 import React from 'react';
 import './Filters.css';
 import { FaCheck } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
-import { clearFilters, updateFilters } from '../../actions/productScreenActions';
+import { useUIStore } from '../../stores';
 import { formatPrice, getUniqueValues } from '../../utils/helpers';
-import { RootState } from '../../types';
+import { Product } from '../../types';
 
 interface FiltersProps {
-  products: $TSFixMe[];
+  products: Product[];
 }
 
 const Filters: React.FC<FiltersProps> = ({ products }) => {
-  const productScreen = useSelector((state: RootState) => state.productScreen);
-  const { filters } = productScreen;
+  const { filters, updateFilter, clearFilters } = useUIStore();
   const { filterkeyword, category, company, color, price, min_price, max_price, shipping } =
     filters;
-
-  const dispatch = useDispatch();
 
   const categories = getUniqueValues(products, 'category');
   const companies = getUniqueValues(products, 'company');
@@ -34,7 +30,7 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
               value={filterkeyword}
               placeholder="search"
               onChange={(e) => {
-                dispatch(updateFilters(e.target.name, e.target.value) as $TSFixMe);
+                updateFilter(e.target.name, e.target.value);
               }}
               className="search-input"
             />
@@ -49,9 +45,7 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
                   <button
                     key={index}
                     onClick={(e) => {
-                      dispatch(
-                        updateFilters(e.currentTarget.name, e.currentTarget.textContent) as $TSFixMe
-                      );
+                      updateFilter(e.currentTarget.name, e.currentTarget.textContent || '');
                     }}
                     type="button"
                     name="category"
@@ -71,7 +65,7 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
               name="company"
               value={company}
               onChange={(e) => {
-                dispatch(updateFilters(e.target.name, e.target.value) as $TSFixMe);
+                updateFilter(e.target.name, e.target.value);
               }}
               className="company"
             >
@@ -96,12 +90,7 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
                       key={index}
                       name="color"
                       onClick={(e) => {
-                        dispatch(
-                          updateFilters(
-                            e.currentTarget.name,
-                            e.currentTarget.dataset.color
-                          ) as $TSFixMe
-                        );
+                        updateFilter(e.currentTarget.name, e.currentTarget.dataset.color || '');
                       }}
                       data-color="all"
                       className={`${color === 'all' ? 'all-btn active' : 'all-btn'}`}
@@ -118,12 +107,7 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
                     className={`${color === c ? 'color-btn active' : 'color-btn'}`}
                     data-color={c}
                     onClick={(e) =>
-                      dispatch(
-                        updateFilters(
-                          e.currentTarget.name,
-                          e.currentTarget.dataset.color
-                        ) as $TSFixMe
-                      )
+                      updateFilter(e.currentTarget.name, e.currentTarget.dataset.color || '')
                     }
                   >
                     {color === c ? <FaCheck /> : null}
@@ -144,7 +128,7 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
               max={max_price}
               value={price}
               onChange={(e) => {
-                dispatch(updateFilters(e.target.name, Number(e.target.value)) as $TSFixMe);
+                updateFilter(e.target.name, Number(e.target.value));
               }}
             />
           </div>
@@ -157,7 +141,7 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
               name="shipping"
               id="shipping"
               checked={shipping}
-              onChange={(e) => dispatch(updateFilters(e.target.name, e.target.checked) as $TSFixMe)}
+              onChange={(e) => updateFilter(e.target.name, e.target.checked)}
             />
           </div>
           {/* end of  shipping */}
@@ -166,7 +150,7 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
           type="button"
           className="clear-btn"
           onClick={() => {
-            dispatch(clearFilters(products) as $TSFixMe);
+            clearFilters(products);
           }}
         >
           clear filters

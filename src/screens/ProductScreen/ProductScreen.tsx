@@ -1,22 +1,23 @@
 import React, { useEffect } from 'react';
 import './ProductScreen.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { listProductDetails } from '../../actions/productActions';
+import { useProductStore } from '../../stores';
 import PageHero from '../../components/PageHero/PageHero';
 import { formatPrice } from '../../utils/helpers';
 import ProductImages from '../../components/ProductImages/ProductImages';
 import Loading from '../../components/Loading/Loading';
 import Rating from '../../components/Rating/Rating';
 import AddToCart from '../../components/AddToCart/AddToCart';
-import { RootState } from '../../types';
 
 const ProductScreen: React.FC = () => {
-  const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
 
-  const productDetails = useSelector((state: RootState) => state.productDetails);
-  const { loading, error, product } = productDetails;
+  const {
+    product,
+    productLoading: loading,
+    productError: error,
+    fetchProductDetails,
+  } = useProductStore();
 
   const {
     name = '',
@@ -32,9 +33,9 @@ const ProductScreen: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      dispatch(listProductDetails(id) as $TSFixMe);
+      fetchProductDetails(id);
     }
-  }, [dispatch, id]);
+  }, [id, fetchProductDetails]);
 
   return loading ? (
     <Loading />
