@@ -7,9 +7,6 @@ jobs:
   build:
     name: Build Project
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
 
     steps:
       - name: Checkout code
@@ -20,7 +17,7 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
-          cache-dependency-path: "frontend/package-lock.json"
+          cache-dependency-path: "package-lock.json"
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
@@ -32,5 +29,5 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: build
-          path: frontend/dist/
+          path: build/
           retention-days: 7
