@@ -14,15 +14,17 @@ const CartScreen: React.FC = () => {
   const { id: productId } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
-  const qty = location.search ? Number(location.search.split('=')[1]) : 1;
+  const searchParams = new URLSearchParams(location.search);
+  const qty = Number(searchParams.get('qty')) || 1;
+  const color = searchParams.get('color') || '';
 
   const { cartItems, addToCart, removeFromCart, clearCart } = useCartStore();
 
   useEffect(() => {
-    if (productId) {
-      addToCart(productId, qty);
+    if (productId && color) {
+      addToCart(productId, qty, color);
     }
-  }, [productId, qty, addToCart]);
+  }, [productId, qty, color, addToCart]);
 
   const itemsPrice = cartItems.reduce((acc, item) => {
     return acc + item.price * item.quantity;

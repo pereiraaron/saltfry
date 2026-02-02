@@ -1,14 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import axios from 'axios';
 import { CartItem } from '../types';
-
-const url = import.meta.env.VITE_BASE_URL;
+import { products } from '../data/products';
 
 interface CartState {
   cartItems: CartItem[];
   error: string | undefined;
-  addToCart: (id: string, qty: number) => Promise<void>;
+  addToCart: (id: string, qty: number, color: string) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
   incrementQuantity: (id: string, currentQty: number, stock: number) => void;
@@ -22,30 +20,31 @@ export const useCartStore = create<CartState>()(
       cartItems: [],
       error: undefined,
 
-      addToCart: async (id: string, qty: number) => {
-        try {
-          const { data } = await axios.get(`${url}/react-store-single-product?id=${id}`);
-          const newItem: CartItem = {
-            id: data.id,
-            name: data.name,
-            image: data.images[0].url,
-            price: data.price,
-            color: data.color,
-            quantity: qty,
-            stock: data.stock,
-          };
+      addToCart: (id: string, qty: number, color: string) => {
+        const product = products.find((p) => p.id === id);
+        if (!product) {
+          set({ error: 'Product not found' });
+          return;
+        }
 
-          const existItem = get().cartItems.find((x) => x.id === newItem.id);
+        const newItem: CartItem = {
+          id: `${product.id}-${color}`,
+          name: product.name,
+          image: product.images[0].url,
+          price: product.price,
+          color,
+          quantity: qty,
+          stock: product.stock,
+        };
 
-          if (existItem) {
-            set({
-              cartItems: get().cartItems.map((x) => (x.id === existItem.id ? newItem : x)),
-            });
-          } else {
-            set({ cartItems: [...get().cartItems, newItem] });
-          }
-        } catch {
-          // Error handled silently
+        const existItem = get().cartItems.find((x) => x.id === newItem.id);
+
+        if (existItem) {
+          set({
+            cartItems: get().cartItems.map((x) => (x.id === existItem.id ? newItem : x)),
+          });
+        } else {
+          set({ cartItems: [...get().cartItems, newItem] });
         }
       },
 
