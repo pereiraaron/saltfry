@@ -18,7 +18,7 @@ const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
   const [currentqty, setCurrentQty] = useState(stock > 0 ? 1 : 0);
 
   const handleAddToCart = () => {
-    navigate(`/cart/${id}?qty=${currentqty}`);
+    navigate(`/cart/${id}?qty=${currentqty}&color=${encodeURIComponent(mainColor)}`);
   };
 
   return (

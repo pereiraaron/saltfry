@@ -39,7 +39,3 @@ export const services = [
     text: 'Founded with a passion for design and quality, SaltFry began as a small idea to make better furniture. Today, we continue that journey by blending traditional craftsmanship with contemporary aesthetics.',
   },
 ];
-
-export const products_url = 'https://course-api.com/react-store-products';
-
-export const single_product_url = `https://course-api.com/react-store-single-product?id=`;
