@@ -46,9 +46,12 @@ export interface CartItem {
 // User Types
 export interface UserInfo {
   id: string;
-  name: string;
+  username: string;
   email: string;
-  token: string;
+  role: string;
+  accessToken: string;
+  refreshToken: string;
+  refreshTokenExpiresAt: string;
 }
 
 // Link Type

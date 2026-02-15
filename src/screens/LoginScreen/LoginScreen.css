@@ -42,6 +42,45 @@
   margin-top: 20px;
 }
 
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+  color: #737373;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #737373;
+}
+
+.divider span {
+  padding: 0 12px;
+  font-size: 0.85rem;
+}
+
+.passkey-btn {
+  padding: 16px 20px;
+  font-size: 1rem;
+  color: #795744;
+  border-radius: 5px;
+  background-color: transparent;
+  font-weight: 600;
+  border: 2px solid #795744;
+  cursor: pointer;
+}
+
+.passkey-btn:hover {
+  background-color: rgba(121, 87, 68, 0.1);
+}
+
+.passkey-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .text-container {
   color: #737373;
   margin-top: 1rem;

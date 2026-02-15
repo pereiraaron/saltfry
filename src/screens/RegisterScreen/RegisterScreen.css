@@ -32,3 +32,20 @@
   cursor: pointer;
   margin-top: 20px;
 }
+
+.register-form > button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.skip-btn {
+  background-color: transparent !important;
+  color: #737373 !important;
+  border: 1px solid #737373 !important;
+  margin-top: 10px !important;
+}
+
+.skip-btn:hover {
+  color: #fff !important;
+  border-color: #fff !important;
+}
