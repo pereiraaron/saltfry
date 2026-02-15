@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { CartItem } from '../types';
-import { products } from '../data/products';
+import { useProductStore } from './productStore';
 
 interface CartState {
   cartItems: CartItem[];
@@ -21,6 +21,7 @@ export const useCartStore = create<CartState>()(
       error: undefined,
 
       addToCart: (id: string, qty: number, color: string) => {
+        const { products } = useProductStore.getState();
         const product = products.find((p) => p.id === id);
         if (!product) {
           set({ error: 'Product not found' });
@@ -30,11 +31,11 @@ export const useCartStore = create<CartState>()(
         const newItem: CartItem = {
           id: `${product.id}-${color}`,
           name: product.name,
-          image: product.images[0].url,
+          image: product.images?.[0]?.url ?? product.image,
           price: product.price,
           color,
           quantity: qty,
-          stock: product.stock,
+          stock: product.stock ?? 0,
         };
 
         const existItem = get().cartItems.find((x) => x.id === newItem.id);
