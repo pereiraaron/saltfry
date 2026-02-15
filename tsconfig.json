@@ -21,7 +21,23 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+
+    /* Path aliases */
+    "baseUrl": ".",
+    "paths": {
+      "@components": ["src/components"],
+      "@components/*": ["src/components/*"],
+      "@screens": ["src/screens"],
+      "@screens/*": ["src/screens/*"],
+      "@stores": ["src/stores"],
+      "@stores/*": ["src/stores/*"],
+      "@utils/*": ["src/utils/*"],
+      "@types": ["src/types"],
+      "@types/*": ["src/types/*"],
+      "@assets": ["src/assets"],
+      "@assets/*": ["src/assets/*"]
+    }
   },
   "include": ["src", "typings/**/*.d.ts", "vite.config.ts"]
 }

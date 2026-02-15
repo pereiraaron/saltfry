@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Product } from '../types';
+import { Product } from '@types';
 
 const API_URL = import.meta.env.VITE_API_URL;
 

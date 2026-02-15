@@ -1,5 +1,5 @@
 import { GiCompass, GiDiamondHard, GiStabbedNote } from 'react-icons/gi';
-import { Link } from '../types';
+import { Link } from '@types';
 
 export const links: Link[] = [
   {
