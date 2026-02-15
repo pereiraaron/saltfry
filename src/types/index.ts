@@ -19,16 +19,16 @@ export interface Product {
   name: string;
   price: number;
   image: string;
-  images: ProductImage[];
+  images?: ProductImage[];
   colors: string[];
   company: string;
   description: string;
   category: string;
-  shipping: boolean;
-  featured: boolean;
-  stock: number;
-  reviews: number;
-  stars: number;
+  shipping?: boolean;
+  featured?: boolean;
+  stock?: number;
+  reviews?: number;
+  stars?: number;
   color?: string;
 }
 

@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './FeaturedProducts.css';
 import { Link } from 'react-router-dom';
 import { useProductStore } from '../../stores';
 import Loading from '../Loading/Loading';
+import Product from '../Product/Product';
 
 const FeaturedProducts: React.FC = () => {
-  const { productsLoading: loading, productsError: error } = useProductStore();
+  const {
+    products,
+    productsLoading: loading,
+    productsError: error,
+    fetchProducts,
+  } = useProductStore();
 
-  // const featured_products = products.filter((product) => {
-  //   return product.featured;
-  // });
-
-  // useEffect(() => {
-  // dispatch(listProducts());
-  // }, [dispatch]);
+  useEffect(() => {
+    fetchProducts({ featured: true });
+  }, [fetchProducts]);
 
   return loading ? (
     <Loading />
@@ -26,9 +28,9 @@ const FeaturedProducts: React.FC = () => {
         <div className="underline" />
       </div>
       <div className="section-center featured">
-        {/* {featured_products.slice(0, 3).map((product) => {
+        {products.slice(0, 3).map((product) => {
           return <Product key={product.id} {...product} />;
-        })} */}
+        })}
       </div>
       <Link to="/products" className="btn">
         all products
