@@ -3,7 +3,7 @@ import { Product } from '../types';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-interface StrapiProduct {
+interface ApiProduct {
   id: number;
   attributes: {
     title: string;
@@ -18,12 +18,12 @@ interface StrapiProduct {
   };
 }
 
-interface StrapiResponse {
-  data: StrapiProduct[];
+interface ApiResponse {
+  data: ApiProduct[];
   meta: Record<string, unknown>;
 }
 
-const normalizeStrapiProduct = (item: StrapiProduct): Product => ({
+const normalizeApiProduct = (item: ApiProduct): Product => ({
   id: String(item.id),
   name: item.attributes.title,
   price: Number(item.attributes.price),
@@ -70,13 +70,12 @@ export const useProductStore = create<ProductState>()((set) => ({
       const data = await response.json();
       const products: Product[] = Array.isArray(data)
         ? data
-        : (data as StrapiResponse).data.map(normalizeStrapiProduct);
+        : (data as ApiResponse).data.map(normalizeApiProduct);
       set({ productsLoading: false, products });
     } catch (error) {
       set({
         productsLoading: false,
-        productsError:
-          error instanceof Error ? error.message : 'Failed to fetch products',
+        productsError: error instanceof Error ? error.message : 'Failed to fetch products',
       });
     }
   },
@@ -93,8 +92,7 @@ export const useProductStore = create<ProductState>()((set) => ({
     } catch (error) {
       set({
         productLoading: false,
-        productError:
-          error instanceof Error ? error.message : 'Product not found',
+        productError: error instanceof Error ? error.message : 'Product not found',
       });
     }
   },
