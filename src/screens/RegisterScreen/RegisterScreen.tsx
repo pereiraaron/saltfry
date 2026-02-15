@@ -19,20 +19,25 @@ const RegisterScreen: React.FC = () => {
     userInfo,
     registrationLoading: loading,
     registrationError: error,
+    registrationComplete,
+    passkeyLoading,
+    passkeyError,
     register,
+    registerPasskey,
+    logout,
   } = useAuthStore();
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo && !registrationComplete) {
       navigate(redirect);
     }
     if (error) {
       setErrorMsg(error);
       setErrorType('error');
     }
-  }, [navigate, userInfo, redirect, error]);
+  }, [navigate, userInfo, redirect, error, registrationComplete]);
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,6 +57,51 @@ const RegisterScreen: React.FC = () => {
       register(name, email, password);
     }
   };
+
+  const handleSetupPasskey = async () => {
+    await registerPasskey();
+    const { passkeyError: err } = useAuthStore.getState();
+    if (!err) {
+      await logout();
+      navigate('/login');
+    }
+  };
+
+  const handleSkipPasskey = async () => {
+    await logout();
+    navigate('/login');
+  };
+
+  // Show passkey setup prompt after successful registration
+  if (userInfo && registrationComplete) {
+    return (
+      <>
+        <div className="registerScreen">
+          <div className="register-form">
+            <h1>Set Up a Passkey</h1>
+            <p style={{ color: '#ccc', marginBottom: '1rem' }}>
+              Passkeys let you sign in securely without a password. Set one up now?
+            </p>
+            {passkeyError && <Message type="error">{passkeyError}</Message>}
+            <button type="button" onClick={handleSetupPasskey} disabled={passkeyLoading}>
+              {passkeyLoading ? 'Setting up...' : 'Set Up Passkey'}
+            </button>
+            <button
+              type="button"
+              className="skip-btn"
+              onClick={handleSkipPasskey}
+              disabled={passkeyLoading}
+            >
+              Skip for now
+            </button>
+          </div>
+        </div>
+        <div style={{ position: 'fixed', width: '100% ', bottom: 0 }}>
+          <Footer />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -95,7 +145,7 @@ const RegisterScreen: React.FC = () => {
               setConfirmPassword(e.target.value);
             }}
           />
-          <button type="submit">Sign Up</button>
+          <button type="submit">{loading ? 'Please wait...' : 'Sign Up'}</button>
           <div className="text-container">
             <span> Have an account?</span>{' '}
             <Link
@@ -108,7 +158,7 @@ const RegisterScreen: React.FC = () => {
               style={{ color: '#795744' }}
               to={redirect ? `/login?redirect=${redirect}` : '/login'}
             >
-              {loading ? 'Please wait....' : 'Log In'}
+              Log In
             </Link>
           </div>
         </form>

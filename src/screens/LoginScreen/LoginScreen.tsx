@@ -11,7 +11,8 @@ const LoginScreen: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { userInfo, loading, error, login } = useAuthStore();
+  const { userInfo, loading, error, passkeyLoading, passkeyError, login, loginWithPasskey } =
+    useAuthStore();
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
@@ -26,12 +27,17 @@ const LoginScreen: React.FC = () => {
     login(email, password);
   };
 
+  const handlePasskeyLogin = () => {
+    loginWithPasskey(email || undefined);
+  };
+
   return (
     <>
       <div className="signupScreen">
         <form onSubmit={handleSignIn} className="login-form">
           <h1>Sign In</h1>
-          {error && <Message type="error">Inavlid Credentials</Message>}
+          {error && <Message type="error">{error}</Message>}
+          {passkeyError && <Message type="error">{passkeyError}</Message>}
           <input
             type="email"
             placeholder="Email address"
@@ -50,9 +56,20 @@ const LoginScreen: React.FC = () => {
               setPassword(e.target.value);
             }}
           />
-          <button type="submit">{loading ? 'Logging In,Please Wait.....' : 'Sign In'}</button>
+          <button type="submit">{loading ? 'Logging In, Please Wait...' : 'Sign In'}</button>
+          <div className="divider">
+            <span>or</span>
+          </div>
+          <button
+            type="button"
+            className="passkey-btn"
+            onClick={handlePasskeyLogin}
+            disabled={passkeyLoading}
+          >
+            {passkeyLoading ? 'Waiting for Passkey...' : 'Sign in with Passkey'}
+          </button>
           <div className="text-container">
-            <span>Don't have an account?</span>{' '}
+            <span>Don&apos;t have an account?</span>{' '}
             <Link
               onClick={() => {
                 setEmail('');
