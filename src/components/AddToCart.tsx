@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import AmountButtons from '../AmountButtons/AmountButtons';
-import { Product } from '../../types';
+import { Product } from '@types';
+import AmountButtons from './AmountButtons';
 
 interface AddToCartProps {
   product: Product;

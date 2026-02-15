@@ -1,8 +1,8 @@
 import React from 'react';
 import { FaTrash } from 'react-icons/fa';
-import { useCartStore } from '../../stores';
-import AmountButtons from '../AmountButtons/AmountButtons';
-import { formatPrice } from '../../utils/helpers';
+import { useCartStore } from '@stores';
+import { formatPrice } from '@utils/helpers';
+import AmountButtons from './AmountButtons';
 
 interface CartItemProps {
   id: string;

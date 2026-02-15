@@ -1,8 +1,8 @@
 import React from 'react';
 import { FaCheck } from 'react-icons/fa';
-import { useUIStore } from '../../stores';
-import { formatPrice, getUniqueValues } from '../../utils/helpers';
-import { Product } from '../../types';
+import { useUIStore } from '@stores';
+import { formatPrice, getUniqueValues } from '@utils/helpers';
+import { Product } from '@types';
 
 interface FiltersProps {
   products: Product[];

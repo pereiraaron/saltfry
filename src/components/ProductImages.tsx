@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ProductImage } from '../../types';
+import { ProductImage } from '@types';
 
 interface ProductImagesProps {
   images?: ProductImage[];

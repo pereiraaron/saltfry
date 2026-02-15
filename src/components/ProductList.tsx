@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { useUIStore } from '../../stores';
-import GridView from '../GridView/GridView';
-import ListView from '../ListView/ListView';
-import Loading from '../Loading/Loading';
-import { Product } from '../../types';
+import { useUIStore } from '@stores';
+import { Product } from '@types';
+import GridView from './GridView';
+import ListView from './ListView';
+import Loading from './Loading';
 
 interface ProductListProps {
   products: Product[];

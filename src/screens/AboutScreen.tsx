@@ -1,8 +1,7 @@
 import React from 'react';
-import Footer from '../components/Footer.js/Footer';
-import PageHero from '../components/PageHero/PageHero';
+import { Footer, PageHero } from '@components';
 
-export const AboutScreen: React.FC = () => {
+const AboutScreen: React.FC = () => {
   return (
     <>
       <main>
@@ -42,3 +41,5 @@ export const AboutScreen: React.FC = () => {
     </>
   );
 };
+
+export default AboutScreen;

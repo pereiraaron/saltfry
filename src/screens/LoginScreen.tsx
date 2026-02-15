@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaKey } from 'react-icons/fa';
-import { useAuthStore } from '../stores';
-import Footer from '../components/Footer.js/Footer';
-import Message from '../components/Message/Message';
+import { useAuthStore } from '@stores';
+import { Footer, Message } from '@components';
 
-export const LoginScreen: React.FC = () => {
+const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -121,3 +120,5 @@ export const LoginScreen: React.FC = () => {
     </>
   );
 };
+
+export default LoginScreen;

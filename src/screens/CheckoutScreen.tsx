@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useCartStore } from '../stores';
-import PageHero from '../components/PageHero/PageHero';
-import StripeCheckout from '../components/StripeCheckout/StripeCheckout';
+import { useCartStore } from '@stores';
+import { PageHero, StripeCheckout } from '@components';
 
-export const CheckoutScreen: React.FC = () => {
+const CheckoutScreen: React.FC = () => {
   const { cartItems } = useCartStore();
 
   return (
@@ -25,3 +24,5 @@ export const CheckoutScreen: React.FC = () => {
     </main>
   );
 };
+
+export default CheckoutScreen;

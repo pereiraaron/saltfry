@@ -1,5 +1,5 @@
 import React from 'react';
-import { services } from '../../utils/constants';
+import { services } from '@utils/constants';
 
 const Services: React.FC = () => {
   return (

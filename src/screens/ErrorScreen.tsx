@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const ErrorScreen: React.FC = () => {
+const ErrorScreen: React.FC = () => {
   return (
     <main
       className="page-100 bg-primary-10 flex
@@ -17,3 +17,5 @@ export const ErrorScreen: React.FC = () => {
     </main>
   );
 };
+
+export default ErrorScreen;

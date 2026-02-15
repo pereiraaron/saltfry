@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaPlus, FaMinus } from 'react-icons/fa';
-import { useCartStore } from '../../stores';
-import { handleDecrement, handleIncrement } from '../../utils/helpers';
+import { useCartStore } from '@stores';
+import { handleDecrement, handleIncrement } from '@utils/helpers';
 
 interface AmountButtonsProps {
   currentqty: number;

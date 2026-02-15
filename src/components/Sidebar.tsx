@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
-import { useAuthStore, useUIStore } from '../../stores';
-import { links } from '../../utils/constants';
-import CartButtons from '../CartButtons/CartButtons';
+import { useAuthStore, useUIStore } from '@stores';
+import { links } from '@utils/constants';
+import CartButtons from './CartButtons';
 
 const Sidebar: React.FC = () => {
   const { userInfo } = useAuthStore();

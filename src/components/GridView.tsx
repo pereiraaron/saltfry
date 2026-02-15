@@ -1,6 +1,6 @@
 import React from 'react';
-import Product from '../Product/Product';
-import { Product as ProductType } from '../../types';
+import { Product as ProductType } from '@types';
+import Product from './Product';
 
 interface GridViewProps {
   products: ProductType[];

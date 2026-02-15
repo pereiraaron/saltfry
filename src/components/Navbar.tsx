@@ -1,10 +1,10 @@
 import React from 'react';
 import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useAuthStore, useUIStore } from '../../stores';
-import CartButtons from '../CartButtons/CartButtons';
-import { links } from '../../utils/constants';
-import { logo } from '../../assets';
+import { useAuthStore, useUIStore } from '@stores';
+import { links } from '@utils/constants';
+import { logo } from '@assets';
+import CartButtons from './CartButtons';
 
 const Navbar: React.FC = () => {
   const { userInfo } = useAuthStore();

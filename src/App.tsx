@@ -1,36 +1,16 @@
 import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
-import Sidebar from './components/Sidebar/Sidebar';
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import Loading from './components/Loading/Loading';
-import { HomeScreen } from './screens/HomeScreen';
+import { Navbar, Sidebar, ErrorBoundary, ProtectedRoute, Loading } from '@components';
+import { HomeScreen } from '@screens';
 
-const LoginScreen = lazy(() =>
-  import('./screens/LoginScreen').then((m) => ({ default: m.LoginScreen }))
-);
-const RegisterScreen = lazy(() =>
-  import('./screens/RegisterScreen').then((m) => ({ default: m.RegisterScreen }))
-);
-const AboutScreen = lazy(() =>
-  import('./screens/AboutScreen').then((m) => ({ default: m.AboutScreen }))
-);
-const ErrorScreen = lazy(() =>
-  import('./screens/ErrorScreen').then((m) => ({ default: m.ErrorScreen }))
-);
-const ProductScreen = lazy(() =>
-  import('./screens/ProductScreen').then((m) => ({ default: m.ProductScreen }))
-);
-const CartScreen = lazy(() =>
-  import('./screens/CartScreen').then((m) => ({ default: m.CartScreen }))
-);
-const ProductListScreen = lazy(() =>
-  import('./screens/ProductListScreen').then((m) => ({ default: m.ProductListScreen }))
-);
-const CheckoutScreen = lazy(() =>
-  import('./screens/CheckoutScreen').then((m) => ({ default: m.CheckoutScreen }))
-);
+const LoginScreen = lazy(() => import('@screens/LoginScreen'));
+const RegisterScreen = lazy(() => import('@screens/RegisterScreen'));
+const AboutScreen = lazy(() => import('@screens/AboutScreen'));
+const ErrorScreen = lazy(() => import('@screens/ErrorScreen'));
+const ProductScreen = lazy(() => import('@screens/ProductScreen'));
+const CartScreen = lazy(() => import('@screens/CartScreen'));
+const ProductListScreen = lazy(() => import('@screens/ProductListScreen'));
+const CheckoutScreen = lazy(() => import('@screens/CheckoutScreen'));
 
 function App() {
   return (

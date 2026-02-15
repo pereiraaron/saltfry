@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
 import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
-import { useCartStore } from '../stores';
-import PageHero from '../components/PageHero/PageHero';
-import CartColumns from '../components/CartColumns/CartColumns';
-import { formatPrice } from '../utils/helpers';
-import CartTotals from '../components/CartTotals/CartTotals';
-import AmountButtons from '../components/AmountButtons/AmountButtons';
-import Footer from '../components/Footer.js/Footer';
+import { useCartStore } from '@stores';
+import { formatPrice } from '@utils/helpers';
+import { PageHero, CartColumns, CartTotals, AmountButtons, Footer } from '@components';
 
-export const CartScreen: React.FC = () => {
+const CartScreen: React.FC = () => {
   const { id: productId } = useParams<{ id: string }>();
   const location = useLocation();
   const navigate = useNavigate();
@@ -179,3 +175,5 @@ export const CartScreen: React.FC = () => {
     </>
   );
 };
+
+export default CartScreen;

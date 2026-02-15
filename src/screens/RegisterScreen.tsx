@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuthStore } from '../stores';
-import Footer from '../components/Footer.js/Footer';
-import Message from '../components/Message/Message';
+import { useAuthStore } from '@stores';
+import { Footer, Message } from '@components';
 
-export const RegisterScreen: React.FC = () => {
+const RegisterScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -214,3 +213,5 @@ export const RegisterScreen: React.FC = () => {
     </>
   );
 };
+
+export default RegisterScreen;

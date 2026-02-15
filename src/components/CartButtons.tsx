@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthStore, useCartStore, useUIStore } from '../../stores';
+import { useAuthStore, useCartStore, useUIStore } from '@stores';
 
 const CartButtons: React.FC = () => {
   const navigate = useNavigate();

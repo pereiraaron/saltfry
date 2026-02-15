@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { heroBcg, heroBcg2 } from '../../assets';
+import { heroBcg, heroBcg2 } from '@assets';
 
 const Hero: React.FC = () => {
   return (

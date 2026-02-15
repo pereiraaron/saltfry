@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { startRegistration, startAuthentication } from '@simplewebauthn/browser';
-import { UserInfo } from '../types';
+import { UserInfo } from '@types';
 
 const AUTH_URL = import.meta.env.VITE_AUTH_BASE_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;

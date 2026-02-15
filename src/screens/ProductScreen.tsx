@@ -1,14 +1,10 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useProductStore } from '../stores';
-import PageHero from '../components/PageHero/PageHero';
-import { formatPrice } from '../utils/helpers';
-import ProductImages from '../components/ProductImages/ProductImages';
-import Loading from '../components/Loading/Loading';
-import Rating from '../components/Rating/Rating';
-import AddToCart from '../components/AddToCart/AddToCart';
+import { useProductStore } from '@stores';
+import { formatPrice } from '@utils/helpers';
+import { PageHero, ProductImages, Loading, Rating, AddToCart } from '@components';
 
-export const ProductScreen: React.FC = () => {
+const ProductScreen: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const {
@@ -99,3 +95,5 @@ export const ProductScreen: React.FC = () => {
     </main>
   );
 };
+
+export default ProductScreen;

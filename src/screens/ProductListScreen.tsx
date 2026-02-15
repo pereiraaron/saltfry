@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react';
-import { useProductStore } from '../stores';
-import PageHero from '../components/PageHero/PageHero';
-import Filters from '../components/Filters/Filters';
-import Sort from '../components/Sort/Sort';
-import ProductList from '../components/ProductList/ProductList';
-import Footer from '../components/Footer.js/Footer';
+import { useProductStore } from '@stores';
+import { PageHero, Filters, Sort, ProductList, Footer } from '@components';
 
-export const ProductListScreen: React.FC = () => {
+const ProductListScreen: React.FC = () => {
   const { products, productsLoading: loading, fetchProducts } = useProductStore();
 
   useEffect(() => {
@@ -35,3 +31,5 @@ export const ProductListScreen: React.FC = () => {
     </>
   );
 };
+
+export default ProductListScreen;

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BsFillGridFill, BsList } from 'react-icons/bs';
-import { useUIStore } from '../../stores';
-import { Product } from '../../types';
+import { useUIStore } from '@stores';
+import { Product } from '@types';
 
 const SORT_LOWEST_PRICE = 'SORT_LOWEST_PRICE';
 const SORT_HIGHEST_PRICE = 'SORT_HIGHEST_PRICE';

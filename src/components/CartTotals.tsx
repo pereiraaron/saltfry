@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { formatPrice } from '../../utils/helpers';
+import { formatPrice } from '@utils/helpers';
 
 interface CartTotalsProps {
   itemsPrice: number;

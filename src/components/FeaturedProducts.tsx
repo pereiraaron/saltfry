@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useProductStore } from '../../stores';
-import Loading from '../Loading/Loading';
-import Product from '../Product/Product';
+import { useProductStore } from '@stores';
+import Loading from './Loading';
+import Product from './Product';
 
 const FeaturedProducts: React.FC = () => {
   const {
