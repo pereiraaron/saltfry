@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './PageHero.css';
 
 interface PageHeroProps {
   title: string;
@@ -9,11 +8,24 @@ interface PageHeroProps {
 
 const PageHero: React.FC<PageHeroProps> = ({ title, product }) => {
   return (
-    <section className="page-hero">
+    <section className="bg-primary-10 w-full min-h-[16vh] flex items-center text-primary-1">
       <div className="section-center">
         <h3>
-          <Link to="/">Home </Link>
-          {product && <Link to="/products">/ Products</Link>}/ {title}
+          <Link
+            className="text-primary-3 p-2 transition-all duration-300 hover:text-primary-1"
+            to="/"
+          >
+            Home{' '}
+          </Link>
+          {product && (
+            <Link
+              className="text-primary-3 p-2 transition-all duration-300 hover:text-primary-1"
+              to="/products"
+            >
+              / Products
+            </Link>
+          )}
+          / {title}
         </h3>
       </div>
     </section>

@@ -1,15 +1,16 @@
 import React from 'react';
-import './Footer.css';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="footer-container">
-      <div className="footer">
-        <h5>
+    <footer>
+      <div className="h-12 relative flex justify-center items-center bg-black text-center w-full md:flex-row">
+        <h5 className="text-white m-0.5 font-normal normal-case leading-[1.25]">
           &copy; {new Date().getFullYear()}
-          <span> SaltFry </span>
+          <span className="text-primary-5"> SaltFry </span>
         </h5>
-        <h5>All rights reserved</h5>
+        <h5 className="text-white m-0.5 font-normal normal-case leading-[1.25]">
+          All rights reserved
+        </h5>
       </div>
     </footer>
   );

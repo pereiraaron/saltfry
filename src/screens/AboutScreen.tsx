@@ -1,21 +1,31 @@
 import React from 'react';
-import Footer from '../../components/Footer.js/Footer';
-import PageHero from '../../components/PageHero/PageHero';
-import './AboutScreen.css';
+import Footer from '../components/Footer.js/Footer';
+import PageHero from '../components/PageHero/PageHero';
 
-const AboutScreen: React.FC = () => {
+export const AboutScreen: React.FC = () => {
   return (
     <>
       <main>
         <PageHero title="about" />
-        <section className="page section section-center about">
-          <img src="/images/hero-bcg.jpeg" alt="nice desk" />
+        <section
+          className="page section section-center
+            grid gap-16 lg:grid-cols-2"
+        >
+          <img
+            src="/images/hero-bcg.jpeg"
+            alt="nice desk"
+            className="w-full block rounded-(--radius-default)
+              h-125 object-cover"
+          />
           <article>
-            <div className="title">
+            <div className="title text-left">
               <h2>our story</h2>
-              <div className="underline" />
+              <div className="underline ml-0!" />
             </div>
-            <p>
+            <p
+              className="leading-8 max-w-[45em] mx-auto
+                mt-8 text-grey-5"
+            >
               SaltFry began with a simple idea: furniture should be more than functional—it should
               feel personal. What started as a passion for well-designed interiors grew into a
               commitment to creating pieces that balance comfort, craftsmanship, and timeless style.
@@ -32,5 +42,3 @@ const AboutScreen: React.FC = () => {
     </>
   );
 };
-
-export default AboutScreen;

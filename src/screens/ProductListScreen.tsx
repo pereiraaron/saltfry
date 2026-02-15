@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
-import './ProductListScreen.css';
-import { useProductStore } from '../../stores';
-import PageHero from '../../components/PageHero/PageHero';
-import Filters from '../../components/Filters/Filters';
-import Sort from '../../components/Sort/Sort';
-import ProductList from '../../components/ProductList/ProductList';
-import Footer from '../../components/Footer.js/Footer';
+import { useProductStore } from '../stores';
+import PageHero from '../components/PageHero/PageHero';
+import Filters from '../components/Filters/Filters';
+import Sort from '../components/Sort/Sort';
+import ProductList from '../components/ProductList/ProductList';
+import Footer from '../components/Footer.js/Footer';
 
-const ProductListScreen: React.FC = () => {
+export const ProductListScreen: React.FC = () => {
   const { products, productsLoading: loading, fetchProducts } = useProductStore();
 
   useEffect(() => {
@@ -16,10 +15,14 @@ const ProductListScreen: React.FC = () => {
 
   return (
     <>
-      <main className="product-lists">
+      <main>
         <PageHero title="products" />
         <div className="page">
-          <div className="section-center products">
+          <div
+            className="section-center grid gap-y-12
+              gap-x-6 my-16 mx-auto
+              md:grid-cols-[200px_1fr]"
+          >
             <Filters products={products} />
             <div>
               <Sort products={products} />
@@ -32,5 +35,3 @@ const ProductListScreen: React.FC = () => {
     </>
   );
 };
-
-export default ProductListScreen;

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './Sort.css';
 import { BsFillGridFill, BsList } from 'react-icons/bs';
 import { useUIStore } from '../../stores';
 import { Product } from '../../types';
@@ -22,24 +21,32 @@ const Sort: React.FC<SortProps> = ({ products: unsortedProducts }) => {
   }, [unsortedProducts, sortProducts]);
 
   return (
-    <section className="sort">
-      <div className="btn-container">
-        <button onClick={() => setGridView()} className={`${gridView ? 'active' : ''}`}>
-          <BsFillGridFill />
+    <section className="grid grid-cols-1 gap-y-3 sm:grid-cols-[auto_auto_1fr_auto] sm:items-center sm:gap-x-8 mb-8">
+      <div className="grid grid-cols-2 gap-x-2 w-12.5 sm:w-auto">
+        <button
+          onClick={() => setGridView()}
+          className={`border border-black w-6 h-6 rounded flex items-center justify-center cursor-pointer ${gridView ? 'bg-black text-white' : 'bg-transparent text-black'}`}
+        >
+          <BsFillGridFill className="text-base" />
         </button>
-        <button onClick={() => setListView()} className={`${!gridView ? 'active' : ''}`}>
-          <BsList />
+        <button
+          onClick={() => setListView()}
+          className={`border border-black w-6 h-6 rounded flex items-center justify-center cursor-pointer ${!gridView ? 'bg-black text-white' : 'bg-transparent text-black'}`}
+        >
+          <BsList className="text-base" />
         </button>
       </div>
-      <p>{filteredProducts.length} products found</p>
+      <p className="capitalize mb-0!">{filteredProducts.length} products found</p>
       <hr />
       <form>
-        <label htmlFor="sort">sort by</label>
+        <label htmlFor="sort" className="text-base capitalize sm:mr-0 mr-2 inline-block sm:inline">
+          sort by
+        </label>
         <select
           name="sort"
           id="sort"
           value={sortType}
-          className="sort-input"
+          className="border-transparent text-base capitalize py-1 px-2"
           onChange={(e) => {
             sortProducts(e.target.value, filteredProducts);
           }}

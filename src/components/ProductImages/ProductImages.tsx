@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import './ProductImages.css';
 import { ProductImage } from '../../types';
 
 interface ProductImagesProps {
   images?: ProductImage[];
+  name?: string;
 }
 
-const ProductImages: React.FC<ProductImagesProps> = ({ images = [] }) => {
-  const [main, setMain] = useState<ProductImage | $TSFixMe>({});
+const ProductImages: React.FC<ProductImagesProps> = ({ images = [], name = 'Product' }) => {
+  const [main, setMain] = useState<ProductImage | null>(null);
 
   useEffect(() => {
     if (images.length > 0) {
@@ -16,16 +16,24 @@ const ProductImages: React.FC<ProductImagesProps> = ({ images = [] }) => {
   }, [images]);
 
   return (
-    <div className="product-images">
-      <img src={main.url} alt="" className="main" />
-      <div className="gallery">
+    <div>
+      {main && (
+        <img
+          src={main.url}
+          alt={name}
+          className="h-150 w-full block rounded-default object-cover"
+        />
+      )}
+      <div className="mt-4 grid grid-cols-5 gap-x-4">
         {images.map((image, index) => {
           return (
             <img
               src={image.url}
-              alt=""
+              alt={`${name} view ${index + 1}`}
               key={index}
-              className={`${image.url === main.url ? 'active' : ''}`}
+              className={`w-full block rounded-default object-cover h-25 cursor-pointer ${
+                image.url === main?.url ? 'border-2 border-primary-5' : ''
+              }`}
               onClick={() => setMain(images[index])}
             />
           );

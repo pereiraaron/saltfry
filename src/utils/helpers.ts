@@ -1,4 +1,4 @@
-// Types are now global - no import needed
+import { Product } from '../types';
 
 export const formatPrice = (number: number): string => {
   return new Intl.NumberFormat('en-US', {
@@ -7,13 +7,13 @@ export const formatPrice = (number: number): string => {
   }).format(number / 100);
 };
 
-export const getUniqueValues = (data: $TSFixMe[], type: string): $TSFixMe[] => {
-  let unique = data.map((item) => item[type]);
+export const getUniqueValues = (data: Product[], type: keyof Product): string[] => {
+  let unique: unknown[] = data.map((item) => item[type]);
   if (type === 'colors') {
     unique = unique.flat();
   }
 
-  return ['all', ...new Set(unique)];
+  return ['all', ...new Set(unique as string[])];
 };
 
 export const handleIncrement = (currentqty: number, total: number): number => {

@@ -1,16 +1,15 @@
 import React from 'react';
 import Product from '../Product/Product';
-import './GridView.css';
-// Types are now global - no import needed
+import { Product as ProductType } from '../../types';
 
 interface GridViewProps {
-  products: $TSFixMe[];
+  products: ProductType[];
 }
 
 const GridView: React.FC<GridViewProps> = ({ products }) => {
   return (
-    <section className="grid-view">
-      <div className="products-container">
+    <section className="[&_img]:h-43.75">
+      <div className="grid gap-y-8 gap-x-6 lg:grid-cols-2 xl:grid-cols-3">
         {products.map((product) => {
           return <Product key={product.id} {...product} />;
         })}

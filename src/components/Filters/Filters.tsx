@@ -1,5 +1,4 @@
 import React from 'react';
-import './Filters.css';
 import { FaCheck } from 'react-icons/fa';
 import { useUIStore } from '../../stores';
 import { formatPrice, getUniqueValues } from '../../utils/helpers';
@@ -19,11 +18,11 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
   const colors = getUniqueValues(products, 'colors');
 
   return (
-    <section className="filters">
-      <div className="content">
+    <section>
+      <div className="md:sticky md:top-4">
         <form onSubmit={(e) => e.preventDefault()}>
           {/* search input */}
-          <div className="form-control">
+          <div className="mb-5">
             <input
               type="text"
               name="filterkeyword"
@@ -32,15 +31,15 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
               onChange={(e) => {
                 updateFilter(e.target.name, e.target.value);
               }}
-              className="search-input"
+              className="p-2 bg-grey-10 rounded border-transparent tracking-widest placeholder:capitalize"
             />
           </div>
           {/* end of search input */}
           {/* category */}
-          <div className="form-control">
-            <h5>category</h5>
+          <div className="mb-5">
+            <h5 className="mb-2">category</h5>
             <div>
-              {categories.map((categoryname: $TSFixMe, index: number) => {
+              {categories.map((categoryname: string, index: number) => {
                 return (
                   <button
                     key={index}
@@ -49,7 +48,7 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
                     }}
                     type="button"
                     name="category"
-                    className={`${category === categoryname.toLowerCase() ? 'active' : ''}`}
+                    className={`block my-1 py-1 capitalize bg-transparent border-none border-b border-b-transparent tracking-widest text-grey-5 cursor-pointer ${category === categoryname.toLowerCase() ? 'border-b-grey-5' : ''}`}
                   >
                     {categoryname}
                   </button>
@@ -59,17 +58,17 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
           </div>
           {/* end of category */}
           {/* company */}
-          <div className="form-control">
-            <h5>company</h5>
+          <div className="mb-5">
+            <h5 className="mb-2">company</h5>
             <select
               name="company"
               value={company}
               onChange={(e) => {
                 updateFilter(e.target.name, e.target.value);
               }}
-              className="company"
+              className="bg-grey-10 rounded border-transparent p-1"
             >
-              {companies.map((companyname: $TSFixMe, index: number) => {
+              {companies.map((companyname: string, index: number) => {
                 return (
                   <option key={index} value={companyname}>
                     {companyname}
@@ -80,10 +79,10 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
           </div>
           {/* end of company */}
           {/* colors */}
-          <div className="form-control">
-            <h5>colors</h5>
-            <div className="colors">
-              {colors.map((c: $TSFixMe, index: number) => {
+          <div className="mb-5">
+            <h5 className="mb-2">colors</h5>
+            <div className="flex items-center">
+              {colors.map((c: string, index: number) => {
                 if (c === 'all') {
                   return (
                     <button
@@ -93,7 +92,7 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
                         updateFilter(e.currentTarget.name, e.currentTarget.dataset.color || '');
                       }}
                       data-color="all"
-                      className={`${color === 'all' ? 'all-btn active' : 'all-btn'}`}
+                      className={`flex items-center justify-center mr-2 bg-transparent border-none border-b border-b-transparent tracking-widest text-grey-5 cursor-pointer capitalize ${color === 'all' ? 'opacity-100' : 'opacity-50'}`}
                     >
                       all
                     </button>
@@ -104,13 +103,13 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
                     key={index}
                     name="color"
                     style={{ background: c }}
-                    className={`${color === c ? 'color-btn active' : 'color-btn'}`}
+                    className={`inline-flex w-4 h-4 rounded-full mr-2 border-none cursor-pointer items-center justify-center ${color === c ? 'opacity-100' : 'opacity-50'}`}
                     data-color={c}
                     onClick={(e) =>
                       updateFilter(e.currentTarget.name, e.currentTarget.dataset.color || '')
                     }
                   >
-                    {color === c ? <FaCheck /> : null}
+                    {color === c ? <FaCheck className="text-[0.5rem] text-white" /> : null}
                   </button>
                 );
               })}
@@ -118,9 +117,9 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
           </div>
           {/* end of colors */}
           {/* price */}
-          <div className="form-control">
-            <h5>price</h5>
-            <p className="price">{formatPrice(price)}</p>
+          <div className="mb-5">
+            <h5 className="mb-2">price</h5>
+            <p className="mb-1">{formatPrice(price)}</p>
             <input
               type="range"
               name="price"
@@ -134,21 +133,33 @@ const Filters: React.FC<FiltersProps> = ({ products }) => {
           </div>
           {/* end of price */}
           {/* shipping */}
-          <div className="form-control shipping">
-            <label htmlFor="shipping">free shipping</label>
-            <input
-              type="checkbox"
-              name="shipping"
+          <div className="mb-5 flex items-center gap-x-2 text-base">
+            <label htmlFor="shipping" className="capitalize select-none cursor-pointer">
+              free shipping
+            </label>
+            <button
+              type="button"
               id="shipping"
-              checked={shipping}
-              onChange={(e) => updateFilter(e.target.name, e.target.checked)}
-            />
+              role="switch"
+              aria-checked={shipping}
+              aria-label="Free shipping"
+              onClick={() => updateFilter('shipping', !shipping)}
+              className={`relative inline-flex h-4 w-7 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ${
+                shipping ? 'bg-primary-5' : 'bg-grey-6'
+              }`}
+            >
+              <span
+                className={`pointer-events-none inline-block h-3 w-3 rounded-full bg-white shadow-sm transition-transform duration-200 ${
+                  shipping ? 'translate-x-3' : 'translate-x-0'
+                }`}
+              />
+            </button>
           </div>
           {/* end of  shipping */}
         </form>
         <button
           type="button"
-          className="clear-btn"
+          className="bg-red-dark text-white py-1 px-2 rounded cursor-pointer"
           onClick={() => {
             clearFilters(products);
           }}

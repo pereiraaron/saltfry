@@ -1,3 +1,5 @@
+import React from 'react';
+
 // Product Types
 export interface ProductImage {
   id: string;
@@ -64,7 +66,7 @@ export interface Link {
 // Service Type
 export interface Service {
   id: number;
-  icon: $TSFixMe;
+  icon: React.ReactNode;
   title: string;
   text: string;
 }

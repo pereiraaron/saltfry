@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './FeaturedProducts.css';
 import { Link } from 'react-router-dom';
 import { useProductStore } from '../../stores';
 import Loading from '../Loading/Loading';
@@ -22,17 +21,17 @@ const FeaturedProducts: React.FC = () => {
   ) : error ? (
     'Error'
   ) : (
-    <section className="featured-products">
+    <section className="py-20 bg-grey-10">
       <div className="title">
         <h2>featured products</h2>
         <div className="underline" />
       </div>
-      <div className="section-center featured">
+      <div className="section-center my-16 grid gap-10 sm:grid-cols-[repeat(auto-fit,minmax(360px,1fr))] [&_img]:h-56.25">
         {products.slice(0, 3).map((product) => {
           return <Product key={product.id} {...product} />;
         })}
       </div>
-      <Link to="/products" className="btn">
+      <Link to="/products" className="btn block w-37 mx-auto text-center">
         all products
       </Link>
     </section>

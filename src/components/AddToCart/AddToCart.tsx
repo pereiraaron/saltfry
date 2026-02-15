@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import './AddToCart.css';
 import { FaCheck } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import AmountButtons from '../AmountButtons/AmountButtons';
-// Types are now global - no import needed
+import { Product } from '../../types';
 
 interface AddToCartProps {
-  product: $TSFixMe;
+  product: Product;
 }
 
 const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
   const navigate = useNavigate();
-  console.log(product);
-  const { id, stock, colors } = product;
+  const { id, stock = 0, colors } = product;
 
   const [mainColor, setMainColor] = useState(colors[0]);
   const [currentqty, setCurrentQty] = useState(stock > 0 ? 1 : 0);
@@ -22,25 +20,27 @@ const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
   };
 
   return (
-    <section className="addtocart">
-      <div className="colors">
-        <span>colors :</span>
-        <div>
+    <section className="mt-8">
+      <div className="grid grid-cols-[125px_1fr] items-center mb-4">
+        <span className="capitalize font-bold">colors :</span>
+        <div className="flex">
           {colors.map((color: string, index: number) => {
             return (
               <button
                 key={index}
                 style={{ background: color }}
-                className={`${mainColor === color ? 'color-btn active' : 'color-btn'}`}
+                className={`w-6 h-6 rounded-full mr-2 border-none cursor-pointer flex items-center justify-center ${
+                  mainColor === color ? 'opacity-100' : 'opacity-50'
+                }`}
                 onClick={() => setMainColor(color)}
               >
-                {mainColor === color ? <FaCheck /> : null}
+                {mainColor === color ? <FaCheck className="text-xs text-white" /> : null}
               </button>
             );
           })}
         </div>
       </div>
-      <div className="btn-container">
+      <div className="mt-8">
         <AmountButtons
           total={stock}
           id={id}
@@ -48,11 +48,7 @@ const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
           setCurrentQty={setCurrentQty}
           product
         />
-        <button
-          className="btn"
-          onClick={handleAddToCart}
-          style={{ marginTop: '1rem', width: '140px' }}
-        >
+        <button type="button" className="btn mt-4 w-35" onClick={handleAddToCart}>
           add to cart
         </button>
       </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import './AmountButtons.css';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { useCartStore } from '../../stores';
 import { handleDecrement, handleIncrement } from '../../utils/helpers';
@@ -22,10 +21,11 @@ const AmountButtons: React.FC<AmountButtonsProps> = ({
   const { incrementQuantity, decrementQuantity } = useCartStore();
 
   return (
-    <div className="amount-btns">
+    <div className="grid w-35 place-items-center grid-cols-3 items-center">
       <button
         type="button"
-        className="amount-btn"
+        aria-label="Decrease quantity"
+        className="bg-transparent border-transparent cursor-pointer py-4 px-0 w-8 h-4 flex items-center justify-center"
         onClick={() => {
           product
             ? setCurrentQty?.(handleDecrement(currentqty))
@@ -34,10 +34,11 @@ const AmountButtons: React.FC<AmountButtonsProps> = ({
       >
         <FaMinus />
       </button>
-      <h2 className="amount">{currentqty}</h2>
+      <h2 className="mb-0">{currentqty}</h2>
       <button
         type="button"
-        className="amount-btn"
+        aria-label="Increase quantity"
+        className="bg-transparent border-transparent cursor-pointer py-4 px-0 w-8 h-4 flex items-center justify-center"
         onClick={() =>
           product
             ? setCurrentQty?.(handleIncrement(currentqty, total))
