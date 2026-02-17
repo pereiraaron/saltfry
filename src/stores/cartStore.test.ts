@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { authFetch, getAuthToken } from '@utils/authFetch';
 import { useCartStore } from './cartStore';
 
 vi.mock('@utils/authFetch', () => ({
@@ -30,8 +31,6 @@ vi.mock('./productStore', () => ({
     })),
   },
 }));
-
-import { authFetch, getAuthToken } from '@utils/authFetch';
 
 const mockAuthFetch = vi.mocked(authFetch);
 const mockGetAuthToken = vi.mocked(getAuthToken);
@@ -215,10 +214,9 @@ describe('removeFromCart', () => {
 
     await useCartStore.getState().removeFromCart('prod-1-#000');
 
-    expect(mockAuthFetch).toHaveBeenCalledWith(
-      'http://test-api/cart/prod-1?color=%23000',
-      { method: 'DELETE' }
-    );
+    expect(mockAuthFetch).toHaveBeenCalledWith('http://test-api/cart/prod-1?color=%23000', {
+      method: 'DELETE',
+    });
     expect(useCartStore.getState().cartItems).toHaveLength(0);
     expect(useCartStore.getState().loadingItems.size).toBe(0);
   });
@@ -262,9 +260,7 @@ describe('incrementQuantity', () => {
 
     useCartStore.getState().incrementQuantity('prod-1-#000', 10, 10);
 
-    expect(useCartStore.getState().error).toBe(
-      'There are no more products available in stock'
-    );
+    expect(useCartStore.getState().error).toBe('There are no more products available in stock');
     expect(useCartStore.getState().cartItems[0].quantity).toBe(10);
   });
 });

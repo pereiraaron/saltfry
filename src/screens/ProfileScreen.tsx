@@ -134,9 +134,7 @@ const ProfileScreen: React.FC = () => {
             <h4 className="mb-4 capitalize">account</h4>
             <div className="mb-3">
               <p className="text-xs text-grey-5 mb-0.5">Name</p>
-              <p className="text-sm font-medium mb-0 capitalize">
-                {userInfo?.username || 'User'}
-              </p>
+              <p className="text-sm font-medium mb-0 capitalize">{userInfo?.username || 'User'}</p>
             </div>
             <div>
               <p className="text-xs text-grey-5 mb-0.5">Email</p>

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { formatPrice, getUniqueValues, handleIncrement, handleDecrement } from './helpers';
 import { Product } from '@types';
+import { formatPrice, getUniqueValues, handleIncrement, handleDecrement } from './helpers';
 
 describe('formatPrice', () => {
   it('formats zero', () => {

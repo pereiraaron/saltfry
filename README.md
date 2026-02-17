@@ -1,21 +1,48 @@
 # SaltFry
 
-Live Demo : https://saltfry-c9375.web.app/
+Live Demo: https://saltfry-c9375.web.app/
+
+An e-commerce furniture store built with React 19, TypeScript, and Tailwind CSS v4.
+
+## Tech Stack
+
+- **React 19** with React Compiler for automatic memoization
+- **TypeScript** with strict mode
+- **Tailwind CSS v4** (Vite plugin)
+- **Zustand** for state management (persisted auth/cart)
+- **React Router v7** for client-side routing
+- **Vite** for dev server and production builds
+- **Vitest** for unit testing
+- **WebAuthn / Passkeys** via `@simplewebauthn/browser`
 
 ## Getting Started
 
-This project has been migrated from Create React App to Vite for faster development and build times.
+```bash
+npm install
+```
+
+Copy `.env.example` to `.env` and fill in the values:
+
+```bash
+cp .env.example .env
+```
+
+### Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `VITE_APP_TITLE` | App title |
+| `VITE_API_URL` | Backend API base URL |
+| `VITE_AUTH_BASE_URL` | Authentication service base URL |
+| `VITE_API_KEY` | API key for the auth service |
+
+All `VITE_` variables are validated at runtime — the app will throw if any required variable is missing.
 
 ### Development
 
 ```bash
-npm install
 npm start
-# or
-npm run dev
 ```
-
-The development server will start at http://localhost:3000
 
 ### Build
 
@@ -23,48 +50,21 @@ The development server will start at http://localhost:3000
 npm run build
 ```
 
-The production build will be created in the `build` folder.
+Output goes to the `build` folder.
 
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-### Code Formatting & Linting
-
-This project uses Prettier with Airbnb style guide for code formatting and ESLint for linting.
+### Testing
 
 ```bash
-# Format all files
-npm run format
-
-# Check formatting without making changes
-npm run format:check
-
-# Lint JavaScript/JSX files
-npm run lint
-
-# Lint and auto-fix issues
-npm run lint:fix
+npm run test          # single run
+npm run test:watch    # watch mode
 ```
 
-## Environment Variables
+### Linting & Formatting
 
-Environment variables must be prefixed with `VITE_` instead of `REACT_APP_`:
-
-- `VITE_BASE_URL` - Base URL for API calls
-
-Create a `.env` file in the root directory:
-
+```bash
+npm run lint          # check for lint issues
+npm run lint:fix      # auto-fix lint issues
+npm run format        # format with Prettier
+npm run format:check  # check formatting
+npm run type-check    # TypeScript type check
 ```
-VITE_BASE_URL=your_api_base_url_here
-```
-
-## Firebase Configuration
-
-Copy `src/firebase.example.js` to `src/firebase.js` and add your Firebase configuration.
-
-## React Compiler
-
-This project uses the React Compiler (experimental) for automatic performance optimizations. The compiler automatically memoizes components and reduces unnecessary re-renders without manual optimization.

@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { authFetch } from '@utils/authFetch';
 import { useOrderStore } from './orderStore';
 
 vi.mock('@utils/authFetch', () => ({
@@ -8,8 +9,6 @@ vi.mock('@utils/authFetch', () => ({
 vi.mock('@utils/api', () => ({
   API_URL: 'http://test-api/',
 }));
-
-import { authFetch } from '@utils/authFetch';
 
 const mockAuthFetch = vi.mocked(authFetch);
 
