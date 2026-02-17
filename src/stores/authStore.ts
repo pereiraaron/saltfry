@@ -1,10 +1,17 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { startRegistration, startAuthentication } from '@simplewebauthn/browser';
-import { UserInfo } from '@types';
+import { UserInfo, PasskeyCredential } from '@types';
 
 const AUTH_URL = import.meta.env.VITE_AUTH_BASE_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
+
+if (!AUTH_URL) {
+  throw new Error('VITE_AUTH_BASE_URL is not defined. Check your .env file.');
+}
+if (!API_KEY) {
+  throw new Error('VITE_API_KEY is not defined. Check your .env file.');
+}
 
 const publicHeaders = {
   'x-api-key': API_KEY,
@@ -26,12 +33,17 @@ interface AuthState {
   passkeyError: string | undefined;
   passkeySetupRequired: boolean;
   registrationComplete: boolean;
+  passkeys: PasskeyCredential[];
+  passkeysLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   refreshAccessToken: () => Promise<void>;
   loginWithPasskey: (email?: string) => Promise<void>;
   registerPasskey: (name?: string) => Promise<void>;
+  fetchPasskeys: () => Promise<void>;
+  deletePasskey: (id: string) => Promise<void>;
+  renamePasskey: (id: string, name: string) => Promise<void>;
   clearError: () => void;
 }
 
@@ -47,6 +59,8 @@ export const useAuthStore = create<AuthState>()(
       passkeyError: undefined,
       passkeySetupRequired: false,
       registrationComplete: false,
+      passkeys: [],
+      passkeysLoading: false,
 
       login: async (email: string, password: string) => {
         try {
@@ -128,7 +142,31 @@ export const useAuthStore = create<AuthState>()(
             // Logout locally even if server call fails
           }
         }
-        set({ userInfo: null, passkeySetupRequired: false, registrationComplete: false });
+        set({
+          userInfo: null,
+          passkeySetupRequired: false,
+          registrationComplete: false,
+          passkeys: [],
+          passkeysLoading: false,
+        });
+
+        // Clear other stores to prevent data leakage between users
+        const { useCartStore } = await import('./cartStore');
+        const { useOrderStore } = await import('./orderStore');
+        useCartStore.setState({
+          cartItems: [],
+          cartLoading: false,
+          loadingItems: new Set(),
+          clearingCart: false,
+          error: undefined,
+        });
+        useOrderStore.setState({
+          orders: [],
+          currentOrder: null,
+          loading: false,
+          checkoutLoading: false,
+          error: undefined,
+        });
       },
 
       refreshAccessToken: async () => {
@@ -262,6 +300,83 @@ export const useAuthStore = create<AuthState>()(
           set({
             passkeyLoading: false,
             passkeyError: error instanceof Error ? error.message : 'Passkey registration failed',
+          });
+        }
+      },
+
+      fetchPasskeys: async () => {
+        const { userInfo } = get();
+        if (!userInfo) return;
+
+        try {
+          set({ passkeysLoading: true, passkeyError: undefined });
+          const res = await fetch(`${AUTH_URL}/auth/passkey/credentials`, {
+            headers: authHeaders(userInfo.accessToken),
+          });
+
+          const data = await res.json();
+          if (!res.ok) {
+            throw new Error(data.message || 'Failed to fetch passkeys');
+          }
+
+          set({ passkeys: data.credentials, passkeysLoading: false });
+        } catch (error) {
+          set({
+            passkeysLoading: false,
+            passkeyError: error instanceof Error ? error.message : 'Failed to fetch passkeys',
+          });
+        }
+      },
+
+      deletePasskey: async (id: string) => {
+        const { userInfo } = get();
+        if (!userInfo) return;
+
+        try {
+          set({ passkeyError: undefined });
+          const res = await fetch(`${AUTH_URL}/auth/passkey/credentials/${id}`, {
+            method: 'DELETE',
+            headers: authHeaders(userInfo.accessToken),
+          });
+
+          if (!res.ok) {
+            const data = await res.json();
+            throw new Error(data.message || 'Failed to delete passkey');
+          }
+
+          set({ passkeys: get().passkeys.filter((p) => p._id !== id) });
+        } catch (error) {
+          set({
+            passkeyError: error instanceof Error ? error.message : 'Failed to delete passkey',
+          });
+        }
+      },
+
+      renamePasskey: async (id: string, name: string) => {
+        const { userInfo } = get();
+        if (!userInfo) return;
+
+        try {
+          set({ passkeyError: undefined });
+          const res = await fetch(`${AUTH_URL}/auth/passkey/credentials/${id}`, {
+            method: 'PATCH',
+            headers: authHeaders(userInfo.accessToken),
+            body: JSON.stringify({ name }),
+          });
+
+          const data = await res.json();
+          if (!res.ok) {
+            throw new Error(data.message || 'Failed to rename passkey');
+          }
+
+          set({
+            passkeys: get().passkeys.map((p) =>
+              p._id === id ? { ...p, name: data.credential.name } : p
+            ),
+          });
+        } catch (error) {
+          set({
+            passkeyError: error instanceof Error ? error.message : 'Failed to rename passkey',
           });
         }
       },

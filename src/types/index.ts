@@ -86,6 +86,15 @@ export interface Order {
   updatedAt: string;
 }
 
+// Passkey Types
+export interface PasskeyCredential {
+  _id: string;
+  name: string;
+  deviceType: string;
+  backedUp: boolean;
+  createdAt: string;
+}
+
 // User Types
 export interface UserInfo {
   id: string;

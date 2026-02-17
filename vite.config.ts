@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
@@ -33,6 +33,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'build',
+    sourcemap: false,
   },
   esbuild: {
     loader: 'tsx',
@@ -47,5 +48,10 @@ export default defineConfig({
         '.tsx': 'tsx',
       },
     },
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.ts',
   },
 });

@@ -14,6 +14,7 @@ const ProductListScreen = lazy(() => import('@screens/ProductListScreen'));
 const CheckoutScreen = lazy(() => import('@screens/CheckoutScreen'));
 const OrdersScreen = lazy(() => import('@screens/OrdersScreen'));
 const OrderDetailScreen = lazy(() => import('@screens/OrderDetailScreen'));
+const ProfileScreen = lazy(() => import('@screens/ProfileScreen'));
 
 function App() {
   const userInfo = useAuthStore((s) => s.userInfo);
@@ -55,6 +56,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <OrderDetailScreen />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <ProtectedRoute>
+                      <ProfileScreen />
                     </ProtectedRoute>
                   }
                 />
