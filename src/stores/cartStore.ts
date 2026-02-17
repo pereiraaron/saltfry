@@ -8,6 +8,8 @@ import { useAuthStore } from './authStore';
 interface CartState {
   cartItems: CartItem[];
   cartLoading: boolean;
+  loadingItems: Set<string>;
+  clearingCart: boolean;
   error: string | undefined;
   fetchCart: () => Promise<void>;
   addToCart: (id: string, qty: number, color: string) => Promise<void>;
@@ -71,6 +73,8 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       cartItems: [],
       cartLoading: false,
+      loadingItems: new Set<string>(),
+      clearingCart: false,
       error: undefined,
 
       fetchCart: async () => {
@@ -110,14 +114,7 @@ export const useCartStore = create<CartState>()(
           try {
             const res = await authFetch(`${API_URL}cart`, {
               method: 'POST',
-              body: JSON.stringify({
-                productId: id,
-                name: product.name,
-                price: product.price,
-                image: product.images?.[0]?.url ?? product.image,
-                quantity: qty,
-                color,
-              }),
+              body: JSON.stringify({ productId: id, quantity: qty, color }),
             });
 
             if (!res.ok) {
@@ -159,10 +156,13 @@ export const useCartStore = create<CartState>()(
       removeFromCart: async (id: string) => {
         if (getAuthToken()) {
           const productId = id.substring(0, id.lastIndexOf('-'));
+          const color = id.substring(id.lastIndexOf('-') + 1);
+          set({ loadingItems: new Set([...get().loadingItems, id]) });
           try {
-            const res = await authFetch(`${API_URL}cart/${productId}`, {
-              method: 'DELETE',
-            });
+            const res = await authFetch(
+              `${API_URL}cart/${productId}?color=${encodeURIComponent(color)}`,
+              { method: 'DELETE' }
+            );
 
             if (!res.ok) {
               const data = await res.json();
@@ -170,11 +170,17 @@ export const useCartStore = create<CartState>()(
             }
 
             const data = await res.json();
+            const next = new Set(get().loadingItems);
+            next.delete(id);
             set({
               cartItems: mapApiItems(data.items as ApiCartItem[], get().cartItems),
+              loadingItems: next,
             });
           } catch (error) {
+            const next = new Set(get().loadingItems);
+            next.delete(id);
             set({
+              loadingItems: next,
               error: error instanceof Error ? error.message : 'Failed to remove item',
             });
           }
@@ -185,6 +191,7 @@ export const useCartStore = create<CartState>()(
 
       clearCart: async () => {
         if (getAuthToken()) {
+          set({ clearingCart: true });
           try {
             const res = await authFetch(`${API_URL}cart`, {
               method: 'DELETE',
@@ -195,9 +202,10 @@ export const useCartStore = create<CartState>()(
               throw new Error(data.message || 'Failed to clear cart');
             }
 
-            set({ cartItems: [] });
+            set({ cartItems: [], clearingCart: false });
           } catch (error) {
             set({
+              clearingCart: false,
               error: error instanceof Error ? error.message : 'Failed to clear cart',
             });
           }
@@ -217,33 +225,44 @@ export const useCartStore = create<CartState>()(
           cartItems: get().cartItems.map((item) =>
             item.id === id ? { ...item, quantity: currentQty + 1 } : item
           ),
+          loadingItems: new Set([...get().loadingItems, id]),
         });
 
         // Sync to server in background
         if (getAuthToken()) {
           const item = get().cartItems.find((i) => i.id === id);
-          if (!item) return;
+          if (!item) {
+            const next = new Set(get().loadingItems);
+            next.delete(id);
+            set({ loadingItems: next });
+            return;
+          }
 
           const productId = id.substring(0, id.lastIndexOf('-'));
           authFetch(`${API_URL}cart`, {
             method: 'POST',
-            body: JSON.stringify({
-              productId,
-              name: item.name,
-              price: item.price,
-              image: item.image,
-              quantity: 1,
-              color: item.color,
-            }),
-          }).catch(() => {
-            // Revert on failure
-            set({
-              cartItems: get().cartItems.map((i) =>
-                i.id === id ? { ...i, quantity: currentQty } : i
-              ),
-              error: 'Failed to update quantity',
+            body: JSON.stringify({ productId, quantity: 1, color: item.color }),
+          })
+            .then(() => {
+              const next = new Set(get().loadingItems);
+              next.delete(id);
+              set({ loadingItems: next });
+            })
+            .catch(() => {
+              const next = new Set(get().loadingItems);
+              next.delete(id);
+              set({
+                cartItems: get().cartItems.map((i) =>
+                  i.id === id ? { ...i, quantity: currentQty } : i
+                ),
+                loadingItems: next,
+                error: 'Failed to update quantity',
+              });
             });
-          });
+        } else {
+          const next = new Set(get().loadingItems);
+          next.delete(id);
+          set({ loadingItems: next });
         }
       },
 
@@ -270,14 +289,7 @@ export const useCartStore = create<CartState>()(
             const productId = item.id.substring(0, item.id.lastIndexOf('-'));
             return authFetch(`${API_URL}cart`, {
               method: 'POST',
-              body: JSON.stringify({
-                productId,
-                name: item.name,
-                price: item.price,
-                image: item.image,
-                quantity: item.quantity,
-                color: item.color,
-              }),
+              body: JSON.stringify({ productId, quantity: item.quantity, color: item.color }),
             }).catch(() => {
               // Continue syncing remaining items
             });

@@ -7,7 +7,7 @@ import { PageHero, CartColumns, CartTotals, AmountButtons } from '@components';
 
 const CartScreen: React.FC = () => {
   const navigate = useNavigate();
-  const { cartItems, removeFromCart, clearCart } = useCartStore();
+  const { cartItems, loadingItems, clearingCart, removeFromCart, clearCart } = useCartStore();
 
   const itemsPrice = cartItems.reduce((acc, item) => {
     return acc + item.price * item.quantity;
@@ -99,21 +99,26 @@ const CartScreen: React.FC = () => {
                     {formatPrice(item.price * item.quantity)}
                   </h5>
                   <button
-                    className="text-white bg-red-dark
+                    className={`text-white bg-red-dark
                       border-transparent tracking-widest
                       w-6 h-6 flex items-center
                       justify-center
                       rounded-(--radius-default)
-                      text-xs cursor-pointer"
+                      text-xs cursor-pointer
+                      ${loadingItems.has(item.id) ? 'opacity-50 pointer-events-none' : ''}`}
+                    disabled={loadingItems.has(item.id)}
+                    onClick={async () => {
+                      await removeFromCart(item.id);
+                      if (cartItems.length === 1) {
+                        navigate('/cart');
+                      }
+                    }}
                   >
-                    <FaTrash
-                      onClick={async () => {
-                        await removeFromCart(item.id);
-                        if (cartItems.length === 1) {
-                          navigate('/cart');
-                        }
-                      }}
-                    />
+                    {loadingItems.has(item.id) ? (
+                      <span className="inline-block w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <FaTrash />
+                    )}
                   </button>
                 </article>
               );
@@ -132,17 +137,19 @@ const CartScreen: React.FC = () => {
               </Link>
               <button
                 type="button"
-                className="bg-black text-white
+                className={`bg-black text-white
                   rounded-(--radius-default)
                   tracking-widest font-normal
                   cursor-pointer capitalize py-1 px-2
-                  border-transparent"
+                  border-transparent
+                  ${clearingCart ? 'opacity-50 pointer-events-none' : ''}`}
+                disabled={clearingCart}
                 onClick={async () => {
                   await clearCart();
                   navigate('/cart');
                 }}
               >
-                clear shopping cart
+                {clearingCart ? 'clearing...' : 'clear shopping cart'}
               </button>
             </div>
             <CartTotals
