@@ -22,7 +22,9 @@ const AmountButtons: React.FC<AmountButtonsProps> = ({
   const isLoading = !product && loadingItems.has(id);
 
   return (
-    <div className={`grid w-35 place-items-center grid-cols-3 items-center ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}>
+    <div
+      className={`grid w-35 place-items-center grid-cols-3 items-center ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
+    >
       <button
         type="button"
         aria-label="Decrease quantity"
