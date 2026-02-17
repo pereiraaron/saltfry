@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
     <footer>
       <div className="h-12 relative flex justify-center items-center bg-black text-center w-full md:flex-row">
         <h5 className="text-white m-0.5 font-normal normal-case leading-[1.25]">
-          &copy; {new Date().getFullYear()}
+          &copy; 2021
           <span className="text-primary-5"> Woodwork</span>
         </h5>
         <h5 className="text-white m-0.5 font-normal normal-case leading-[1.25]">

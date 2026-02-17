@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { BsFillGridFill, BsList } from 'react-icons/bs';
 import { useUIStore } from '@stores';
 import { Product } from '@types';
 
@@ -13,40 +12,26 @@ interface SortProps {
 }
 
 const Sort: React.FC<SortProps> = ({ products: unsortedProducts }) => {
-  const { filteredProducts, sortType, gridView, setGridView, setListView, sortProducts } =
-    useUIStore();
+  const { filteredProducts, sortType, sortProducts } = useUIStore();
 
   useEffect(() => {
     sortProducts(SORT_LOWEST_PRICE, unsortedProducts);
   }, [unsortedProducts, sortProducts]);
 
   return (
-    <section className="grid grid-cols-1 gap-y-3 sm:grid-cols-[auto_auto_1fr_auto] sm:items-center sm:gap-x-8 mb-8">
-      <div className="grid grid-cols-2 gap-x-2 w-12.5 sm:w-auto">
-        <button
-          onClick={() => setGridView()}
-          className={`border border-black w-6 h-6 rounded flex items-center justify-center cursor-pointer ${gridView ? 'bg-black text-white' : 'bg-transparent text-black'}`}
-        >
-          <BsFillGridFill className="text-base" />
-        </button>
-        <button
-          onClick={() => setListView()}
-          className={`border border-black w-6 h-6 rounded flex items-center justify-center cursor-pointer ${!gridView ? 'bg-black text-white' : 'bg-transparent text-black'}`}
-        >
-          <BsList className="text-base" />
-        </button>
-      </div>
-      <p className="capitalize mb-0!">{filteredProducts.length} products found</p>
-      <hr />
-      <form>
-        <label htmlFor="sort" className="text-base capitalize sm:mr-0 mr-2 inline-block sm:inline">
+    <section className="flex items-center justify-between mb-6 sm:mb-8">
+      <p className="capitalize mb-0 text-sm text-grey-5">
+        {filteredProducts.length} products found
+      </p>
+      <form className="shrink-0">
+        <label htmlFor="sort" className="text-sm capitalize mr-1.5 hidden sm:inline">
           sort by
         </label>
         <select
           name="sort"
           id="sort"
           value={sortType}
-          className="border-transparent text-base capitalize py-1 px-2"
+          className="border-transparent text-sm capitalize py-1 px-1.5 bg-grey-10 rounded"
           onChange={(e) => {
             sortProducts(e.target.value, filteredProducts);
           }}

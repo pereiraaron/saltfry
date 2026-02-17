@@ -53,6 +53,7 @@ export const useUIStore = create<UIState>()((set, get) => ({
   setListView: () => set({ gridView: false }),
 
   sortProducts: (sortType: string, products: Product[]) => {
+    if (products.length === 0) return;
     const sortedProducts = [...products];
     const maxPrice = Math.max(...products.map((p) => p.price));
 
