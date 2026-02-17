@@ -1,26 +1,108 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { CartItem } from '@types';
+import { CartItem, ApiCartItem, ApiCartResponse } from '@types';
+import { API_URL } from '@utils/api';
 import { useProductStore } from './productStore';
+import { useAuthStore } from './authStore';
 
 interface CartState {
   cartItems: CartItem[];
+  cartLoading: boolean;
+  loadingItems: Set<string>;
+  clearingCart: boolean;
   error: string | undefined;
-  addToCart: (id: string, qty: number, color: string) => void;
-  removeFromCart: (id: string) => void;
-  clearCart: () => void;
+  fetchCart: () => Promise<void>;
+  addToCart: (id: string, qty: number, color: string) => Promise<void>;
+  removeFromCart: (id: string) => Promise<void>;
+  clearCart: () => Promise<void>;
   incrementQuantity: (id: string, currentQty: number, stock: number) => void;
   decrementQuantity: (id: string, currentQty: number) => void;
+  syncCartToServer: () => Promise<void>;
   clearError: () => void;
 }
+
+const getAuthToken = (): string | null => {
+  const { userInfo } = useAuthStore.getState();
+  return userInfo?.accessToken ?? null;
+};
+
+const authHeaders = (token: string) => ({
+  Authorization: `Bearer ${token}`,
+  'Content-Type': 'application/json',
+});
+
+/**
+ * Fetch wrapper that retries once on 401 after refreshing the access token.
+ */
+const authFetch = async (url: string, init?: RequestInit): Promise<Response> => {
+  const token = getAuthToken();
+  if (!token) throw new Error('Not authenticated');
+
+  const res = await fetch(url, { ...init, headers: authHeaders(token) });
+
+  if (res.status === 401) {
+    await useAuthStore.getState().refreshAccessToken();
+    const newToken = getAuthToken();
+    if (!newToken) throw new Error('Session expired');
+    return fetch(url, { ...init, headers: authHeaders(newToken) });
+  }
+
+  return res;
+};
+
+const mapApiItems = (apiItems: ApiCartItem[], existingItems: CartItem[]): CartItem[] => {
+  const { products } = useProductStore.getState();
+  return apiItems.map((item) => {
+    const product = products.find((p) => p.id === item.productId);
+    const compositeId = `${item.productId}-${item.color}`;
+    const existing = existingItems.find((i) => i.id === compositeId);
+    return {
+      id: compositeId,
+      name: item.name,
+      image: item.image,
+      price: item.price,
+      color: item.color,
+      quantity: item.quantity,
+      stock: product?.stock ?? existing?.stock ?? 99,
+    };
+  });
+};
 
 export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       cartItems: [],
+      cartLoading: false,
+      loadingItems: new Set<string>(),
+      clearingCart: false,
       error: undefined,
 
-      addToCart: (id: string, qty: number, color: string) => {
+      fetchCart: async () => {
+        if (!getAuthToken()) return;
+
+        try {
+          set({ cartLoading: true });
+          const res = await authFetch(`${API_URL}cart`);
+
+          if (!res.ok) {
+            const data = await res.json();
+            throw new Error(data.message || 'Failed to fetch cart');
+          }
+
+          const data: ApiCartResponse = await res.json();
+          set({
+            cartItems: mapApiItems(data.items, get().cartItems),
+            cartLoading: false,
+          });
+        } catch (error) {
+          set({
+            cartLoading: false,
+            error: error instanceof Error ? error.message : 'Failed to fetch cart',
+          });
+        }
+      },
+
+      addToCart: async (id: string, qty: number, color: string) => {
         const { products } = useProductStore.getState();
         const product = products.find((p) => p.id === id);
         if (!product) {
@@ -28,44 +110,159 @@ export const useCartStore = create<CartState>()(
           return;
         }
 
-        const newItem: CartItem = {
-          id: `${product.id}-${color}`,
-          name: product.name,
-          image: product.images?.[0]?.url ?? product.image,
-          price: product.price,
-          color,
-          quantity: qty,
-          stock: product.stock ?? 0,
-        };
+        if (getAuthToken()) {
+          try {
+            const res = await authFetch(`${API_URL}cart`, {
+              method: 'POST',
+              body: JSON.stringify({ productId: id, quantity: qty, color }),
+            });
 
-        const existItem = get().cartItems.find((x) => x.id === newItem.id);
+            if (!res.ok) {
+              const data = await res.json();
+              throw new Error(data.message || 'Failed to add to cart');
+            }
 
-        if (existItem) {
-          set({
-            cartItems: get().cartItems.map((x) => (x.id === existItem.id ? newItem : x)),
-          });
+            const data = await res.json();
+            set({
+              cartItems: mapApiItems(data.items as ApiCartItem[], get().cartItems),
+            });
+          } catch (error) {
+            set({
+              error: error instanceof Error ? error.message : 'Failed to add to cart',
+            });
+          }
         } else {
-          set({ cartItems: [...get().cartItems, newItem] });
+          const newItem: CartItem = {
+            id: `${product.id}-${color}`,
+            name: product.name,
+            image: product.images?.[0]?.url ?? product.image,
+            price: product.price,
+            color,
+            quantity: qty,
+            stock: product.stock ?? 0,
+          };
+
+          const existItem = get().cartItems.find((x) => x.id === newItem.id);
+          if (existItem) {
+            set({
+              cartItems: get().cartItems.map((x) => (x.id === existItem.id ? newItem : x)),
+            });
+          } else {
+            set({ cartItems: [...get().cartItems, newItem] });
+          }
         }
       },
 
-      removeFromCart: (id: string) => {
-        set({ cartItems: get().cartItems.filter((x) => x.id !== id) });
+      removeFromCart: async (id: string) => {
+        if (getAuthToken()) {
+          const productId = id.substring(0, id.lastIndexOf('-'));
+          const color = id.substring(id.lastIndexOf('-') + 1);
+          set({ loadingItems: new Set([...get().loadingItems, id]) });
+          try {
+            const res = await authFetch(
+              `${API_URL}cart/${productId}?color=${encodeURIComponent(color)}`,
+              { method: 'DELETE' }
+            );
+
+            if (!res.ok) {
+              const data = await res.json();
+              throw new Error(data.message || 'Failed to remove item');
+            }
+
+            const data = await res.json();
+            const next = new Set(get().loadingItems);
+            next.delete(id);
+            set({
+              cartItems: mapApiItems(data.items as ApiCartItem[], get().cartItems),
+              loadingItems: next,
+            });
+          } catch (error) {
+            const next = new Set(get().loadingItems);
+            next.delete(id);
+            set({
+              loadingItems: next,
+              error: error instanceof Error ? error.message : 'Failed to remove item',
+            });
+          }
+        } else {
+          set({ cartItems: get().cartItems.filter((x) => x.id !== id) });
+        }
       },
 
-      clearCart: () => {
-        set({ cartItems: [] });
+      clearCart: async () => {
+        if (getAuthToken()) {
+          set({ clearingCart: true });
+          try {
+            const res = await authFetch(`${API_URL}cart`, {
+              method: 'DELETE',
+            });
+
+            if (!res.ok) {
+              const data = await res.json();
+              throw new Error(data.message || 'Failed to clear cart');
+            }
+
+            set({ cartItems: [], clearingCart: false });
+          } catch (error) {
+            set({
+              clearingCart: false,
+              error: error instanceof Error ? error.message : 'Failed to clear cart',
+            });
+          }
+        } else {
+          set({ cartItems: [] });
+        }
       },
 
       incrementQuantity: (id: string, currentQty: number, stock: number) => {
-        if (currentQty + 1 <= stock) {
-          set({
-            cartItems: get().cartItems.map((item) =>
-              item.id === id ? { ...item, quantity: currentQty + 1 } : item
-            ),
-          });
-        } else {
+        if (currentQty + 1 > stock) {
           set({ error: 'There are no more products available in stock' });
+          return;
+        }
+
+        // Optimistic local update
+        set({
+          cartItems: get().cartItems.map((item) =>
+            item.id === id ? { ...item, quantity: currentQty + 1 } : item
+          ),
+          loadingItems: new Set([...get().loadingItems, id]),
+        });
+
+        // Sync to server in background
+        if (getAuthToken()) {
+          const item = get().cartItems.find((i) => i.id === id);
+          if (!item) {
+            const next = new Set(get().loadingItems);
+            next.delete(id);
+            set({ loadingItems: next });
+            return;
+          }
+
+          const productId = id.substring(0, id.lastIndexOf('-'));
+          authFetch(`${API_URL}cart`, {
+            method: 'POST',
+            body: JSON.stringify({ productId, quantity: 1, color: item.color }),
+          })
+            .then(() => {
+              const next = new Set(get().loadingItems);
+              next.delete(id);
+              set({ loadingItems: next });
+            })
+            .catch(() => {
+              const next = new Set(get().loadingItems);
+              next.delete(id);
+              set({
+                cartItems: get().cartItems.map((i) =>
+                  i.id === id ? { ...i, quantity: currentQty } : i
+                ),
+                loadingItems: next,
+                error: 'Failed to update quantity',
+              });
+            });
+        } else {
+          const next = new Set(get().loadingItems);
+          next.delete(id);
+          set({ loadingItems: next });
         }
       },
 
@@ -79,6 +276,28 @@ export const useCartStore = create<CartState>()(
             ),
           });
         }
+      },
+
+      syncCartToServer: async () => {
+        if (!getAuthToken()) return;
+
+        const { cartItems } = get();
+        if (cartItems.length === 0) return;
+
+        await Promise.all(
+          cartItems.map((item) => {
+            const productId = item.id.substring(0, item.id.lastIndexOf('-'));
+            return authFetch(`${API_URL}cart`, {
+              method: 'POST',
+              body: JSON.stringify({ productId, quantity: item.quantity, color: item.color }),
+            }).catch(() => {
+              // Continue syncing remaining items
+            });
+          })
+        );
+
+        // Fetch the merged server cart
+        await get().fetchCart();
       },
 
       clearError: () => {

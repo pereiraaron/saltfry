@@ -8,9 +8,9 @@ interface PageHeroProps {
 
 const PageHero: React.FC<PageHeroProps> = ({ title, product }) => {
   return (
-    <section className="bg-primary-10 w-full min-h-[16vh] flex items-center text-primary-1">
-      <div className="section-center">
-        <h3>
+    <section className="bg-primary-10 w-full flex items-center text-primary-1">
+      <div className="section-center p-2 md:py-6">
+        <h3 className="m-0">
           <Link
             className="text-primary-3 p-2 transition-all duration-300 hover:text-primary-1"
             to="/"

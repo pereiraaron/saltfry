@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
       <div className="w-[90vw] mx-auto max-w-292.5 lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-center">
         <div className="flex items-center justify-between">
           <Link to="/">
-            <img src={logo} alt="comfy sloth" className="w-43.75 -ml-3.75" />
+            <img src={logo} alt="Woodwork" className="w-43.75 -ml-3.75" />
           </Link>
           <button
             type="button"

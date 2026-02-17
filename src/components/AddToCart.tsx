@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaCheck } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
 import { Product } from '@types';
+import { useCartStore } from '@stores';
 import AmountButtons from './AmountButtons';
 
 interface AddToCartProps {
@@ -9,14 +9,17 @@ interface AddToCartProps {
 }
 
 const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
-  const navigate = useNavigate();
   const { id, stock = 0, colors } = product;
+  const addToCart = useCartStore((s) => s.addToCart);
 
   const [mainColor, setMainColor] = useState(colors[0]);
   const [currentqty, setCurrentQty] = useState(stock > 0 ? 1 : 0);
+  const [added, setAdded] = useState(false);
 
-  const handleAddToCart = () => {
-    navigate(`/cart/${id}?qty=${currentqty}&color=${encodeURIComponent(mainColor)}`);
+  const handleAddToCart = async () => {
+    await addToCart(id, currentqty, mainColor);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
   };
 
   return (
@@ -49,7 +52,7 @@ const AddToCart: React.FC<AddToCartProps> = ({ product }) => {
           product
         />
         <button type="button" className="btn mt-4 w-35" onClick={handleAddToCart}>
-          add to cart
+          {added ? 'added!' : 'add to cart'}
         </button>
       </div>
     </section>

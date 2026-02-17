@@ -45,6 +45,20 @@ export interface CartItem {
   stock: number;
 }
 
+export interface ApiCartItem {
+  productId: string;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+  color: string;
+}
+
+export interface ApiCartResponse {
+  userId: string;
+  items: ApiCartItem[];
+}
+
 // User Types
 export interface UserInfo {
   id: string;

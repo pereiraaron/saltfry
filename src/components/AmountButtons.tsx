@@ -18,14 +18,18 @@ const AmountButtons: React.FC<AmountButtonsProps> = ({
   product,
   setCurrentQty,
 }) => {
-  const { incrementQuantity, decrementQuantity } = useCartStore();
+  const { incrementQuantity, decrementQuantity, loadingItems } = useCartStore();
+  const isLoading = !product && loadingItems.has(id);
 
   return (
-    <div className="grid w-35 place-items-center grid-cols-3 items-center">
+    <div
+      className={`grid w-35 place-items-center grid-cols-3 items-center ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
+    >
       <button
         type="button"
         aria-label="Decrease quantity"
         className="bg-transparent border-transparent cursor-pointer py-4 px-0 w-8 h-4 flex items-center justify-center"
+        disabled={isLoading}
         onClick={() => {
           product
             ? setCurrentQty?.(handleDecrement(currentqty))
@@ -39,6 +43,7 @@ const AmountButtons: React.FC<AmountButtonsProps> = ({
         type="button"
         aria-label="Increase quantity"
         className="bg-transparent border-transparent cursor-pointer py-4 px-0 w-8 h-4 flex items-center justify-center"
+        disabled={isLoading}
         onClick={() =>
           product
             ? setCurrentQty?.(handleIncrement(currentqty, total))

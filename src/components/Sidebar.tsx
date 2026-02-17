@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaTimes } from 'react-icons/fa';
 import { useAuthStore, useUIStore } from '@stores';
 import { links } from '@utils/constants';
+import { logo } from '@assets';
 import CartButtons from './CartButtons';
 
 const Sidebar: React.FC = () => {
@@ -21,11 +22,7 @@ const Sidebar: React.FC = () => {
         }`}
       >
         <div className="flex justify-between items-center px-6 py-4">
-          <img
-            src="/images/logo1.svg"
-            className="justify-self-center h-11.25"
-            alt="coding addict"
-          />
+          <img src={logo} className="justify-self-center h-11.25" alt="Woodwork" />
           <button
             className="text-3xl bg-transparent border-transparent text-red-dark transition-all duration-300 ease-linear cursor-pointer mt-[0.2rem] hover:text-red-light"
             onClick={handleCloseSidebar}

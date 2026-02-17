@@ -36,6 +36,6 @@ export const services = [
     id: 3,
     icon: <GiStabbedNote />,
     title: 'history',
-    text: 'Founded with a passion for design and quality, SaltFry began as a small idea to make better furniture. Today, we continue that journey by blending traditional craftsmanship with contemporary aesthetics.',
+    text: 'Founded with a passion for design and quality, Woodwork began as a small idea to make better furniture. Today, we continue that journey by blending traditional craftsmanship with contemporary aesthetics.',
   },
 ];
