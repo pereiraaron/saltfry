@@ -1,25 +1,13 @@
-import React, { useEffect } from 'react';
-import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 import { useCartStore } from '@stores';
 import { formatPrice } from '@utils/helpers';
-import { PageHero, CartColumns, CartTotals, AmountButtons, Footer } from '@components';
+import { PageHero, CartColumns, CartTotals, AmountButtons } from '@components';
 
 const CartScreen: React.FC = () => {
-  const { id: productId } = useParams<{ id: string }>();
-  const location = useLocation();
   const navigate = useNavigate();
-  const searchParams = new URLSearchParams(location.search);
-  const qty = Number(searchParams.get('qty')) || 1;
-  const color = searchParams.get('color') || '';
-
-  const { cartItems, addToCart, removeFromCart, clearCart } = useCartStore();
-
-  useEffect(() => {
-    if (productId && color) {
-      addToCart(productId, qty, color);
-    }
-  }, [productId, qty, color, addToCart]);
+  const { cartItems, removeFromCart, clearCart } = useCartStore();
 
   const itemsPrice = cartItems.reduce((acc, item) => {
     return acc + item.price * item.quantity;
@@ -29,22 +17,16 @@ const CartScreen: React.FC = () => {
   const totalPrice = Number(itemsPrice) + Number(shippingPrice);
 
   return cartItems.length < 1 ? (
-    <>
-      <main className="page-100">
-        <div className="text-center">
-          <h2 className="mb-4 normal-case">Your cart is empty</h2>
-          <Link to="/products" className="btn">
-            fill it
-          </Link>
-        </div>
-      </main>
-      <div className="fixed w-full bottom-0">
-        <Footer />
+    <main className="page-100">
+      <div className="text-center">
+        <h2 className="mb-4 normal-case">Your cart is empty</h2>
+        <Link to="/products" className="btn">
+          fill it
+        </Link>
       </div>
-    </>
+    </main>
   ) : (
-    <>
-      <main>
+    <div>
         <PageHero title="cart" />
         <main className="page">
           <section className="section section-center">
@@ -125,8 +107,8 @@ const CartScreen: React.FC = () => {
                       text-xs cursor-pointer"
                   >
                     <FaTrash
-                      onClick={() => {
-                        removeFromCart(item.id);
+                      onClick={async () => {
+                        await removeFromCart(item.id);
                         if (cartItems.length === 1) {
                           navigate('/cart');
                         }
@@ -155,8 +137,8 @@ const CartScreen: React.FC = () => {
                   tracking-widest font-normal
                   cursor-pointer capitalize py-1 px-2
                   border-transparent"
-                onClick={() => {
-                  clearCart();
+                onClick={async () => {
+                  await clearCart();
                   navigate('/cart');
                 }}
               >
@@ -170,9 +152,7 @@ const CartScreen: React.FC = () => {
             />
           </section>
         </main>
-      </main>
-      <Footer />
-    </>
+    </div>
   );
 };
 

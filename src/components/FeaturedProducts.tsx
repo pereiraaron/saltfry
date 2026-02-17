@@ -1,20 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useProductStore } from '@stores';
+import { API_URL, ApiResponse, normalizeApiProduct } from '@utils/api';
+import { Product as ProductType } from '@types';
 import Loading from './Loading';
 import Product from './Product';
 
 const FeaturedProducts: React.FC = () => {
-  const {
-    products,
-    productsLoading: loading,
-    productsError: error,
-    fetchProducts,
-  } = useProductStore();
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchProducts({ featured: true });
-  }, [fetchProducts]);
+    const fetchFeatured = async () => {
+      try {
+        const response = await fetch(`${API_URL}products?featured=true`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch featured products: ${response.statusText}`);
+        }
+        const data = await response.json();
+        const featured: ProductType[] = Array.isArray(data)
+          ? data
+          : (data as ApiResponse).data.map(normalizeApiProduct);
+        setProducts(featured);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch featured products');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchFeatured();
+  }, []);
 
   return loading ? (
     <Loading />

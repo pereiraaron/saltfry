@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaKey } from 'react-icons/fa';
 import { useAuthStore } from '@stores';
-import { Footer, Message } from '@components';
+import { Message } from '@components';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -113,9 +113,6 @@ const LoginScreen: React.FC = () => {
             </Link>
           </div>
         </form>
-      </div>
-      <div className="fixed w-full bottom-0">
-        <Footer />
       </div>
     </>
   );
