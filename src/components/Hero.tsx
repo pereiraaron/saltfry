@@ -5,7 +5,7 @@ import { heroBcg, heroBcg2 } from '@assets';
 const Hero: React.FC = () => {
   return (
     <div>
-      <div className="section-center min-h-[60vh] grid place-items-center lg:h-[calc(100vh-5rem)] lg:grid-cols-2 lg:gap-32">
+      <div className="section-center grid items-center py-12 lg:pt-24 lg:pb-36 lg:grid-cols-2 lg:gap-32">
         <article>
           <h1 className="lg:mb-8">
             design your <br />

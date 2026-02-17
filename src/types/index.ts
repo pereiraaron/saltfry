@@ -59,6 +59,33 @@ export interface ApiCartResponse {
   items: ApiCartItem[];
 }
 
+// Order Types
+export interface OrderItem {
+  productId: string;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+  color: string;
+}
+
+export interface LineItem {
+  name: string;
+  amount: number;
+}
+
+export interface Order {
+  id: string;
+  userId: string;
+  items: OrderItem[];
+  lineItems: LineItem[];
+  total: number;
+  status: 'pending' | 'confirmed' | 'delivered' | 'cancelled';
+  stripeSessionId?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 // User Types
 export interface UserInfo {
   id: string;

@@ -16,28 +16,29 @@ const CartTotals: React.FC<CartTotalsProps> = ({ itemsPrice, shippingPrice, tota
   };
 
   return (
-    <section className="mt-12 flex justify-center md:justify-end">
-      <div>
-        <article className="border border-grey-8 rounded-default py-6 px-12">
-          <h5 className="grid grid-cols-[200px_1fr]">
-            subtotal :<span>&nbsp;{formatPrice(itemsPrice)}</span>
-          </h5>
-          <p className="grid grid-cols-[200px_1fr] capitalize">
-            shipping fee :<span>&nbsp;{formatPrice(shippingPrice)}</span>
-          </p>
-          <hr />
-          <h4 className="grid grid-cols-[200px_1fr] mt-8 text-grey-1">
-            order total :<span>&nbsp;{formatPrice(totalPrice)}</span>
-          </h4>
-        </article>
-        <button
-          className="btn md:w-full md:mt-4 md:text-center md:font-bold"
-          onClick={checkoutHandler}
-        >
-          proceed to checkout
-        </button>
+    <div className="border border-grey-8 rounded-lg p-5">
+      <h5 className="mb-4 capitalize">order summary</h5>
+      <div className="flex justify-between mb-2 text-sm">
+        <span className="text-grey-5 capitalize">subtotal</span>
+        <span>{formatPrice(itemsPrice)}</span>
       </div>
-    </section>
+      <div className="flex justify-between mb-3 text-sm">
+        <span className="text-grey-5 capitalize">shipping</span>
+        <span>{formatPrice(shippingPrice)}</span>
+      </div>
+      <hr className="my-3" />
+      <div className="flex justify-between mb-5 font-bold">
+        <span className="capitalize">total</span>
+        <span>{formatPrice(totalPrice)}</span>
+      </div>
+      <button
+        type="button"
+        className="btn w-full text-center font-bold"
+        onClick={checkoutHandler}
+      >
+        proceed to checkout
+      </button>
+    </div>
   );
 };
 

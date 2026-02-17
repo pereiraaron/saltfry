@@ -14,9 +14,9 @@ const ProductListScreen: React.FC = () => {
       <PageHero title="products" />
       <div className="page">
         <div
-          className="section-center grid gap-y-12
-            gap-x-6 my-16 mx-auto
-            md:grid-cols-[200px_1fr]"
+          className="section-center grid gap-y-4
+            gap-x-6 my-8 mx-auto
+            md:my-16 md:gap-y-12 md:grid-cols-[200px_1fr]"
         >
           <Filters products={products} />
           <div>

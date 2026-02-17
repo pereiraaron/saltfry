@@ -1,13 +1,12 @@
 import React from 'react';
 import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useAuthStore, useUIStore } from '@stores';
+import { useUIStore } from '@stores';
 import { links } from '@utils/constants';
 import { logo } from '@assets';
 import CartButtons from './CartButtons';
 
 const Navbar: React.FC = () => {
-  const { userInfo } = useAuthStore();
   const { openSidebar } = useUIStore();
 
   const handleSidebar = () => {
@@ -15,7 +14,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="h-20 flex items-center justify-center">
+    <nav className="h-20 flex items-center justify-center sticky top-0 z-50 bg-white">
       <div className="w-[90vw] mx-auto max-w-292.5 lg:grid lg:grid-cols-[auto_1fr_auto] lg:items-center">
         <div className="flex items-center justify-between">
           <Link to="/">
@@ -24,7 +23,7 @@ const Navbar: React.FC = () => {
           <button
             type="button"
             aria-label="Open navigation menu"
-            className="bg-transparent border-transparent text-primary-5 cursor-pointer [&>svg]:text-3xl lg:hidden"
+            className="bg-transparent border-transparent text-primary-5 cursor-pointer [&>svg]:text-xl lg:hidden"
             onClick={handleSidebar}
           >
             <FaBars />
@@ -44,18 +43,8 @@ const Navbar: React.FC = () => {
               </li>
             );
           })}
-          {userInfo && (
-            <li>
-              <Link
-                to="/checkout"
-                className="text-grey-3 text-base capitalize tracking-[0.1rem] p-2 hover:border-b-2 hover:border-primary-7"
-              >
-                checkout
-              </Link>
-            </li>
-          )}
         </ul>
-        <div className="hidden lg:block">
+        <div className="hidden lg:flex lg:justify-end lg:items-center">
           <CartButtons />
         </div>
       </div>

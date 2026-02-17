@@ -23,12 +23,12 @@ const AmountButtons: React.FC<AmountButtonsProps> = ({
 
   return (
     <div
-      className={`grid w-35 place-items-center grid-cols-3 items-center ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
+      className={`grid w-24 place-items-center grid-cols-3 items-center ${isLoading ? 'opacity-50 pointer-events-none' : ''}`}
     >
       <button
         type="button"
         aria-label="Decrease quantity"
-        className="bg-transparent border-transparent cursor-pointer py-4 px-0 w-8 h-4 flex items-center justify-center"
+        className="bg-transparent border-transparent cursor-pointer py-2 px-0 w-6 h-6 flex items-center justify-center text-xs"
         disabled={isLoading}
         onClick={() => {
           product
@@ -38,11 +38,11 @@ const AmountButtons: React.FC<AmountButtonsProps> = ({
       >
         <FaMinus />
       </button>
-      <h2 className="mb-0">{currentqty}</h2>
+      <span className="text-base font-medium mb-0">{currentqty}</span>
       <button
         type="button"
         aria-label="Increase quantity"
-        className="bg-transparent border-transparent cursor-pointer py-4 px-0 w-8 h-4 flex items-center justify-center"
+        className="bg-transparent border-transparent cursor-pointer py-2 px-0 w-6 h-6 flex items-center justify-center text-xs"
         disabled={isLoading}
         onClick={() =>
           product

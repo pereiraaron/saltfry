@@ -7,7 +7,7 @@ const CheckoutScreen: React.FC = () => {
   const { cartItems } = useCartStore();
 
   return (
-    <main className="flex items-center justify-center flex-col">
+    <main>
       <PageHero title="checkout" />
       <div className="page">
         {cartItems.length < 1 ? (
@@ -18,7 +18,9 @@ const CheckoutScreen: React.FC = () => {
             </Link>
           </div>
         ) : (
-          <StripeCheckout />
+          <div className="section-center py-8">
+            <StripeCheckout />
+          </div>
         )}
       </div>
     </main>

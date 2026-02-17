@@ -14,7 +14,7 @@ const Contact: React.FC = () => {
             <input
               type="email"
               className="text-base py-2 px-2 border-2 border-black border-r-0 text-grey-3 rounded-l"
-              placeholder="enter email"
+              placeholder="Enter your email address"
             />
             <button
               type="submit"
