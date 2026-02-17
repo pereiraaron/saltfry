@@ -7,5 +7,6 @@ export { default as LoginScreen } from './LoginScreen';
 export { default as OrderDetailScreen } from './OrderDetailScreen';
 export { default as OrdersScreen } from './OrdersScreen';
 export { default as ProductListScreen } from './ProductListScreen';
+export { default as ProfileScreen } from './ProfileScreen';
 export { default as ProductScreen } from './ProductScreen';
 export { default as RegisterScreen } from './RegisterScreen';

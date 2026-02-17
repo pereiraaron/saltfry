@@ -65,15 +65,21 @@ const Sidebar: React.FC = () => {
         <div className="border-t border-grey-9 px-6 py-4">
           {userInfo ? (
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-primary-5 text-white flex items-center justify-center text-sm font-medium shrink-0 uppercase">
-                {(userInfo.username || userInfo.email || '?').charAt(0)}
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium mb-0 capitalize truncate">
-                  {userInfo.username || 'User'}
-                </p>
-                <p className="text-xs text-grey-5 mb-0 truncate">{userInfo.email}</p>
-              </div>
+              <Link
+                to="/profile"
+                onClick={closeSidebar}
+                className="flex items-center gap-3 flex-1 min-w-0"
+              >
+                <div className="w-9 h-9 rounded-full bg-primary-5 text-white flex items-center justify-center text-sm font-medium shrink-0 uppercase">
+                  {(userInfo.username || userInfo.email || '?').charAt(0)}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium mb-0 capitalize truncate">
+                    {userInfo.username || 'User'}
+                  </p>
+                  <p className="text-xs text-grey-5 mb-0 truncate">{userInfo.email}</p>
+                </div>
+              </Link>
               <button
                 type="button"
                 className="w-8 h-8 flex items-center justify-center rounded-full text-grey-5 hover:text-red-dark hover:bg-red-dark/10 bg-transparent border-none cursor-pointer transition-colors shrink-0"

@@ -54,6 +54,16 @@ const CartButtons: React.FC = () => {
                 <p className="text-xs text-grey-5 mb-0 truncate">{userInfo.email}</p>
               </div>
               <Link
+                to="/profile"
+                className="block px-4 py-2 text-sm text-grey-3 hover:bg-grey-10 capitalize"
+                onClick={() => {
+                  setDropdownOpen(false);
+                  closeSidebar();
+                }}
+              >
+                profile
+              </Link>
+              <Link
                 to="/orders"
                 className="block px-4 py-2 text-sm text-grey-3 hover:bg-grey-10 capitalize"
                 onClick={() => {
