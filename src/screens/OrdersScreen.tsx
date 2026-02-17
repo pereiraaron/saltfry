@@ -56,9 +56,7 @@ const OrdersScreen: React.FC = () => {
           {orders.length === 0 ? (
             <div className="text-center py-16">
               <h2 className="mb-2">No orders yet</h2>
-              <p className="text-grey-5 mb-6">
-                Once you place an order, it will appear here.
-              </p>
+              <p className="text-grey-5 mb-6">Once you place an order, it will appear here.</p>
               <Link to="/products" className="btn">
                 start shopping
               </Link>
@@ -94,10 +92,7 @@ const OrdersScreen: React.FC = () => {
                     {/* Item list */}
                     <div className="flex flex-col gap-2.5 mb-4">
                       {previewItems.map((item, idx) => (
-                        <div
-                          key={`${item.productId}-${idx}`}
-                          className="flex items-center gap-3"
-                        >
+                        <div key={`${item.productId}-${idx}`} className="flex items-center gap-3">
                           <img
                             src={item.image}
                             alt={item.name}

@@ -20,7 +20,9 @@ const Sort: React.FC<SortProps> = ({ products: unsortedProducts }) => {
 
   return (
     <section className="flex items-center justify-between mb-6 sm:mb-8">
-      <p className="capitalize mb-0 text-sm text-grey-5">{filteredProducts.length} products found</p>
+      <p className="capitalize mb-0 text-sm text-grey-5">
+        {filteredProducts.length} products found
+      </p>
       <form className="shrink-0">
         <label htmlFor="sort" className="text-sm capitalize mr-1.5 hidden sm:inline">
           sort by

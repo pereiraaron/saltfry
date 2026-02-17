@@ -31,11 +31,7 @@ const CartTotals: React.FC<CartTotalsProps> = ({ itemsPrice, shippingPrice, tota
         <span className="capitalize">total</span>
         <span>{formatPrice(totalPrice)}</span>
       </div>
-      <button
-        type="button"
-        className="btn w-full text-center font-bold"
-        onClick={checkoutHandler}
-      >
+      <button type="button" className="btn w-full text-center font-bold" onClick={checkoutHandler}>
         proceed to checkout
       </button>
     </div>
