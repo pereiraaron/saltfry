@@ -8,6 +8,7 @@
   "dependencies": {
     "@simplewebauthn/browser": "^13.2.2",
     "@tailwindcss/vite": "^4.1.18",
+    "clarity-js": "^0.8.57",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
