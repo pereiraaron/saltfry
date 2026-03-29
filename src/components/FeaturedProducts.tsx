@@ -1,67 +1,52 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { API_URL, ApiResponse, normalizeApiProduct } from '@utils/api';
-import { Product as ProductType } from '@types';
+import { useProductStore } from '@stores';
 import Product from './Product';
 
 const ProductSkeleton: React.FC = () => (
-  <article className="animate-pulse">
-    <div className="h-56.25 rounded bg-grey-8" />
-    <footer className="mt-4 flex justify-between items-center">
-      <div className="h-4 w-28 rounded bg-grey-8" />
-      <div className="h-4 w-16 rounded bg-grey-8" />
-    </footer>
+  <article className="animate-pulse rounded-lg overflow-hidden bg-white shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+    <div className="h-52 bg-grey-9" />
+    <div className="px-4 py-4 flex justify-between items-center">
+      <div className="h-4 w-28 rounded-full bg-grey-9" />
+      <div className="h-4 w-16 rounded-full bg-grey-9" />
+    </div>
   </article>
 );
 
 const FeaturedProducts: React.FC = () => {
-  const [products, setProducts] = useState<ProductType[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const products = useProductStore((s) => s.products);
+  const loading = useProductStore((s) => s.productsLoading);
+  const error = useProductStore((s) => s.productsError);
+  const fetchProducts = useProductStore((s) => s.fetchProducts);
 
   useEffect(() => {
-    const fetchFeatured = async () => {
-      try {
-        const response = await fetch(`${API_URL}products?featured=true`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch featured products: ${response.statusText}`);
-        }
-        const data = await response.json();
-        const featured: ProductType[] = Array.isArray(data)
-          ? data
-          : (data as ApiResponse).data.map(normalizeApiProduct);
-        setProducts(featured);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch featured products');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchFeatured();
-  }, []);
+    fetchProducts();
+  }, [fetchProducts]);
+
+  const featured = products.filter((p) => p.featured).slice(0, 3);
 
   return (
-    <section className="py-12 bg-grey-10">
+    <section className="py-16 bg-grey-10/50">
       <div className="title">
         <h2>featured products</h2>
         <div className="underline" />
       </div>
       {loading ? (
-        <div className="section-center my-8 grid gap-10 sm:grid-cols-[repeat(auto-fit,minmax(360px,1fr))]">
+        <div className="section-center my-10 grid gap-6 sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] lg:grid-cols-3">
           <ProductSkeleton />
           <ProductSkeleton />
           <ProductSkeleton />
         </div>
       ) : error ? (
-        <p className="text-center text-red-dark">{error}</p>
+        <p className="text-center text-red-dark mt-8">{error}</p>
       ) : (
-        <div className="section-center my-8 grid gap-10 sm:grid-cols-[repeat(auto-fit,minmax(360px,1fr))] [&_img]:h-56.25">
-          {products.slice(0, 3).map((product) => {
+        <div className="section-center my-10 grid gap-6 sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] lg:grid-cols-3 [&_img]:h-52">
+          {featured.map((product) => {
             return <Product key={product.id} {...product} />;
           })}
         </div>
       )}
-      <Link to="/products" className="btn block w-37 mx-auto text-center">
+      <Link to="/products" className="btn block w-fit mx-auto text-center whitespace-nowrap">
         all products
       </Link>
     </section>

@@ -14,10 +14,34 @@ const StripeCheckout: React.FC = () => {
 
   if (checkoutLoading) {
     return (
-      <div className="flex flex-col items-center justify-center py-24">
-        <span className="inline-block w-10 h-10 border-4 border-primary-5 border-t-transparent rounded-full animate-spin mb-6" />
-        <h3 className="mb-2">Redirecting to payment</h3>
-        <p className="text-grey-5 text-sm">Please wait, do not close this page.</p>
+      <div className="animate-pulse py-12">
+        <div className="lg:grid lg:grid-cols-[1fr_320px] lg:gap-8">
+          <div>
+            <div className="h-6 w-36 rounded-full bg-grey-9 mb-5" />
+            {[1, 2].map((i) => (
+              <div key={i} className="flex gap-4 py-4 border-b border-grey-9">
+                <div className="w-16 h-16 rounded bg-grey-9 shrink-0" />
+                <div className="flex-1">
+                  <div className="h-4 w-32 rounded-full bg-grey-9 mb-2" />
+                  <div className="h-3 w-20 rounded-full bg-grey-9" />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 lg:mt-0">
+            <div className="border border-grey-9 rounded-lg p-5">
+              <div className="h-5 w-28 rounded-full bg-grey-9 mb-5" />
+              <div className="h-4 w-full rounded-full bg-grey-9 mb-3" />
+              <div className="h-4 w-full rounded-full bg-grey-9 mb-3" />
+              <hr className="my-4" />
+              <div className="h-5 w-full rounded-full bg-grey-9 mb-5" />
+              <div className="h-11 w-full rounded-lg bg-primary-9" />
+            </div>
+          </div>
+        </div>
+        <p className="text-center text-grey-5 text-sm mt-8">
+          Redirecting to payment, please wait...
+        </p>
       </div>
     );
   }
@@ -56,7 +80,7 @@ const StripeCheckout: React.FC = () => {
                     onClick={() => removeFromCart(item.id)}
                   >
                     {loadingItems.has(item.id) ? (
-                      <span className="inline-block w-3 h-3 border-2 border-grey-5 border-t-transparent rounded-full animate-spin" />
+                      <span className="inline-block w-3 h-3 rounded bg-grey-8 animate-pulse" />
                     ) : (
                       <FaTrash className="text-xs" />
                     )}

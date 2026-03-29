@@ -19,19 +19,19 @@ const Sort: React.FC<SortProps> = ({ products: unsortedProducts }) => {
   }, [unsortedProducts, sortProducts]);
 
   return (
-    <section className="flex items-center justify-between mb-6 sm:mb-8">
+    <section className="flex items-center justify-between mb-6 sm:mb-8 pb-4 border-b border-grey-9">
       <p className="capitalize mb-0 text-sm text-grey-5">
-        {filteredProducts.length} products found
+        <span className="font-semibold text-grey-3">{filteredProducts.length}</span> products found
       </p>
       <form className="shrink-0">
-        <label htmlFor="sort" className="text-sm capitalize mr-1.5 hidden sm:inline">
+        <label htmlFor="sort" className="text-sm capitalize mr-2 hidden sm:inline text-grey-5">
           sort by
         </label>
         <select
           name="sort"
           id="sort"
           value={sortType}
-          className="border-transparent text-sm capitalize py-1 px-1.5 bg-grey-10 rounded"
+          className="border border-grey-8 text-sm capitalize py-1.5 px-3 bg-white rounded-lg focus:border-primary-5 focus:outline-none transition-colors cursor-pointer"
           onChange={(e) => {
             sortProducts(e.target.value, filteredProducts);
           }}

@@ -8,8 +8,8 @@ interface GridViewProps {
 
 const GridView: React.FC<GridViewProps> = ({ products }) => {
   return (
-    <section className="[&_img]:h-43.75">
-      <div className="grid gap-y-8 gap-x-6 lg:grid-cols-2 xl:grid-cols-3">
+    <section className="[&_img]:h-52">
+      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {products.map((product) => {
           return <Product key={product.id} {...product} />;
         })}

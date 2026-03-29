@@ -10,15 +10,15 @@ const Contact: React.FC = () => {
             Be the first to know about new collections, exclusive offers, and interior styling
             tips—straight to your inbox.
           </p>
-          <form className="w-[90vw] max-w-125 grid grid-cols-[1fr_auto]">
+          <form className="w-full max-w-125 grid grid-cols-[1fr_auto]">
             <input
               type="email"
-              className="text-base py-2 px-2 border-2 border-black border-r-0 text-grey-3 rounded-l"
+              className="text-base py-2.5 px-4 border-2 border-grey-8 border-r-0 text-grey-3 rounded-l-lg focus:border-primary-5 focus:outline-none transition-colors"
               placeholder="Enter your email address"
             />
             <button
               type="submit"
-              className="text-base py-2 px-4 border-2 border-black rounded-r bg-primary-5 capitalize tracking-widest cursor-pointer transition-all duration-300 text-black hover:text-white"
+              className="text-base py-2.5 px-6 border-2 border-primary-5 rounded-r-lg bg-primary-5 capitalize tracking-widest cursor-pointer transition-all duration-200 text-white font-medium hover:bg-primary-4 hover:border-primary-4"
             >
               subscribe
             </button>

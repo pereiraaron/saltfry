@@ -14,7 +14,7 @@ interface ProductState {
   clearProductDetails: () => void;
 }
 
-export const useProductStore = create<ProductState>()((set) => ({
+export const useProductStore = create<ProductState>()((set, get) => ({
   products: [],
   productsLoading: false,
   productsError: undefined,
@@ -23,6 +23,9 @@ export const useProductStore = create<ProductState>()((set) => ({
   productError: undefined,
 
   fetchProducts: async () => {
+    const { products: existing, productsLoading } = get();
+    if (existing.length > 0 || productsLoading) return;
+
     set({ productsLoading: true, productsError: undefined });
     try {
       const response = await fetch(`${API_URL}products`);

@@ -1,7 +1,12 @@
 import { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navbar, Sidebar, ErrorBoundary, ProtectedRoute, Loading, Footer } from '@components';
-import { HomeScreen } from '@screens';
+import Navbar from '@components/Navbar';
+import Sidebar from '@components/Sidebar';
+import ErrorBoundary from '@components/ErrorBoundary';
+import ProtectedRoute from '@components/ProtectedRoute';
+import Loading from '@components/Loading';
+import Footer from '@components/Footer';
+import HomeScreen from '@screens/HomeScreen';
 import { useAuthStore, useCartStore } from '@stores';
 
 const LoginScreen = lazy(() => import('@screens/LoginScreen'));

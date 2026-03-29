@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useOrderStore } from '@stores';
 import { formatPrice } from '@utils/helpers';
-import { PageHero, Loading, Message } from '@components';
+import { PageHero, Message } from '@components';
 import { Order } from '@types';
 
 const statusColor: Record<Order['status'], string> = {
@@ -26,7 +26,30 @@ const OrderDetailScreen: React.FC = () => {
         <PageHero title="order" />
         <div className="page">
           {loading ? (
-            <Loading />
+            <section className="section-center py-8 animate-pulse">
+              <div className="h-8 w-36 rounded-full bg-grey-9 mb-6" />
+              <div className="border border-grey-9 rounded p-5 mb-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <div className="h-3 w-16 rounded-full bg-grey-9 mb-2" />
+                    <div className="h-4 w-48 rounded-full bg-grey-9" />
+                  </div>
+                  <div className="h-7 w-20 rounded bg-grey-9" />
+                </div>
+                <div className="h-3 w-56 rounded-full bg-grey-9" />
+              </div>
+              <div className="h-7 w-20 rounded-full bg-grey-9 mb-4" />
+              {[1, 2].map((i) => (
+                <div key={i} className="flex gap-3 py-4 border-b border-grey-9">
+                  <div className="w-16 h-16 rounded bg-grey-9 shrink-0" />
+                  <div className="flex-1">
+                    <div className="h-4 w-32 rounded-full bg-grey-9 mb-2" />
+                    <div className="h-3 w-16 rounded-full bg-grey-9" />
+                  </div>
+                  <div className="h-4 w-16 rounded-full bg-grey-9" />
+                </div>
+              ))}
+            </section>
           ) : error ? (
             <div className="section section-center">
               <Message type="error">{error}</Message>

@@ -54,7 +54,9 @@ const CartScreen: React.FC = () => {
                     <img
                       src={item.image}
                       alt={item.name}
-                      className="w-20 h-20 rounded object-cover shrink-0"
+                      loading="lazy"
+                      decoding="async"
+                      className="w-20 h-20 rounded-lg object-cover shrink-0"
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
@@ -78,7 +80,7 @@ const CartScreen: React.FC = () => {
                           }}
                         >
                           {loadingItems.has(item.id) ? (
-                            <span className="inline-block w-3 h-3 border-2 border-grey-5 border-t-transparent rounded-full animate-spin" />
+                            <span className="inline-block w-3 h-3 rounded bg-grey-8 animate-pulse" />
                           ) : (
                             <FaTrash className="text-xs" />
                           )}
@@ -98,13 +100,13 @@ const CartScreen: React.FC = () => {
               <div className="flex flex-wrap gap-3 justify-between mt-4 pt-4 border-t border-grey-8">
                 <Link
                   to="/products"
-                  className="bg-primary-5 text-white rounded font-normal cursor-pointer capitalize py-1.5 px-3 border-transparent text-sm"
+                  className="btn text-sm py-2 px-4"
                 >
                   continue shopping
                 </Link>
                 <button
                   type="button"
-                  className={`bg-black text-white rounded font-normal cursor-pointer capitalize py-1.5 px-3 border-transparent text-sm ${clearingCart ? 'opacity-50 pointer-events-none' : ''}`}
+                  className={`bg-grey-2 text-white rounded-md font-medium cursor-pointer capitalize py-2 px-4 border-transparent text-sm transition-colors hover:bg-black ${clearingCart ? 'opacity-50 pointer-events-none' : ''}`}
                   disabled={clearingCart}
                   onClick={async () => {
                     await clearCart();

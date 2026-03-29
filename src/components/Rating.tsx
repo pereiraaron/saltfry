@@ -8,25 +8,15 @@ interface RatingProps {
 
 const Rating: React.FC<RatingProps> = ({ stars, reviews }) => {
   return (
-    <div>
-      <div className="flex items-center mb-2">
-        <span className="text-[#ffb900] text-base mr-1">
-          {stars >= 1 ? <BsStarFill /> : stars >= 0.5 ? <BsStarHalf /> : <BsStar />}
-        </span>
-        <span className="text-[#ffb900] text-base mr-1">
-          {stars >= 2 ? <BsStarFill /> : stars >= 1.5 ? <BsStarHalf /> : <BsStar />}
-        </span>
-        <span className="text-[#ffb900] text-base mr-1">
-          {stars >= 3 ? <BsStarFill /> : stars >= 2.5 ? <BsStarHalf /> : <BsStar />}
-        </span>
-        <span className="text-[#ffb900] text-base mr-1">
-          {stars >= 4 ? <BsStarFill /> : stars >= 3.5 ? <BsStarHalf /> : <BsStar />}
-        </span>
-        <span className="text-[#ffb900] text-base mr-1">
-          {stars >= 5 ? <BsStarFill /> : stars >= 4.5 ? <BsStarHalf /> : <BsStar />}
-        </span>
+    <div className="flex items-center gap-3 mb-3">
+      <div className="flex items-center gap-0.5">
+        {[1, 2, 3, 4, 5].map((i) => (
+          <span key={i} className="text-amber-400 text-base">
+            {stars >= i ? <BsStarFill /> : stars >= i - 0.5 ? <BsStarHalf /> : <BsStar />}
+          </span>
+        ))}
       </div>
-      <p className="ml-2 mb-0!">({reviews} customer reviews)</p>
+      <p className="text-grey-5 text-sm mb-0">({reviews} reviews)</p>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { startRegistration, startAuthentication } from '@simplewebauthn/browser';
+// Dynamically imported to keep out of main bundle
+const getWebAuthn = () => import('@simplewebauthn/browser');
 import { UserInfo, PasskeyCredential } from '@types';
 
 const AUTH_URL = import.meta.env.VITE_AUTH_BASE_URL;
@@ -219,6 +220,7 @@ export const useAuthStore = create<AuthState>()(
           }
 
           // 2. Prompt user for passkey
+          const { startAuthentication } = await getWebAuthn();
           const credential = await startAuthentication({ optionsJSON: optionsData.options });
 
           // 3. Verify with server
@@ -276,6 +278,7 @@ export const useAuthStore = create<AuthState>()(
           }
 
           // 2. Create credential via browser
+          const { startRegistration } = await getWebAuthn();
           const credential = await startRegistration({ optionsJSON: optionsData.options });
 
           // 3. Verify with server

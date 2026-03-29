@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaKey } from 'react-icons/fa';
 import { useAuthStore } from '@stores';
@@ -30,14 +30,14 @@ const LoginScreen: React.FC = () => {
     }
   }, [navigate, userInfo, redirect, error]);
 
-  const clearFieldError = useCallback((field: keyof FieldErrors) => {
+  const clearFieldError = (field: keyof FieldErrors) => {
     setFieldErrors((prev) => {
       if (!prev[field]) return prev;
       const next = { ...prev };
       delete next[field];
       return next;
     });
-  }, []);
+  };
 
   const validate = (): boolean => {
     const errors: FieldErrors = {};

@@ -12,23 +12,27 @@ interface ProductProps {
 
 const Product: React.FC<ProductProps> = ({ image, name, price, id }) => {
   return (
-    <article>
-      <div className="relative bg-black rounded group">
+    <article className="group rounded-lg overflow-hidden bg-white shadow-[0_1px_3px_hsl(22,31%,52%,0.1)] hover:shadow-[0_12px_32px_-8px_hsl(22,31%,52%,0.2)] transition-all duration-300 hover:-translate-y-1">
+      <div className="relative bg-grey-10 overflow-hidden">
         <img
           src={image}
           alt={name}
-          className="w-full block object-cover rounded transition-all duration-300 group-hover:opacity-50"
+          loading="lazy"
+          decoding="async"
+          className="w-full block object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <Link
           to={`/products/${id}`}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary-5 flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 opacity-0 cursor-pointer group-hover:opacity-100"
+          className="absolute inset-0 bg-black/0 group-hover:bg-black/20 flex items-center justify-center transition-all duration-300"
         >
-          <FaSearch className="text-xl text-white" />
+          <span className="bg-white flex items-center justify-center w-11 h-11 rounded-full transition-all duration-300 opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 shadow-lg">
+            <FaSearch className="text-sm text-primary-5" />
+          </span>
         </Link>
       </div>
-      <footer className="mt-4 flex justify-between items-center">
-        <h5 className="mb-0 font-normal">{name}</h5>
-        <p className="text-primary-5 tracking-widest mb-0">{formatPrice(price)}</p>
+      <footer className="px-4 py-4 flex justify-between items-center">
+        <h5 className="mb-0 font-medium text-grey-1">{name}</h5>
+        <p className="text-primary-5 font-semibold tracking-wide mb-0">{formatPrice(price)}</p>
       </footer>
     </article>
   );

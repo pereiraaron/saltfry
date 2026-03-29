@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useOrderStore, useCartStore } from '@stores';
 import { formatPrice } from '@utils/helpers';
-import { PageHero, Loading, Message } from '@components';
+import { PageHero, Message } from '@components';
 import { Order } from '@types';
 
 const statusStyle: Record<Order['status'], string> = {
@@ -32,7 +32,32 @@ const OrdersScreen: React.FC = () => {
       <main>
         <PageHero title="orders" />
         <div className="page">
-          <Loading />
+          <section className="section-center py-8 grid gap-5 animate-pulse">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="border border-grey-9 rounded-lg p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="h-3 w-32 rounded-full bg-grey-9" />
+                  <div className="h-6 w-20 rounded-full bg-grey-9" />
+                </div>
+                <div className="flex flex-col gap-2.5 mb-4">
+                  {[1, 2].map((j) => (
+                    <div key={j} className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded bg-grey-9 shrink-0" />
+                      <div className="flex-1">
+                        <div className="h-4 w-32 rounded-full bg-grey-9 mb-1" />
+                        <div className="h-3 w-16 rounded-full bg-grey-9" />
+                      </div>
+                      <div className="h-4 w-16 rounded-full bg-grey-9" />
+                    </div>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between pt-3 border-t border-grey-9">
+                  <div className="h-3 w-20 rounded-full bg-grey-9" />
+                  <div className="h-5 w-20 rounded-full bg-grey-9" />
+                </div>
+              </div>
+            ))}
+          </section>
         </div>
       </main>
     );

@@ -8,25 +8,29 @@ interface PageHeroProps {
 
 const PageHero: React.FC<PageHeroProps> = ({ title, product }) => {
   return (
-    <section className="bg-primary-10 w-full flex items-center text-primary-1">
-      <div className="section-center p-2 md:py-6">
-        <h3 className="m-0">
+    <section className="bg-primary-10 w-full border-b border-primary-9">
+      <div className="section-center py-4 md:py-5">
+        <nav className="flex items-center gap-1.5 text-sm">
           <Link
-            className="text-primary-3 p-2 transition-all duration-300 hover:text-primary-1"
+            className="text-primary-4 transition-colors duration-200 hover:text-primary-5"
             to="/"
           >
-            Home{' '}
+            Home
           </Link>
+          <span className="text-primary-4/60">/</span>
           {product && (
-            <Link
-              className="text-primary-3 p-2 transition-all duration-300 hover:text-primary-1"
-              to="/products"
-            >
-              / Products
-            </Link>
+            <>
+              <Link
+                className="text-primary-4 transition-colors duration-200 hover:text-primary-5"
+                to="/products"
+              >
+                Products
+              </Link>
+              <span className="text-primary-4/60">/</span>
+            </>
           )}
-          / {title}
-        </h3>
+          <span className="text-primary-2 font-medium capitalize">{title}</span>
+        </nav>
       </div>
     </section>
   );

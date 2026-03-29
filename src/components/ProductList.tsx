@@ -3,7 +3,16 @@ import { useUIStore } from '@stores';
 import { Product } from '@types';
 import GridView from './GridView';
 import ListView from './ListView';
-import Loading from './Loading';
+
+const ProductCardSkeleton: React.FC = () => (
+  <div className="animate-pulse rounded-lg overflow-hidden bg-white shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+    <div className="h-52 bg-grey-9" />
+    <div className="px-4 py-4 flex justify-between items-center">
+      <div className="h-4 w-28 rounded-full bg-grey-9" />
+      <div className="h-4 w-16 rounded-full bg-grey-9" />
+    </div>
+  </div>
+);
 
 interface ProductListProps {
   products: Product[];
@@ -21,7 +30,15 @@ const ProductList: React.FC<ProductListProps> = ({ products, loading }) => {
   }, [filters, applyFilters]);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <section>
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <ProductCardSkeleton key={i} />
+          ))}
+        </div>
+      </section>
+    );
   }
 
   if (filteredProducts.length < 1) {

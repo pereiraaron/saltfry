@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaKey, FaTrash, FaPen, FaCheck, FaTimes, FaPlus } from 'react-icons/fa';
 import { useAuthStore } from '@stores';
-import { PageHero, Loading, Message } from '@components';
+import { PageHero, Message } from '@components';
 import { PasskeyCredential } from '@types';
 
 const PasskeyRow: React.FC<{
@@ -44,7 +44,7 @@ const PasskeyRow: React.FC<{
                 if (e.key === 'Escape') cancel();
               }}
               autoFocus
-              className="text-sm border border-grey-8 rounded px-2 py-1 outline-none focus:border-primary-5 w-full max-w-48"
+              className="text-sm border border-grey-8 rounded px-2 py-1 outline-none focus:border-primary-5 w-full sm:max-w-48"
             />
             <button
               type="button"
@@ -164,7 +164,17 @@ const ProfileScreen: React.FC = () => {
             )}
 
             {passkeysLoading ? (
-              <Loading />
+              <div className="animate-pulse grid gap-3">
+                {[1, 2].map((i) => (
+                  <div key={i} className="flex items-center gap-3 py-3">
+                    <div className="w-9 h-9 rounded-full bg-grey-9 shrink-0" />
+                    <div className="flex-1">
+                      <div className="h-4 w-32 rounded-full bg-grey-9 mb-1.5" />
+                      <div className="h-3 w-48 rounded-full bg-grey-9" />
+                    </div>
+                  </div>
+                ))}
+              </div>
             ) : passkeys.length === 0 ? (
               <p className="text-sm text-grey-5 mb-0">
                 No passkeys registered. Add one for passwordless sign-in.

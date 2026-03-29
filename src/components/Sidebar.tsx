@@ -12,27 +12,26 @@ const Sidebar: React.FC = () => {
   const { isSidebarOpen, closeSidebar } = useUIStore();
 
   const linkClass =
-    'block text-left text-base capitalize py-4 px-6 text-grey-3 transition-all duration-300 ease-linear tracking-[0.1rem] hover:pl-8 hover:bg-grey-10 hover:text-grey-2';
+    'block text-left text-base capitalize py-4 px-6 text-grey-3 transition-all duration-200 ease-out tracking-[0.1rem] hover:pl-8 hover:bg-grey-10 hover:text-primary-5';
 
   return (
     <div>
       <aside
-        className={`fixed top-0 left-0 w-full h-full bg-white transition-all duration-300 ease-linear lg:hidden flex flex-col ${
+        className={`fixed top-0 left-0 w-full h-full bg-white transition-all duration-300 ease-out lg:hidden flex flex-col ${
           isSidebarOpen ? 'translate-x-0 z-999' : '-translate-x-full -z-1'
         }`}
       >
-        <div className="h-20 flex justify-between items-center px-[5vw]">
+        <div className="h-20 flex justify-between items-center px-[5vw] border-b border-grey-9">
           <img src={logo} className="w-43.75 -ml-3.75" alt="Woodwork" />
           <button
-            className="text-xl bg-transparent border-transparent text-red-dark transition-all duration-300 ease-linear cursor-pointer hover:text-red-light"
+            className="text-xl bg-transparent border-transparent text-grey-5 transition-colors duration-200 cursor-pointer hover:text-red-dark"
             onClick={closeSidebar}
           >
             <FaTimes />
           </button>
         </div>
 
-        {/* Navigation links */}
-        <ul className="flex-1 overflow-y-auto">
+        <ul className="flex-1 overflow-y-auto py-2">
           {links.map(({ id, text, url }) => (
             <li key={id}>
               <Link to={url} onClick={closeSidebar} className={linkClass}>
@@ -52,7 +51,7 @@ const Sidebar: React.FC = () => {
               <span className="flex items-center gap-2">
                 cart
                 {cartItems.length > 0 && (
-                  <span className="bg-primary-5 text-white text-[0.65rem] rounded-full w-5 h-5 flex items-center justify-center not-italic font-normal">
+                  <span className="bg-primary-5 text-white text-[0.65rem] rounded-full w-5 h-5 flex items-center justify-center not-italic font-medium">
                     {cartItems.length}
                   </span>
                 )}
@@ -61,7 +60,6 @@ const Sidebar: React.FC = () => {
           </li>
         </ul>
 
-        {/* Footer: user section */}
         <div className="border-t border-grey-9 px-6 py-4">
           {userInfo ? (
             <div className="flex items-center gap-3">
@@ -95,7 +93,7 @@ const Sidebar: React.FC = () => {
           ) : (
             <button
               type="button"
-              className="flex items-center gap-3 w-full text-left py-1 text-base text-grey-3 capitalize bg-transparent border-none cursor-pointer"
+              className="flex items-center gap-3 w-full text-left py-1 text-base text-grey-3 capitalize bg-transparent border-none cursor-pointer hover:text-primary-5 transition-colors"
               onClick={() => {
                 closeSidebar();
                 navigate('/login');
